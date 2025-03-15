@@ -22,6 +22,7 @@ extension on TextStyle {
 }
 
 class CustomTextStyles {
+  // ignore: prefer_typing_uninitialized_variables
   static var titleMediumRed500cc;
 
 // Body text style

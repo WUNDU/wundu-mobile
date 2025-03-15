@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wundu/core/app_export.dart';
 
 part 'theme_event.dart';

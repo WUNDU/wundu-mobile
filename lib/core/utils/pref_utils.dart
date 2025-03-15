@@ -11,6 +11,7 @@ class PrefUtils {
 
   Future<void> init() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
+    // ignore: avoid_print
     print('SharedPreference Initialized');
   }
 

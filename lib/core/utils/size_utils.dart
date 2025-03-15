@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+// ignore: constant_identifier_names
 const num FIGMA_DESIGN_WIDTH = 393;
+// ignore: constant_identifier_names
 const num FIGMA_DESIGN_HEIGHT = 852;
+// ignore: constant_identifier_names
 const num FIGMA_DESIGN_STATUS_BAR = 0;
 
 extension ResponsiveExtension on num {
