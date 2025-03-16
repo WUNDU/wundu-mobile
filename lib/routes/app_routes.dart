@@ -4,6 +4,7 @@ import 'package:wundu/views/auth/login/login_screen.dart';
 import 'package:wundu/views/auth/signup/signup_confirm_screen.dart';
 import 'package:wundu/views/auth/signup/signup_password_data_screen.dart';
 import 'package:wundu/views/auth/signup/signup_personal_data_screen.dart';
+import 'package:wundu/views/home/home_screen.dart';
 import 'package:wundu/views/onboarding/onboarding_screen.dart';
 import 'package:wundu/views/splash/splash_screen.dart';
 
@@ -15,6 +16,7 @@ class AppRoutes {
   static const signupPersonalDataScreen = '/signup_personal_data_screen';
   static const signupPasswordDataScreen = '/signup_password_data_screen';
   static const signupConfirmScreenScreen = '/signup_confirm_screen';
+  static const homeScreen = 'home_screen';
 
   static Map<String, WidgetBuilder> get routes => {
         loginScreen: LoginScreen.builder,
@@ -23,6 +25,7 @@ class AppRoutes {
         authScreen: AuthScreen.builder,
         signupPersonalDataScreen: SignupPersonalDataScreen.builder,
         signupPasswordDataScreen: SignupPasswordDataScreen.builder,
-        signupConfirmScreenScreen: SignupConfirmScreenScreen.builder
+        signupConfirmScreenScreen: SignupConfirmScreenScreen.builder,
+        homeScreen: HomeScreen.builder
       };
 }

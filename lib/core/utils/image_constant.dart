@@ -13,4 +13,15 @@ class ImageConstant {
   static String pana = '$imagePath/pana.png';
   static String arrowBack = '$imagePath/arrow_back.png';
   static String confirm = '$imagePath/confirm.png';
+  static String user = '$imagePath/user.png';
+  static String wunduIA = '$imagePath/token_lumia.svg';
+  static String digitalLibrary = '$imagePath/digital_library.png';
+  static String creditCard = '$imagePath/credit_card.png';
+  static String home = '$imagePath/home.png';
+  static String notification = '$imagePath/notification.png';
+  static String rectangleCard = '$imagePath/rectangle_card.png';
+  static String logoHome = '$imagePath/logo_home.svg';
+  static String ayeOff = '$imagePath/eye-off.png';
+  static String moneyOff = '$imagePath/money-off.svg';
+  static String filter = '$imagePath/horizontal.png';
 }

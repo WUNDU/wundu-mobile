@@ -271,7 +271,7 @@ class LoginScreen extends StatelessWidget {
 
   onTapSignup(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.signupPersonalDataScreen,
+      AppRoutes.homeScreen,
     );
   }
 }
