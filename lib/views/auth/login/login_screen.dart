@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/auth/login/bloc/login_screen_bloc.dart';
-import 'package:wundu/views/auth/login/models/login_model.dart';
+import 'package:wundu/views/auth/login/models/login_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 import 'package:wundu/widgets/custom_field_text_form.dart';
 import 'package:wundu/core/app_export.dart';
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
   static Widget builder(BuildContext context) {
     return BlocProvider<LoginScreenBloc>(
       create: (context) => LoginScreenBloc(LoginScreenState(
-        loginModelObj: LoginModel(),
+        loginModelObj: LoginScreenModel(),
         isEmailValid: true,
         isPasswordValid: true,
         hasError: false,

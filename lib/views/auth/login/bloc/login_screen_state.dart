@@ -1,7 +1,7 @@
 part of 'login_screen_bloc.dart';
 
 class LoginScreenState extends Equatable {
-  final LoginModel? loginModelObj;
+  final LoginScreenModel? loginModelObj;
   final TextEditingController? emailController;
   final TextEditingController? passwordController;
   final bool isEmailValid;
@@ -28,7 +28,7 @@ class LoginScreenState extends Equatable {
       ];
 
   LoginScreenState copyWith({
-    LoginModel? loginModelObj,
+    LoginScreenModel? loginModelObj,
     TextEditingController? emailController,
     TextEditingController? passwordController,
     bool? isEmailValid,

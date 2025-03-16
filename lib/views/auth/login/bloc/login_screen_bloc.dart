@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wundu/views/auth/login/models/login_model.dart';
+import 'package:wundu/views/auth/login/models/login_screen_model.dart';
 
 part 'login_screen_event.dart';
 part 'login_screen_state.dart';
