@@ -25,4 +25,6 @@ class ImageConstant {
   static String moneyOff = '$imagePath/money-off.svg';
   static String filter = '$imagePath/horizontal.png';
   static String menu = '$imagePath/menu.png';
+  static String rectangleAddCard = '$imagePath/rectangle_dashed';
+  static String ciclePlus = '$imagePath/circle_plus.png';
 }

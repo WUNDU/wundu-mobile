@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case 1:
         // Navegação para a tela de Cartões
-        // NavigatorService.pushNamed(AppRoutes.cardsScreen);
+        NavigatorService.pushNamed(AppRoutes.cardScreen);
         break;
       case 2:
         // Ação para o botão central
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: double.maxFinite,
                                 child: Divider(),
                               ),
-                              SizedBox(height: 240.h),
+                              SizedBox(height: 90.h),
                               SizedBox(
                                 width: double.maxFinite,
                                 child: GestureDetector(
