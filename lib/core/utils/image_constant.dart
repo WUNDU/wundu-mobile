@@ -12,5 +12,5 @@ class ImageConstant {
   static String backgroundSmall = '$imagePath/background_small.png';
   static String pana = '$imagePath/pana.png';
   static String arrowBack = '$imagePath/arrow_back.png';
-  static String signupConfirm = '$imagePath/signup_confirm.png';
+  static String confirm = '$imagePath/confirm.png';
 }

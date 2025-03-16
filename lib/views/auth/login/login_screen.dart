@@ -194,7 +194,7 @@ class LoginScreen extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {
-                            onTapTxtEsqueciminha(context);
+                            onTapForgetPassword(context);
                           },
                           child: Text(
                             "esqueci minha senha",
@@ -219,22 +219,27 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 60.h),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Não é registrado ? ",
-                              style:
-                                  CustomTextStyles.labelLargePoppinsGray90002_1,
-                            ),
-                            TextSpan(
-                              text: " Crie uma conta",
-                              style:
-                                  CustomTextStyles.labelLargePoppinsGray90002_1,
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          onTapSignup(context);
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Não é registrado ? ",
+                                style: CustomTextStyles
+                                    .labelLargePoppinsGray90002_1,
+                              ),
+                              TextSpan(
+                                text: " Crie uma conta",
+                                style: CustomTextStyles
+                                    .labelLargePoppinsBlack90001SemiBold_1,
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.left,
                         ),
-                        textAlign: TextAlign.left,
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -258,16 +263,15 @@ class LoginScreen extends StatelessWidget {
   }
 
   /// Navigates to the telaRedefiniODeSenhaFourScreen when the action is triggered.
-  onTapTxtEsqueciminha(BuildContext context) {
+  onTapForgetPassword(BuildContext context) {
     NavigatorService.pushNamed(
       AppRoutes.loginScreen,
     );
   }
 
-  /// Navigates to the telaLoginOneScreen when the action is triggered.
-  onTapColumnemail(BuildContext context) {
+  onTapSignup(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.loginScreen,
+      AppRoutes.signupPersonalDataScreen,
     );
   }
 }

@@ -192,9 +192,9 @@ class SignupPasswordDataScreen extends StatelessWidget {
   onTapFinalizar(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       context.read<SignupScreenBloc>().add(CompleteRegistrationEvent());
+      NavigatorService.pushNamed(
+        AppRoutes.signupConfirmScreenScreen,
+      );
     }
-    // NavigatorService.pushNamed(
-    //   // AppRoutes.telaCadastroConfirmaOScreen,
-    // );
   }
 }

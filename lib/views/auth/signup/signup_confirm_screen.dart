@@ -60,7 +60,7 @@ class SignupConfirmScreenScreen extends StatelessWidget {
                             alignment: Alignment.topRight,
                             children: [
                               CustomImageView(
-                                imagePath: ImageConstant.signupConfirm,
+                                imagePath: ImageConstant.confirm,
                                 height: 48.h,
                                 width: 70.h,
                               ),
@@ -83,7 +83,7 @@ class SignupConfirmScreenScreen extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Bem-vindo a Wundu",
+                                text: "Bem-vindo a Wundu \n",
                                 style:
                                     CustomTextStyles.titleSmallInterGray600Bold,
                               ),
