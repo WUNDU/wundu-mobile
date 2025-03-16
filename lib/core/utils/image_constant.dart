@@ -16,7 +16,7 @@ class ImageConstant {
   static String user = '$imagePath/user.png';
   static String wunduIA = '$imagePath/token_lumia.svg';
   static String digitalLibrary = '$imagePath/digital_library.png';
-  static String creditCard = '$imagePath/credit_card.png';
+  static String creditCard = '$imagePath/credit_card.svg';
   static String home = '$imagePath/home.png';
   static String notification = '$imagePath/notification.png';
   static String rectangleCard = '$imagePath/rectangle_card.png';
