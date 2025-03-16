@@ -94,126 +94,128 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       },
       child: BlocBuilder<OnboardingScreenBloc, OnboardingScreenState>(
         builder: (context, state) {
-          return Scaffold(
-            extendBody: true,
-            extendBodyBehindAppBar: true,
-            backgroundColor: appTheme.whiteA700,
-            body: Container(
-              width: double.maxFinite,
-              height: SizeUtils.height,
-              decoration: AppDecoration.fillWhiteA,
-              child: SafeArea(
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: Column(
-                    children: [
-                      // Header com indicador e botão pular
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 14.h,
-                          top: 56.h,
-                          right: 14.h,
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 6.h,
-                              child: AnimatedSmoothIndicator(
-                                activeIndex: _currentPage,
-                                count: _contents.length,
-                                effect: ScrollingDotsEffect(
-                                  spacing: 10,
-                                  activeDotColor: appTheme.yellowA700,
-                                  dotColor: appTheme.blueGray100,
-                                  dotHeight: 6.h,
-                                  dotWidth: 50.h,
+          return SafeArea(
+            child: Scaffold(
+              extendBody: true,
+              extendBodyBehindAppBar: true,
+              backgroundColor: appTheme.whiteA700,
+              body: Container(
+                width: double.maxFinite,
+                height: SizeUtils.height,
+                decoration: AppDecoration.fillWhiteA,
+                child: SafeArea(
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    child: Column(
+                      children: [
+                        // Header com indicador e botão pular
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 14.h,
+                            top: 56.h,
+                            right: 14.h,
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 6.h,
+                                child: AnimatedSmoothIndicator(
+                                  activeIndex: _currentPage,
+                                  count: _contents.length,
+                                  effect: ScrollingDotsEffect(
+                                    spacing: 10,
+                                    activeDotColor: appTheme.yellowA700,
+                                    dotColor: appTheme.blueGray100,
+                                    dotHeight: 6.h,
+                                    dotWidth: 50.h,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: _skipToLogin,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: _skipToLogin,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "Pular",
+                                        style: CustomTextStyles
+                                            .titleSmallInterBluegray900,
+                                      ),
+                                      CustomImageView(
+                                        imagePath: ImageConstant.vector,
+                                        height: 14.h,
+                                        width: 14.h,
+                                        margin: EdgeInsets.only(left: 4.h),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+
+                        // PageView para conteúdo dinâmico
+                        Expanded(
+                          child: PageView.builder(
+                            controller: _pageController,
+                            onPageChanged: (index) {
+                              setState(() {
+                                _currentPage = index;
+                              });
+                            },
+                            itemCount: _contents.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Pular",
-                                      style: CustomTextStyles
-                                          .titleSmallInterBluegray900,
+                                    SizedBox(height: 22.h),
+                                    SizedBox(
+                                      width: 328.h,
+                                      child: Text(
+                                        _contents[index].title,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: theme.textTheme.headlineLarge!
+                                            .copyWith(
+                                          height: 1.40,
+                                        ),
+                                      ),
                                     ),
+                                    SizedBox(height: 40.h),
                                     CustomImageView(
-                                      imagePath: ImageConstant.vector,
-                                      height: 14.h,
-                                      width: 14.h,
-                                      margin: EdgeInsets.only(left: 4.h),
+                                      imagePath: _contents[index].imagePath,
+                                      height: 310.h,
+                                      width: double.maxFinite,
+                                      margin: EdgeInsets.only(right: 28.h),
                                     ),
                                   ],
                                 ),
-                              ),
-                            )
-                          ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
 
-                      // PageView para conteúdo dinâmico
-                      Expanded(
-                        child: PageView.builder(
-                          controller: _pageController,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _currentPage = index;
-                            });
-                          },
-                          itemCount: _contents.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 14.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 22.h),
-                                  SizedBox(
-                                    width: 328.h,
-                                    child: Text(
-                                      _contents[index].title,
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: theme.textTheme.headlineLarge!
-                                          .copyWith(
-                                        height: 1.40,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 40.h),
-                                  CustomImageView(
-                                    imagePath: _contents[index].imagePath,
-                                    height: 310.h,
-                                    width: double.maxFinite,
-                                    margin: EdgeInsets.only(right: 28.h),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                        // Botão de próximo
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 14.h,
+                            right: 14.h,
+                            bottom: 56.h,
+                          ),
+                          child: CustomElevatedButton(
+                            text: _currentPage < _contents.length - 1
+                                ? "próximo"
+                                : "começar",
+                            buttonTextStyle: CustomTextStyles.titleLargeGray200,
+                            onPressed: _nextPage,
+                          ),
                         ),
-                      ),
-
-                      // Botão de próximo
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 14.h,
-                          right: 14.h,
-                          bottom: 56.h,
-                        ),
-                        child: CustomElevatedButton(
-                          text: _currentPage < _contents.length - 1
-                              ? "próximo"
-                              : "começar",
-                          buttonTextStyle: CustomTextStyles.titleLargeGray200,
-                          onPressed: _nextPage,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

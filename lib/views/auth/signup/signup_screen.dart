@@ -32,148 +32,153 @@ class SignupScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: appTheme.whiteA700,
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            elevation: 0,
-            toolbarHeight: 56.h,
-            backgroundColor: Colors.transparent,
-            automaticallyImplyLeading: false,
-            title: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 0.h,
-                vertical: 16.h,
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // Voltar para o passo anterior ou fechar a tela
-                            if (state.currentStep > 0) {
-                              context.read<SignupScreenBloc>().add(
-                                  ChangeStepEvent(step: state.currentStep - 1));
-                            } else {
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: SizedBox(
-                            height: 14.h,
-                            width: 22.h,
-                            child: Stack(
-                              alignment: Alignment.topLeft,
-                              children: [BackButtonIcon()],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            "Voltar",
-                            style: CustomTextStyles.titleMediumBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: SafeArea(
-            top: false,
-            child: Form(
-              key: _formKey,
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.only(
-                  left: 14.h,
-                  top: 32.h,
-                  right: 14.h,
+        return SafeArea(
+          child: Scaffold(
+            backgroundColor: appTheme.whiteA700,
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              elevation: 0,
+              toolbarHeight: 56.h,
+              backgroundColor: Colors.transparent,
+              automaticallyImplyLeading: false,
+              title: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.h,
+                  vertical: 16.h,
                 ),
-                child: state.isRegistrationComplete
-                    ? _buildSuccessScreen(context)
-                    : Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Row(
                         children: [
-                          CustomImageView(
-                            imagePath: ImageConstant.logo,
-                            height: 52.h,
-                            width: 54.h,
-                          ),
-                          SizedBox(height: 26.h),
-                          Text(
-                            state.currentStep == 0
-                                ? "Dados Pessoais"
-                                : "Crie sua senha",
-                            style:
-                                CustomTextStyles.headlineSmallBluegray900Medium,
-                          ),
-                          SizedBox(height: 6.h),
-                          SizedBox(
-                            width: 320.h,
-                            child: Text(
-                              state.currentStep == 0
-                                  ? "Forneça seus dados e seja cadastrado no nosso aplicativo."
-                                  : "Crie uma senha segura para proteger sua conta.",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: CustomTextStyles.bodyLargeBluegray900
-                                  .copyWith(
-                                height: 1.56,
+                          InkWell(
+                            onTap: () {
+                              // Voltar para o passo anterior ou fechar a tela
+                              if (state.currentStep > 0) {
+                                context.read<SignupScreenBloc>().add(
+                                    ChangeStepEvent(
+                                        step: state.currentStep - 1));
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: SizedBox(
+                              height: 14.h,
+                              width: 22.h,
+                              child: Stack(
+                                alignment: Alignment.topLeft,
+                                children: [BackButtonIcon()],
                               ),
                             ),
                           ),
-                          SizedBox(height: 36.h),
-                          // Mostra o formulário dependendo do passo atual
-                          state.currentStep == 0
-                              ? _buildPersonalDataForm(context, state)
-                              : _buildPasswordForm(context, state),
-                          SizedBox(height: 50.h),
-                          // Substitua este trecho no método build do arquivo SignupScreen
-                          CustomElevatedButton(
-                            text: state.currentStep == 0
-                                ? "Próximo"
-                                : "Finalizar",
-                            buttonTextStyle: CustomTextStyles.titleLargeGray200,
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (state.currentStep == 0) {
-                                  // Avançar para o próximo passo
-                                  context.read<SignupScreenBloc>().add(
-                                      ChangeStepEvent(
-                                          step: state.currentStep + 1));
-                                } else {
-                                  // Finalizar o registro
-                                  final password =
-                                      state.passwordController?.text ?? '';
-                                  final confirmPassword =
-                                      state.confirmPasswordController?.text ??
-                                          '';
-
-                                  if (password == confirmPassword) {
-                                    context
-                                        .read<SignupScreenBloc>()
-                                        .add(CompleteRegistrationEvent());
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            "As senhas não coincidem. Tente novamente."),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                  }
-                                }
-                              }
-                            },
+                          Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              "Voltar",
+                              style: CustomTextStyles.titleMediumBluegray700,
+                            ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            body: SafeArea(
+              top: false,
+              child: Form(
+                key: _formKey,
+                child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.only(
+                    left: 14.h,
+                    top: 32.h,
+                    right: 14.h,
+                  ),
+                  child: state.isRegistrationComplete
+                      ? _buildSuccessScreen(context)
+                      : Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomImageView(
+                              imagePath: ImageConstant.logo,
+                              height: 52.h,
+                              width: 54.h,
+                            ),
+                            SizedBox(height: 26.h),
+                            Text(
+                              state.currentStep == 0
+                                  ? "Dados Pessoais"
+                                  : "Crie sua senha",
+                              style: CustomTextStyles
+                                  .headlineSmallBluegray900Medium,
+                            ),
+                            SizedBox(height: 6.h),
+                            SizedBox(
+                              width: 320.h,
+                              child: Text(
+                                state.currentStep == 0
+                                    ? "Forneça seus dados e seja cadastrado no nosso aplicativo."
+                                    : "Crie uma senha segura para proteger sua conta.",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: CustomTextStyles.bodyLargeBluegray900
+                                    .copyWith(
+                                  height: 1.56,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 36.h),
+                            // Mostra o formulário dependendo do passo atual
+                            state.currentStep == 0
+                                ? _buildPersonalDataForm(context, state)
+                                : _buildPasswordForm(context, state),
+                            SizedBox(height: 50.h),
+                            // Substitua este trecho no método build do arquivo SignupScreen
+                            CustomElevatedButton(
+                              text: state.currentStep == 0
+                                  ? "Próximo"
+                                  : "Finalizar",
+                              buttonTextStyle:
+                                  CustomTextStyles.titleLargeGray200,
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (state.currentStep == 0) {
+                                    // Avançar para o próximo passo
+                                    context.read<SignupScreenBloc>().add(
+                                        ChangeStepEvent(
+                                            step: state.currentStep + 1));
+                                  } else {
+                                    // Finalizar o registro
+                                    final password =
+                                        state.passwordController?.text ?? '';
+                                    final confirmPassword =
+                                        state.confirmPasswordController?.text ??
+                                            '';
+
+                                    if (password == confirmPassword) {
+                                      context
+                                          .read<SignupScreenBloc>()
+                                          .add(CompleteRegistrationEvent());
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              "As senhas não coincidem. Tente novamente."),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    }
+                                  }
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                ),
               ),
             ),
           ),
