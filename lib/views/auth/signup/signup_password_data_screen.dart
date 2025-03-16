@@ -76,8 +76,6 @@ class SignupPasswordDataScreen extends StatelessWidget {
                 children: [
                   CustomImageView(
                     imagePath: ImageConstant.logo,
-                    height: 52.h,
-                    width: 54.h,
                   ),
                   SizedBox(height: 26.h),
                   Text(

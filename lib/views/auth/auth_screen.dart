@@ -43,8 +43,6 @@ class AuthScreen extends StatelessWidget {
                   children: [
                     CustomImageView(
                       imagePath: ImageConstant.logo,
-                      height: 52.h,
-                      width: 54.h,
                     ),
                     Spacer(
                       flex: 65,
