@@ -147,7 +147,7 @@ class AuthScreen extends StatelessWidget {
 
   onTapFaasignup(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.signup,
+      AppRoutes.signupPersonalDataScreen,
     );
   }
 }

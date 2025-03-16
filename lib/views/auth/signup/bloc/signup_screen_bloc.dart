@@ -34,18 +34,18 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
     ChangeStepEvent event,
     Emitter<SignupScreenState> emit,
   ) async {
-    // Quando mudar para a etapa de senha, limpe os controladores de senha
-    // para garantir que os campos comecem vazios
     if (event.step == 1) {
-      state.passwordController?.clear();
-      state.confirmPasswordController?.clear();
+      emit(state.copyWith(
+          currentStep: event.step,
+          passwordController: TextEditingController(),
+          confirmPasswordController: TextEditingController()));
+    } else {
+      emit(
+        state.copyWith(
+          currentStep: event.step,
+        ),
+      );
     }
-
-    emit(
-      state.copyWith(
-        currentStep: event.step,
-      ),
-    );
   }
 
   _onCompleteRegistration(
