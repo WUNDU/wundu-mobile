@@ -8,7 +8,8 @@ class SignupScreenState extends Equatable {
   final TextEditingController? passwordController;
   final TextEditingController? confirmPasswordController;
   final int currentStep;
-  final bool isRegistrationComplete;
+  final bool isLoading;
+  final String? errorMessage;
 
   const SignupScreenState({
     this.signupScreenModel,
@@ -18,7 +19,8 @@ class SignupScreenState extends Equatable {
     this.passwordController,
     this.confirmPasswordController,
     this.currentStep = 0,
-    this.isRegistrationComplete = false,
+    this.isLoading = false,
+    this.errorMessage,
   });
 
   SignupScreenState copyWith({
@@ -29,7 +31,8 @@ class SignupScreenState extends Equatable {
     TextEditingController? passwordController,
     TextEditingController? confirmPasswordController,
     int? currentStep,
-    bool? isRegistrationComplete,
+    bool? isLoading,
+    String? errorMessage,
   }) {
     return SignupScreenState(
       signupScreenModel: signupScreenModel ?? this.signupScreenModel,
@@ -40,8 +43,8 @@ class SignupScreenState extends Equatable {
       confirmPasswordController:
           confirmPasswordController ?? this.confirmPasswordController,
       currentStep: currentStep ?? this.currentStep,
-      isRegistrationComplete:
-          isRegistrationComplete ?? this.isRegistrationComplete,
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage,
     );
   }
 
@@ -54,6 +57,7 @@ class SignupScreenState extends Equatable {
         passwordController,
         confirmPasswordController,
         currentStep,
-        isRegistrationComplete,
+        isLoading,
+        errorMessage,
       ];
 }
