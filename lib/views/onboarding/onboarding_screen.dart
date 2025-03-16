@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:wundu/views/onboardingScreen/bloc/onboarding_screen_bloc.dart';
-import 'package:wundu/views/onboardingScreen/models/onboarding_screen_model.dart';
+import 'package:wundu/views/onboarding/bloc/onboarding_screen_bloc.dart';
+import 'package:wundu/views/onboarding/models/onboarding_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 
 class OnboardingContent {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/views/splashScreen/bloc/splash_screen_bloc.dart';
-import 'package:wundu/views/splashScreen/models/splash_screen_model.dart';
+import 'package:wundu/views/splash/bloc/splash_screen_bloc.dart';
+import 'package:wundu/views/splash/models/splash_screen_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/views/splashScreen/models/splash_screen_model.dart';
+import 'package:wundu/views/splash/models/splash_screen_model.dart';
 
 part 'splash_screen_event.dart';
 part 'splash_screen_state.dart';
