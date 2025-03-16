@@ -24,4 +24,5 @@ class ImageConstant {
   static String ayeOff = '$imagePath/eye-off.png';
   static String moneyOff = '$imagePath/money-off.svg';
   static String filter = '$imagePath/horizontal.png';
+  static String menu = '$imagePath/menu.png';
 }
