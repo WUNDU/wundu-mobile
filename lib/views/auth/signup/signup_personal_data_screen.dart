@@ -203,6 +203,18 @@ class SignupPersonalDataScreen extends StatelessWidget {
                   CustomElevatedButton(
                     text: "Próximo",
                     buttonTextStyle: CustomTextStyles.titleLargeGray200,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        final bloc = context.read<SignupScreenBloc>();
+                        context
+                            .read<SignupScreenBloc>()
+                            .add(ChangeStepEvent(step: 1));
+
+                        NavigatorService.pushNamed(
+                            arguments: bloc,
+                            AppRoutes.signupPasswordDataScreen);
+                      }
+                    },
                   ),
                 ],
               ),
