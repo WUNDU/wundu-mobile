@@ -31,6 +31,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final LocalPreferences _localPreferences = LocalPreferences();
   // Controlador para o PageView
   final PageController _pageController = PageController();
 
@@ -69,17 +70,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
     } else {
       // Na última página, navega para a tela de login
-      NavigatorService.pushNamedAndRemovedUntil(
-        AppRoutes.authScreen,
-      );
+      _completeOnboarding();
     }
   }
 
   // Pula para a tela de login
   void _skipToLogin() {
-    NavigatorService.pushNamedAndRemovedUntil(
-      AppRoutes.authScreen,
-    );
+    _completeOnboarding();
+  }
+
+  Future<void> _completeOnboarding() async {
+    await _localPreferences.setOnboardingCompleted();
+    NavigatorService.pushNamedAndRemovedUntil(AppRoutes.authScreen);
   }
 
   @override
