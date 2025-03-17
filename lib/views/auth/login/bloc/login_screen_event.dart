@@ -1,37 +1,28 @@
 part of 'login_screen_bloc.dart';
 
-abstract class LoginScreenEvent extends Equatable {
-  const LoginScreenEvent();
+abstract class LoginScreenEvent {}
 
-  @override
-  List<Object?> get props => [];
+class LoginScreenInitialEvent extends LoginScreenEvent {}
+
+class EmailChangedEvent extends LoginScreenEvent {
+  final String email;
+  EmailChangedEvent(this.email);
 }
 
-class LoginScreenInitialEvent extends LoginScreenEvent {
-  @override
-  List<Object?> get props => [];
+class PasswordChangedEvent extends LoginScreenEvent {
+  final String password;
+  PasswordChangedEvent(this.password);
 }
 
 class EmailValidationErrorEvent extends LoginScreenEvent {}
 
 class PasswordValidationErrorEvent extends LoginScreenEvent {}
 
-class LoginFailedEvent extends LoginScreenEvent {}
+class SubmitLoginEvent extends LoginScreenEvent {}
 
-class EmailChangedEvent extends LoginScreenEvent {
-  final String email;
-
-  const EmailChangedEvent(this.email);
-
-  @override
-  List<Object?> get props => [email];
+class LoginFailedEvent extends LoginScreenEvent {
+  final String? errorMessage;
+  LoginFailedEvent({this.errorMessage});
 }
 
-class PasswordChangedEvent extends LoginScreenEvent {
-  final String password;
-
-  const PasswordChangedEvent(this.password);
-
-  @override
-  List<Object?> get props => [password];
-}
+class LoginSuccessEvent extends LoginScreenEvent {}

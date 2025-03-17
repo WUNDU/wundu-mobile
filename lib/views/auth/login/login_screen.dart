@@ -19,6 +19,7 @@ class LoginScreen extends StatelessWidget {
         isEmailValid: true,
         isPasswordValid: true,
         hasError: false,
+        isLoading: false,
       ))
         ..add(LoginScreenInitialEvent()),
       child: LoginScreen(),
@@ -27,7 +28,24 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginScreenBloc, LoginScreenState>(
+    return BlocConsumer<LoginScreenBloc, LoginScreenState>(
+      listener: (context, state) {
+        // Handle navigation on successful login
+        if (!state.isLoading &&
+            !state.hasError &&
+            state.emailController != null &&
+            state.emailController!.text.isNotEmpty &&
+            state.passwordController != null &&
+            state.passwordController!.text.isNotEmpty) {
+          // Check if this is after a successful login attempt
+          final currentRoute = ModalRoute.of(context)?.settings.name;
+          if (currentRoute == AppRoutes.loginScreen) {
+            NavigatorService.pushNamedAndRemovedUntil(
+              AppRoutes.homeScreen, // Replace with your home/dashboard route
+            );
+          }
+        }
+      },
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
@@ -53,11 +71,10 @@ class LoginScreen extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                       ),
                       SizedBox(height: 68.h),
-                      // Imagem que muda dependendo do estado de erro
+                      // Image that changes depending on error state
                       CustomImageView(
                         imagePath: state.hasError
-                            ? ImageConstant
-                                .pana // Imagem de erro - Adicione essa imagem aos seus assets
+                            ? ImageConstant.pana
                             : ImageConstant.cuate,
                         height: 102.h,
                         width: 108.h,
@@ -70,11 +87,11 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(height: 2.h),
                       Text(
                         state.hasError
-                            ? "Email ou senha incorretos, tente novamente"
+                            ? state.errorMessage ??
+                                "Email ou senha incorretos, tente novamente"
                             : "Faça login e melhore a tua vida financeira",
                         style: state.hasError
-                            ? CustomTextStyles
-                                .titleMediumRed500cc // Estilo de erro - Adicione este estilo
+                            ? CustomTextStyles.titleMediumRed500cc
                             : CustomTextStyles.titleMediumGray500cc,
                       ),
                       SizedBox(height: 38.h),
@@ -157,7 +174,7 @@ class LoginScreen extends StatelessWidget {
                                       22.h, 14.h, 22.h, 10.h),
                                   borderDecoration: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: state.isEmailValid
+                                      color: state.isPasswordValid
                                           ? Colors.grey
                                           : Colors.red,
                                       width: 1.0,
@@ -204,18 +221,27 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 40.h),
-                      CustomElevatedButton(
-                        text: "Entrar",
-                        buttonStyle: CustomButtonStyles.fillYellowA,
-                        buttonTextStyle: CustomTextStyles.titleLargeSemiBold,
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Aqui você adicionaria a lógica de autenticação
-                            // Se a autenticação falhar, disparar o evento de erro
-                            context
-                                .read<LoginScreenBloc>()
-                                .add(LoginFailedEvent());
-                          }
+                      BlocSelector<LoginScreenBloc, LoginScreenState, bool>(
+                        selector: (state) => state.isLoading,
+                        builder: (context, isLoading) {
+                          return isLoading
+                              ? CircularProgressIndicator(
+                                  color: appTheme.yellowA700,
+                                )
+                              : CustomElevatedButton(
+                                  text: "Entrar",
+                                  buttonStyle: CustomButtonStyles.fillYellowA,
+                                  buttonTextStyle:
+                                      CustomTextStyles.titleLargeSemiBold,
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      // Dispatch the SubmitLoginEvent to the bloc
+                                      context
+                                          .read<LoginScreenBloc>()
+                                          .add(SubmitLoginEvent());
+                                    }
+                                  },
+                                );
                         },
                       ),
                       SizedBox(height: 60.h),
@@ -264,14 +290,14 @@ class LoginScreen extends StatelessWidget {
 
   /// Navigates to the telaRedefiniODeSenhaFourScreen when the action is triggered.
   onTapForgetPassword(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.loginScreen,
-    );
+    // NavigatorService.pushNamed(
+    //   AppRoutes.forgotPasswordScreen, // Change to your forgot password route
+    // );
   }
 
   onTapSignup(BuildContext context) {
     NavigatorService.pushNamed(
-      AppRoutes.homeScreen,
+      AppRoutes.signupPersonalDataScreen,
     );
   }
 }
