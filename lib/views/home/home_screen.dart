@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/session/activity_tracker.dart';
+import 'package:wundu/core/session/session_service.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/home/bloc/home_screen_bloc.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
@@ -25,7 +27,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
   int _currentIndex = 0; // Índice atual da navegação
 
   void _onNavItemTapped(int index) {
@@ -59,13 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeScreenBloc, HomeScreenState>(
-      builder: (context, state) {
+    return FutureBuilder<Map<String, dynamic>?>(
+      future: SessionService().getUserData(),
+      builder: (context, snapshot) {
+        final userData = snapshot.data;
         return SafeArea(
           child: Scaffold(
             backgroundColor: appTheme.blueGray50,
             appBar: CustomAppBar(
-              userName: 'Nilvany Tiago',
+              userName: userData?['name'] ?? 'Usuário',
               welcomeMessage: "Bem-vindo ao wundu",
             ),
             body: SafeArea(
@@ -288,4 +292,9 @@ class _HomeScreenState extends State<HomeScreen> {
       AppRoutes.homeScreen,
     );
   }
+
+  // @override
+  // void _handleUserInteraction([_]) {
+  //   _resetTimer();
+  // }
 }

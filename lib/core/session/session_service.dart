@@ -16,7 +16,7 @@ class SessionService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_authTokenKey, token);
     await prefs.setString(_userDataKey, jsonEncode(userData));
-    _updateLastActivity();
+    updateLastActivity();
   }
 
   Future<bool> isSessionValid() async {
@@ -30,7 +30,7 @@ class SessionService {
     return (currentTime - lastActivity) < 300000; // 5 minutos em milissegundos
   }
 
-  Future<void> _updateLastActivity() async {
+  Future<void> updateLastActivity() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_lastActivityKey, DateTime.now().millisecondsSinceEpoch);
   }
