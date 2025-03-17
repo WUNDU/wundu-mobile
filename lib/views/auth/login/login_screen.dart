@@ -132,13 +132,17 @@ class LoginScreen extends StatelessWidget {
                                       ? null
                                       : Colors.red[50],
                                   validator: (value) {
-                                    if (value == null ||
-                                        (!isValidEmail(value,
-                                            isRequired: true))) {
+                                    if (value == null || value.isEmpty) {
                                       context
                                           .read<LoginScreenBloc>()
                                           .add(EmailValidationErrorEvent());
-                                      return "Por favor insere um email válido";
+                                      return "Campo obrigatório";
+                                    }
+                                    if (!isValidEmail(value)) {
+                                      context
+                                          .read<LoginScreenBloc>()
+                                          .add(EmailValidationErrorEvent());
+                                      return "Formato de email inválido";
                                     }
                                     return null;
                                   },
