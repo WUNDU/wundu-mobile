@@ -41,13 +41,13 @@ class ApiService {
       } else {
         return {
           'success': false,
-          'message': responseData['message'] ?? 'Registration failed',
+          'message': responseData['message'] ?? 'Falha no registro',
         };
       }
     } catch (e) {
       return {
         'success': false,
-        'message': 'Connection error: ${e.toString()}',
+        'message': 'Falha no registro',
       };
     }
   }
@@ -68,30 +68,59 @@ class ApiService {
         }),
       );
 
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      // Check for empty response first
+
+      Map<String, dynamic> responseData;
+      try {
+        responseData = jsonDecode(response.body);
+      } catch (e) {
+        // Trata erros específicos de status code mesmo com resposta não-JSON
+        if (response.statusCode == 401) {
+          return {
+            'success': false,
+            'message': 'Credenciais inválidas. Verifique seus dados.',
+          };
+        } else if (response.statusCode >= 400 && response.statusCode < 500) {
+          return {
+            'success': false,
+            'message': 'Erro na requisição. Verifique seus dados.',
+          };
+        } else {
+          return {
+            'success': false,
+            'message': 'Problema no servidor. Tente novamente mais tarde.',
+          };
+        }
+      }
 
       if (response.statusCode == 200) {
-        // Save token to SharedPreferences for future API calls
         if (responseData['token'] != null) {
           await _saveAuthToken(responseData['token']);
           await _saveUserData(responseData['user'] ?? {});
         }
-
         return {
           'success': true,
           'data': responseData,
           'token': responseData['token'] ?? '',
         };
       } else {
+        String userMessage;
+        if (response.statusCode == 401) {
+          userMessage = responseData['message'] ??
+              'Credenciais inválidas. Verifique e-mail e senha.';
+        } else {
+          userMessage = responseData['message'] ??
+              'Erro ao processar solicitação. Código: ${response.statusCode}';
+        }
         return {
           'success': false,
-          'message': responseData['message'] ?? 'Login failed',
+          'message': userMessage,
         };
       }
     } catch (e) {
       return {
         'success': false,
-        'message': 'Connection error: ${e.toString()}',
+        'message': 'Erro de conexão. Verifique sua internet e tente novamente.',
       };
     }
   }

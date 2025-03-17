@@ -94,7 +94,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
         add(LoginFailedEvent(errorMessage: response['message']));
       }
     } catch (e) {
-      add(LoginFailedEvent(errorMessage: 'An error occurred: ${e.toString()}'));
+      add(LoginFailedEvent(errorMessage: 'Ocorreu um erro: ${e.toString()}'));
     }
   }
 
@@ -102,10 +102,20 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     LoginFailedEvent event,
     Emitter<LoginScreenState> emit,
   ) {
+    String displayMessage =
+        event.errorMessage ?? 'Falha no login. Por favor, tente novamente.';
+
+    // Clean up the message if it contains FormatException details
+    if (displayMessage.contains('FormatException')) {
+      displayMessage =
+          'Não foi possível ligar ao servidor. Verifique a sua ligação à internet.';
+    }
+
     emit(state.copyWith(
       isLoading: false,
       hasError: true,
-      errorMessage: event.errorMessage ?? 'Login failed. Please try again.',
+      errorMessage:
+          event.errorMessage ?? 'Falha no login. Por favor, tente novamente.',
     ));
   }
 

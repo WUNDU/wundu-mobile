@@ -91,8 +91,12 @@ class LoginScreen extends StatelessWidget {
                                 "Email ou senha incorretos, tente novamente"
                             : "Faça login e melhore a tua vida financeira",
                         style: state.hasError
-                            ? CustomTextStyles.titleMediumRed500cc
+                            ? CustomTextStyles.titleMediumPoppinsRedA200
+                                .copyWith(height: 1.50)
                             : CustomTextStyles.titleMediumGray500cc,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 38.h),
                       SizedBox(
