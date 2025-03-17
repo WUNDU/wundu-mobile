@@ -96,7 +96,8 @@ class ApiService {
       if (response.statusCode == 200) {
         if (responseData['token'] != null) {
           await _saveAuthToken(responseData['token']);
-          await _saveUserData(responseData['user'] ?? {});
+          final userData = responseData['userDTO'] ?? {};
+          await _saveUserData(userData);
         }
         return {
           'success': true,

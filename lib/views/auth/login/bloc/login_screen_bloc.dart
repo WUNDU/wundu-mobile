@@ -93,7 +93,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       if (response['success']) {
         await _sessionService.saveSession(
           response['token'],
-          response['data']['user'],
+          response['data']['userDTO'],
         );
         add(LoginSuccessEvent());
       } else {
