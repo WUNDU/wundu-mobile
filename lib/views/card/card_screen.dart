@@ -121,7 +121,7 @@ class _CardScreenState extends State<CardScreen> {
                           CustomElevatedButton(
                             text: "Adicionar de forma manual",
                             onPressed: () {
-                              // Método para adicionar cartão manualmente
+                              onTapFaaAddCard(context);
                             },
                           ),
                         ],
@@ -137,4 +137,10 @@ class _CardScreenState extends State<CardScreen> {
       ),
     );
   }
+}
+
+onTapFaaAddCard(BuildContext context) {
+  NavigatorService.pushNamed(
+    AppRoutes.addCardManualScreen,
+  );
 }
