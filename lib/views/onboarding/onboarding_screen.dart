@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Importe o flutter_screenutil
 import 'package:wundu/core/app_export.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wundu/views/onboarding/bloc/onboarding_screen_bloc.dart';
 import 'package:wundu/views/onboarding/models/onboarding_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
+import 'package:responsive_framework/responsive_framework.dart'; // Importe o responsive_framework
 
 class OnboardingContent {
   final String title;
@@ -79,11 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Inicialize o flutter_screenutil
-    ScreenUtil.init(context, designSize: const Size(360, 800));
-
-    // Verifique se o dispositivo é um tablet
-    final bool isTablet = ScreenUtil().screenWidth > 600;
+    // Verifique o tamanho da tela usando o responsive_framework
+    final isMobile = ResponsiveBreakpoints.of(context).isMobile;
+    final isTablet = ResponsiveBreakpoints.of(context).isTablet;
 
     // ignore: deprecated_member_use
     return WillPopScope(
@@ -110,14 +108,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Header com indicador e botão pular
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 14.w,
-                            top: isTablet ? 80.w : 56.w, // Ajuste para tablet
-                            right: 14.w,
+                            left: isTablet ? 24 : 14,
+                            top: isTablet ? 80 : 56, // Ajuste para tablet
+                            right: isTablet ? 24 : 14,
                           ),
                           child: Row(
                             children: [
                               SizedBox(
-                                height: 6.w,
+                                height: 6,
                                 child: AnimatedSmoothIndicator(
                                   activeIndex: _currentPage,
                                   count: _contents.length,
@@ -125,10 +123,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     spacing: 10,
                                     activeDotColor: appTheme.yellowA700,
                                     dotColor: appTheme.blueGray100,
-                                    dotHeight: 6.w,
+                                    dotHeight: 6,
                                     dotWidth: isTablet
-                                        ? 70.w
-                                        : 50.w, // Ajuste para tablet
+                                        ? 70
+                                        : 50, // Ajuste para tablet
                                   ),
                                 ),
                               ),
@@ -145,9 +143,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       ),
                                       CustomImageView(
                                         imagePath: ImageConstant.vector,
-                                        height: 14.w,
-                                        width: 14.w,
-                                        margin: EdgeInsets.only(left: 4.w),
+                                        height: 14,
+                                        width: 14,
+                                        margin: EdgeInsets.only(left: 4),
                                       ),
                                     ],
                                   ),
@@ -169,16 +167,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             itemCount: _contents.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: isTablet ? 24 : 14),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
                                         height: isTablet
-                                            ? 40.w
-                                            : 22.w), // Ajuste para tablet
+                                            ? 40
+                                            : 22), // Ajuste para tablet
                                     SizedBox(
-                                      width: 328.w,
+                                      width: isTablet
+                                          ? 600
+                                          : 328, // Ajuste para tablet
                                       child: Text(
                                         _contents[index].title,
                                         maxLines: 3,
@@ -187,22 +188,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                             .copyWith(
                                           height: 1.40,
                                           fontSize: isTablet
-                                              ? 36.sp
-                                              : 28.sp, // Ajuste para tablet
+                                              ? 36
+                                              : 28, // Ajuste para tablet
                                         ),
                                       ),
                                     ),
                                     SizedBox(
                                         height: isTablet
-                                            ? 60.w
-                                            : 40.w), // Ajuste para tablet
+                                            ? 60
+                                            : 40), // Ajuste para tablet
                                     CustomImageView(
                                       imagePath: _contents[index].imagePath,
                                       height: isTablet
-                                          ? 400.w
-                                          : 310.w, // Ajuste para tablet
+                                          ? 400
+                                          : 310, // Ajuste para tablet
                                       width: double.maxFinite,
-                                      margin: EdgeInsets.only(right: 28.w),
+                                      margin: EdgeInsets.only(
+                                          right: isTablet ? 40 : 28),
                                     ),
                                   ],
                                 ),
@@ -214,24 +216,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Botão de próximo
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 14.w,
-                            right: 14.w,
-                            bottom:
-                                isTablet ? 80.w : 56.w, // Ajuste para tablet
+                            left: isTablet ? 24 : 14,
+                            right: isTablet ? 24 : 14,
+                            bottom: isTablet ? 80 : 56, // Ajuste para tablet
                           ),
                           child: CustomElevatedButton(
                             text: _currentPage < _contents.length - 1
                                 ? "próximo"
                                 : "começar",
-                            buttonTextStyle: CustomTextStyles.titleLargeGray200
-                                .copyWith(
-                                    fontSize: isTablet
-                                        ? 20.sp
-                                        : 16.sp), // Ajuste para tablet
+                            buttonTextStyle:
+                                CustomTextStyles.titleLargeGray200.copyWith(
+                              fontSize:
+                                  isTablet ? 20 : 16, // Ajuste para tablet
+                            ),
                             buttonStyle: ElevatedButton.styleFrom(
                               minimumSize: Size(
-                                isTablet ? 200.w : 150.w, // Ajuste para tablet
-                                isTablet ? 60.w : 50.w, // Ajuste para tablet
+                                isTablet ? 200 : 150, // Ajuste para tablet
+                                isTablet ? 60 : 50, // Ajuste para tablet
                               ),
                             ),
                             onPressed: _nextPage,
