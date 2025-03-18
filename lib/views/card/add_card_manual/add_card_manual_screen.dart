@@ -121,14 +121,11 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Chip
-                            Container(
-                              height: 40.h,
-                              width: 60.h,
-                              decoration: BoxDecoration(
-                                // ignore: deprecated_member_use
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(8.h),
-                              ),
+                            CustomImageView(
+                              imagePath: ImageConstant
+                                  .logo, // Caminho do logotipo da aplicação
+                              color: Colors.white.withOpacity(
+                                  0.5), // Ajuste a opacidade conforme necessário
                             ),
                             // Card number
                             Text(
