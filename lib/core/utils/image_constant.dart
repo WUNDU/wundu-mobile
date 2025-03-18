@@ -27,4 +27,5 @@ class ImageConstant {
   static String menu = '$imagePath/menu.png';
   static String rectangleAddCard = '$imagePath/rectangle_dashed';
   static String ciclePlus = '$imagePath/circle_plus.png';
+  static String userProfile = '$imagePath/user_profile.png';
 }

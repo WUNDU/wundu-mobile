@@ -8,8 +8,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    this.userName = "Nilvany Tiago",
-    this.welcomeMessage = "Bem-vindo ao wundu",
+    required this.userName,
+    required this.welcomeMessage,
   });
 
   @override

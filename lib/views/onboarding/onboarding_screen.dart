@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wundu/views/onboarding/bloc/onboarding_screen_bloc.dart';
 import 'package:wundu/views/onboarding/models/onboarding_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
+import 'package:responsive_framework/responsive_framework.dart'; // Importe o responsive_framework
 
 class OnboardingContent {
   final String title;
@@ -31,10 +32,8 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  // Controlador para o PageView
+  final LocalPreferences _localPreferences = LocalPreferences();
   final PageController _pageController = PageController();
-
-  // Lista de conteúdos para o onboarding
   final List<OnboardingContent> _contents = [
     OnboardingContent(
       title: "Administrar seu dinheiro está prestes a ficar muito melhor.",
@@ -42,13 +41,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ),
     OnboardingContent(
       title: "Pronto para assumir o controle de suas finanças?",
-      imagePath: ImageConstant
-          .personCoin, // Substitua pelo caminho correto da segunda imagem
+      imagePath: ImageConstant.personCoin,
     ),
     OnboardingContent(
       title: "A solução financeira sob medida para você está aqui.",
-      imagePath: ImageConstant
-          .coins, // Substitua pelo caminho correto da terceira imagem
+      imagePath: ImageConstant.coins,
     ),
   ];
 
@@ -60,7 +57,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  // Navega para a próxima página ou para a tela de login se estiver na última
   void _nextPage() {
     if (_currentPage < _contents.length - 1) {
       _pageController.nextPage(
@@ -68,27 +64,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      // Na última página, navega para a tela de login
-      NavigatorService.pushNamedAndRemovedUntil(
-        AppRoutes.authScreen,
-      );
+      _completeOnboarding();
     }
   }
 
-  // Pula para a tela de login
   void _skipToLogin() {
-    NavigatorService.pushNamedAndRemovedUntil(
-      AppRoutes.authScreen,
-    );
+    _completeOnboarding();
+  }
+
+  Future<void> _completeOnboarding() async {
+    await _localPreferences.setOnboardingCompleted();
+    NavigatorService.pushNamedAndRemovedUntil(AppRoutes.authScreen);
   }
 
   @override
   Widget build(BuildContext context) {
-    // Impede que o usuário volte para a splash screen usando o botão de voltar
+    // Verifique o tamanho da tela usando o responsive_framework
+    final isMobile = ResponsiveBreakpoints.of(context).isMobile;
+    final isTablet = ResponsiveBreakpoints.of(context).isTablet;
+
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
-        // Se pressionar voltar, sai do app ao invés de voltar para o splash
         SystemNavigator.pop();
         return false;
       },
@@ -111,14 +108,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Header com indicador e botão pular
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 14.h,
-                            top: 56.h,
-                            right: 14.h,
+                            left: isTablet ? 24 : 14,
+                            top: isTablet ? 80 : 56, // Ajuste para tablet
+                            right: isTablet ? 24 : 14,
                           ),
                           child: Row(
                             children: [
                               SizedBox(
-                                height: 6.h,
+                                height: 6,
                                 child: AnimatedSmoothIndicator(
                                   activeIndex: _currentPage,
                                   count: _contents.length,
@@ -126,8 +123,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     spacing: 10,
                                     activeDotColor: appTheme.yellowA700,
                                     dotColor: appTheme.blueGray100,
-                                    dotHeight: 6.h,
-                                    dotWidth: 50.h,
+                                    dotHeight: 6,
+                                    dotWidth: isTablet
+                                        ? 70
+                                        : 50, // Ajuste para tablet
                                   ),
                                 ),
                               ),
@@ -144,14 +143,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       ),
                                       CustomImageView(
                                         imagePath: ImageConstant.vector,
-                                        height: 14.h,
-                                        width: 14.h,
-                                        margin: EdgeInsets.only(left: 4.h),
+                                        height: 14,
+                                        width: 14,
+                                        margin: EdgeInsets.only(left: 4),
                                       ),
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -168,13 +167,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             itemCount: _contents.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.h),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: isTablet ? 24 : 14),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 22.h),
                                     SizedBox(
-                                      width: 328.h,
+                                        height: isTablet
+                                            ? 40
+                                            : 22), // Ajuste para tablet
+                                    SizedBox(
+                                      width: isTablet
+                                          ? 600
+                                          : 328, // Ajuste para tablet
                                       child: Text(
                                         _contents[index].title,
                                         maxLines: 3,
@@ -182,15 +187,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         style: theme.textTheme.headlineLarge!
                                             .copyWith(
                                           height: 1.40,
+                                          fontSize: isTablet
+                                              ? 36
+                                              : 28, // Ajuste para tablet
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 40.h),
+                                    SizedBox(
+                                        height: isTablet
+                                            ? 60
+                                            : 40), // Ajuste para tablet
                                     CustomImageView(
                                       imagePath: _contents[index].imagePath,
-                                      height: 310.h,
+                                      height: isTablet
+                                          ? 400
+                                          : 310, // Ajuste para tablet
                                       width: double.maxFinite,
-                                      margin: EdgeInsets.only(right: 28.h),
+                                      margin: EdgeInsets.only(
+                                          right: isTablet ? 40 : 28),
                                     ),
                                   ],
                                 ),
@@ -202,15 +216,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Botão de próximo
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 14.h,
-                            right: 14.h,
-                            bottom: 56.h,
+                            left: isTablet ? 24 : 14,
+                            right: isTablet ? 24 : 14,
+                            bottom: isTablet ? 80 : 56, // Ajuste para tablet
                           ),
                           child: CustomElevatedButton(
                             text: _currentPage < _contents.length - 1
                                 ? "próximo"
                                 : "começar",
-                            buttonTextStyle: CustomTextStyles.titleLargeGray200,
+                            buttonTextStyle:
+                                CustomTextStyles.titleLargeGray200.copyWith(
+                              fontSize:
+                                  isTablet ? 20 : 16, // Ajuste para tablet
+                            ),
+                            buttonStyle: ElevatedButton.styleFrom(
+                              minimumSize: Size(
+                                isTablet ? 200 : 150, // Ajuste para tablet
+                                isTablet ? 60 : 50, // Ajuste para tablet
+                              ),
+                            ),
                             onPressed: _nextPage,
                           ),
                         ),

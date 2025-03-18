@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wundu/core/session/session_service.dart';
 import 'package:wundu/services/api_service.dart';
 import 'package:wundu/views/auth/login/models/login_screen_model.dart';
 
@@ -8,6 +9,7 @@ part 'login_screen_event.dart';
 part 'login_screen_state.dart';
 
 class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
+  final SessionService _sessionService = SessionService();
   LoginScreenBloc(super.initialState) {
     on<LoginScreenInitialEvent>(_onInitialize);
     on<EmailChangedEvent>(_onEmailChanged);
@@ -89,12 +91,16 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       );
 
       if (response['success']) {
+        await _sessionService.saveSession(
+          response['token'],
+          response['data']['userDTO'],
+        );
         add(LoginSuccessEvent());
       } else {
         add(LoginFailedEvent(errorMessage: response['message']));
       }
     } catch (e) {
-      add(LoginFailedEvent(errorMessage: 'An error occurred: ${e.toString()}'));
+      add(LoginFailedEvent(errorMessage: 'Ocorreu um erro: ${e.toString()}'));
     }
   }
 
@@ -102,10 +108,20 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     LoginFailedEvent event,
     Emitter<LoginScreenState> emit,
   ) {
+    String displayMessage =
+        event.errorMessage ?? 'Falha no login. Por favor, tente novamente.';
+
+    // Clean up the message if it contains FormatException details
+    if (displayMessage.contains('FormatException')) {
+      displayMessage =
+          'Não foi possível ligar ao servidor. Verifique a sua ligação à internet.';
+    }
+
     emit(state.copyWith(
       isLoading: false,
       hasError: true,
-      errorMessage: event.errorMessage ?? 'Login failed. Please try again.',
+      errorMessage:
+          event.errorMessage ?? 'Falha no login. Por favor, tente novamente.',
     ));
   }
 
