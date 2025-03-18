@@ -30,38 +30,11 @@ class SignupPasswordDataScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: 56.w,
-          backgroundColor:
-              appTheme.whiteA700, // Cor de fundo sólida para a AppBar
+          backgroundColor: appTheme.whiteA700,
           automaticallyImplyLeading: false,
-          title: GestureDetector(
-            onTap: () {
-              Navigator.pop(context); // Volta para a tela anterior
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 18.w,
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    height: 14.w,
-                    width: 22.w,
-                    child: const Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [BackButtonIcon()],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 12.w),
-                    child: Text(
-                      "Voltar",
-                      style: CustomTextStyles.titleMediumGray90002,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: SafeArea(

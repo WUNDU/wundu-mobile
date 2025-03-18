@@ -9,8 +9,6 @@ import 'package:wundu/widgets/custom_bottom_nav_bar.dart';
 class MainScaffold extends StatefulWidget {
   const MainScaffold({super.key});
 
-
-
   static Widget builder(BuildContext context) {
     return MainScaffold();
   }
@@ -65,28 +63,26 @@ class _MainScaffoldState extends State<MainScaffold> {
       future: SessionService().getUserData(),
       builder: (context, snapshot) {
         final userData = snapshot.data;
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: appTheme.blueGray50,
-            appBar: CustomAppBar(
-              userName: userData?['name'] ?? 'Usuário',
-              welcomeMessage: "Bem-vindo ao wundu",
-            ),
-            body: PageView(
-              controller: _pageController,
-              physics:
-                  NeverScrollableScrollPhysics(), // Desativar o gesto de deslizar
-              children: _pages,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-            ),
-            bottomNavigationBar: CustomBottomNavBar(
-              currentIndex: _currentIndex,
-              onTap: _onNavItemTapped,
-            ),
+        return Scaffold(
+          backgroundColor: appTheme.blueGray50,
+          appBar: CustomAppBar(
+            userName: userData?['name'] ?? 'Usuário',
+            welcomeMessage: "Bem-vindo ao wundu",
+          ),
+          body: PageView(
+            controller: _pageController,
+            physics:
+                NeverScrollableScrollPhysics(), // Desativar o gesto de deslizar
+            children: _pages,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+          bottomNavigationBar: CustomBottomNavBar(
+            currentIndex: _currentIndex,
+            onTap: _onNavItemTapped,
           ),
         );
       },

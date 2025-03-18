@@ -38,36 +38,9 @@ class SignupPersonalDataScreen extends StatelessWidget {
           toolbarHeight: 56.w,
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          title: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.w,
-              vertical: 16.w,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 14.w,
-                        width: 22.w,
-                        child: Stack(
-                          alignment: Alignment.topLeft,
-                          children: [BackButtonIcon()],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.w),
-                        child: Text(
-                          "Voltar",
-                          style: CustomTextStyles.titleMediumBluegray700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: SafeArea(

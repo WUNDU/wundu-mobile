@@ -101,9 +101,17 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                             colors: [
-                              Color.fromRGBO(255, 138, 122, 1),
+                              Color.fromRGBO(255, 212, 0, 1),
+                              Color.fromRGBO(255, 114, 94, 1),
                               Color.fromRGBO(229, 148, 0, 1),
                             ],
+                            stops: [
+                              0.0203,
+                              0.5069,
+                              1.0
+                            ], // Percentuais das cores
+                            transform:
+                                GradientRotation(73.64 * (3.1415926535 / 180)),
                           ),
                           borderRadius: BorderRadius.circular(16.h),
                         ),
