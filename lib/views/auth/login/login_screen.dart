@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
           final currentRoute = ModalRoute.of(context)?.settings.name;
           if (currentRoute == AppRoutes.loginScreen) {
             NavigatorService.pushNamedAndRemovedUntil(
-              AppRoutes.homeScreen, // Replace with your home/dashboard route
+              AppRoutes.mainScreen, // Replace with your home/dashboard route
             );
           }
         }

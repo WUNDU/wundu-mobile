@@ -4,10 +4,9 @@ import 'package:wundu/views/auth/login/login_screen.dart';
 import 'package:wundu/views/auth/signup/signup_confirm_screen.dart';
 import 'package:wundu/views/auth/signup/signup_password_data_screen.dart';
 import 'package:wundu/views/auth/signup/signup_personal_data_screen.dart';
-import 'package:wundu/views/card/card_screen.dart';
-import 'package:wundu/views/home/home_screen.dart';
 import 'package:wundu/views/onboarding/onboarding_screen.dart';
 import 'package:wundu/views/splash/splash_screen.dart';
+import 'package:wundu/widgets/main_scaffold.dart';
 
 class AppRoutes {
   static const loginScreen = '/login_screen';
@@ -17,8 +16,7 @@ class AppRoutes {
   static const signupPersonalDataScreen = '/signup_personal_data_screen';
   static const signupPasswordDataScreen = '/signup_password_data_screen';
   static const signupConfirmScreenScreen = '/signup_confirm_screen';
-  static const homeScreen = '/home_screen';
-  static const cardScreen = '/card_screen';
+  static const mainScreen = '/main_screen';
 
   static Map<String, WidgetBuilder> get routes => {
         loginScreen: LoginScreen.builder,
@@ -28,7 +26,6 @@ class AppRoutes {
         signupPersonalDataScreen: SignupPersonalDataScreen.builder,
         signupPasswordDataScreen: SignupPasswordDataScreen.builder,
         signupConfirmScreenScreen: SignupConfirmScreenScreen.builder,
-        homeScreen: HomeScreen.builder,
-        cardScreen: CardScreen.builder
+        mainScreen: MainScaffold.builder,
       };
 }
