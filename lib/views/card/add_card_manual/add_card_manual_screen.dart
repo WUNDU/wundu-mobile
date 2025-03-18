@@ -124,6 +124,7 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
                             CustomImageView(
                               imagePath: ImageConstant
                                   .logo, // Caminho do logotipo da aplicação
+                              // ignore: deprecated_member_use
                               color: Colors.white.withOpacity(
                                   0.5), // Ajuste a opacidade conforme necessário
                             ),
