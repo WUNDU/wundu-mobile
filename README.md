@@ -7,8 +7,8 @@ Wundu é um aplicativo financeiro que visa ajudar os usuários a gerenciar suas 
 - 🏁 **Splash Screen**: Tela de abertura do aplicativo.
 - 📖 **Onboarding**: Introdução ao aplicativo para novos usuários.
 - 🔑 **Autenticação**: Login e registro de usuários.
-- 🏡 **Tela Inicial (Home)**: Exibição geral das finanças do usuário.
-- 💳 **Tela do Cartão**: Permite visualizar cartões adicionados e contém o botão para adicionar um novo cartão manualmente.
+- 🏡 **Tela Inicial (Home)**: Exibição geral das finanças do usuário. (No momento sem transação)
+- 💳 **Tela do Cartão**: Permite adicionadar cartões de forma automatica e contém o botão para adicionar um novo cartão manualmente.
 - ➕ **Tela de Adição de Cartão**: Formulário para adicionar cartões manualmente.
 
 ## 🛠 Tecnologias Utilizadas
@@ -24,6 +24,10 @@ A API está disponível em:
 
 Repositório da API:
 📂 [GitHub - API Finances](https://github.com/WUNDU/API-FINACES)
+
+## 📥 Baixar o Aplicativo
+Você pode baixar e instalar o aplicativo através do link abaixo:
+📲 [Download Wundu APK](https://github.com/WUNDU/wundu-mobile/releases/download/Wundu/app-release.apk)
 
 ## ▶️ Como Rodar o Projeto
 1. Clone o repositório:
