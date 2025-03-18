@@ -1,16 +1,48 @@
-# app
+# 🚀 Wundu
 
-A new Flutter project.
+## 📌 Sobre o Projeto
+Wundu é um aplicativo financeiro que visa ajudar os usuários a gerenciar suas despesas, acompanhar rendimentos e estabelecer objetivos financeiros de curto e longo prazo. Este repositório contém o MVP (Minimum Viable Product) inicial do aplicativo desenvolvido em Flutter.
 
-## Getting Started
+## 🌟 Funcionalidades Iniciais
+- 🏁 **Splash Screen**: Tela de abertura do aplicativo.
+- 📖 **Onboarding**: Introdução ao aplicativo para novos usuários.
+- 🔑 **Autenticação**: Login e registro de usuários.
+- 🏡 **Tela Inicial (Home)**: Exibição geral das finanças do usuário.
+- 💳 **Tela do Cartão**: Permite visualizar cartões adicionados e contém o botão para adicionar um novo cartão manualmente.
+- ➕ **Tela de Adição de Cartão**: Formulário para adicionar cartões manualmente.
 
-This project is a starting point for a Flutter application.
+## 🛠 Tecnologias Utilizadas
+- 🎯 **Flutter**: Framework principal para o desenvolvimento do app.
+- 🔄 **Flutter Bloc**: Gerenciamento de estado.
+- 💾 **Shared Preferences**: Armazenamento de dados localmente.
+- 🌐 **HTTP**: Comunicação com APIs.
+- 🖼 **Cached Network Image**: Carregamento otimizado de imagens.
 
-A few resources to get you started if this is your first Flutter project:
+## 🌍 API Online
+A API está disponível em:
+🔗 [Swagger UI - API Finances](https://api-finaces-production.up.railway.app/swagger-ui/index.html#/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Repositório da API:
+📂 [GitHub - API Finances](https://github.com/WUNDU/API-FINACES)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ▶️ Como Rodar o Projeto
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/WUNDU/wundu-mobile.git
+   ```
+2. Acesse a pasta do projeto:
+   ```bash
+   cd wundu-mobile
+   ```
+3. Instale as dependências:
+   ```bash
+   flutter pub get
+   ```
+4. Execute o aplicativo:
+   ```bash
+   flutter run
+   ```
+
+## 📩 Contato
+Caso tenha dúvidas ou sugestões, entre em contato com a equipe Wundu. 🚀
+
