@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       toolbarHeight: 74.h,
-      backgroundColor: Colors.transparent,
+      backgroundColor: appTheme.whiteA700,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
       title: Container(
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomImageView(
-                    imagePath: ImageConstant.logoHome,
+                    imagePath: ImageConstant.userProfile,
                     height: 50.h,
                     width: 50.h,
                     radius: BorderRadius.circular(
@@ -57,24 +57,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ],
                     ),
                   ),
-                  CustomIconButton(
-                    height: 40.h,
-                    width: 40.h,
-                    padding: EdgeInsets.all(8.h),
-                    decoration: IconButtonStyleHelper.outlineIndigoA,
-                    child: CustomImageView(
-                      imagePath: ImageConstant.wunduIA,
-                    ),
+                  // Botão com animação de toque
+                  _AnimatedIconButton(
+                    icon: ImageConstant.wunduIA,
+                    onTap: () {
+                      // Ação ao tocar no botão
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(right: 10)),
-                  CustomIconButton(
-                    height: 40.h,
-                    width: 40.h,
-                    padding: EdgeInsets.all(8.h),
-                    decoration: IconButtonStyleHelper.fillBlueGray,
-                    child: CustomImageView(
-                      imagePath: ImageConstant.notification,
-                    ),
+                  // Botão com animação de toque
+                  _AnimatedIconButton(
+                    icon: ImageConstant.notification,
+                    onTap: () {
+                      // Ação ao tocar no botão
+                    },
                   ),
                 ],
               ),
@@ -87,4 +83,51 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(74.h);
+}
+
+class _AnimatedIconButton extends StatefulWidget {
+  final String icon;
+  final VoidCallback onTap;
+
+  const _AnimatedIconButton({
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  State<_AnimatedIconButton> createState() => _AnimatedIconButtonState();
+}
+
+class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
+  bool isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() => isPressed = true);
+      },
+      onTapUp: (_) {
+        setState(() => isPressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () {
+        setState(() => isPressed = false);
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        transform:
+            isPressed ? (Matrix4.identity()..scale(0.9)) : Matrix4.identity(),
+        child: CustomIconButton(
+          height: 40.h,
+          width: 40.h,
+          padding: EdgeInsets.all(8.h),
+          decoration: IconButtonStyleHelper.outlineIndigoA,
+          child: CustomImageView(
+            imagePath: widget.icon,
+          ),
+        ),
+      ),
+    );
+  }
 }

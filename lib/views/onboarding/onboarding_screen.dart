@@ -80,6 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     // Verifique o tamanho da tela usando o responsive_framework
+    // ignore: unused_local_variable
     final isMobile = ResponsiveBreakpoints.of(context).isMobile;
     final isTablet = ResponsiveBreakpoints.of(context).isTablet;
 

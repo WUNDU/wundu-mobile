@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:responsive_framework/responsive_framework.dart'; // Importe o responsive_framework
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,29 +26,23 @@ class MyApp extends StatelessWidget {
                 theme: theme,
                 title: 'wundu',
                 builder: (context, child) {
-                  // Adicione o ResponsiveBreakpoints.builder aqui
                   return ResponsiveBreakpoints.builder(
                     child: MediaQuery(
                       data: MediaQuery.of(context).copyWith(
-                        textScaler: TextScaler.linear(1.0),
+                        textScaler: const TextScaler.linear(1.0),
                       ),
                       child: child!,
                     ),
                     breakpoints: [
-                      const Breakpoint(
-                          start: 0,
-                          end: 450,
-                          name: MOBILE), // Dispositivos móveis
-                      const Breakpoint(
-                          start: 451, end: 800, name: TABLET), // Tablets
-                      const Breakpoint(
-                          start: 801, end: 1920, name: DESKTOP), // Desktops
+                      const Breakpoint(start: 0, end: 450, name: MOBILE),
+                      const Breakpoint(start: 451, end: 800, name: TABLET),
+                      const Breakpoint(start: 801, end: 1920, name: DESKTOP),
                     ],
                   );
                 },
                 navigatorKey: NavigatorService.navigatorKey,
                 debugShowCheckedModeBanner: false,
-                localizationsDelegates: [
+                localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,

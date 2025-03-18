@@ -25,7 +25,7 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     final hasValidSession = await _sessionService.isSessionValid();
 
     if (hasValidSession) {
-      NavigatorService.pushNamedAndRemovedUntil(AppRoutes.homeScreen);
+      NavigatorService.pushNamedAndRemovedUntil(AppRoutes.mainScreen);
     } else if (isOnboardingCompleted) {
       NavigatorService.pushNamedAndRemovedUntil(AppRoutes.authScreen);
     } else {
