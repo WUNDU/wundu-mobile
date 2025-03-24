@@ -28,4 +28,10 @@ class ImageConstant {
   static String rectangleAddCard = '$imagePath/rectangle_dashed';
   static String ciclePlus = '$imagePath/circle_plus.png';
   static String userProfile = '$imagePath/user_profile.png';
+  static String calendar = '$imagePath/calendar.png';
+  static String arrowUp = '$imagePath/arrow-up.png';
+  static String arrowDown = '$imagePath/arrow-down.png';
+  static String arrowRotate = '$imagePath/arrow-rotate.png';
+  static String arrowRight = '$imagePath/arrow-right.png';
+  static String transfer = '$imagePath/transfer.png';
 }
