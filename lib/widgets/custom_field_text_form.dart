@@ -100,7 +100,15 @@ class CustomTextFormField extends StatelessWidget {
           textInputAction: textInputAction,
           keyboardType: keyboardType ?? textInputType,
           maxLines: maxLines ?? 1,
-          decoration: decoration,
+          decoration: decoration.copyWith(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.h),
+              borderSide: BorderSide(
+                color: Colors.black, // Preto denso
+                width: 1, // Borda mais fina
+              ),
+            ),
+          ),
           validator: validator,
           onChanged: onChanged,
           inputFormatters: inputFormatters,
@@ -140,8 +148,8 @@ class CustomTextFormField extends StatelessWidget {
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.h),
               borderSide: BorderSide(
-                color: appTheme.gray300,
-                width: 1,
+                color: Colors.black, // Preto denso
+                width: 1, // Borda mais fina
               ),
             ),
         errorBorder: (borderDecoration ??
@@ -162,10 +170,8 @@ class CustomTextFormField extends StatelessWidget {
                 ))
             .copyWith(
           borderSide: BorderSide(
-            color: appTheme.redA200.withValues(
-              alpha: 0.8,
-            ),
-            width: 1,
+            color: Colors.black, // Preto denso
+            width: 1, // Borda mais fina
           ),
         ),
         errorStyle: TextStyle(

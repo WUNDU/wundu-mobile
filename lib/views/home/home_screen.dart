@@ -282,13 +282,43 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               ],
             ),
           ),
-          CustomIconButton(
-            height: isTablet ? 28.w : 24.w,
-            width: isTablet ? 28.w : 24.w,
-            padding: EdgeInsets.all(6.w),
-            decoration: IconButtonStyleHelper.none,
-            child: CustomImageView(
-              imagePath: ImageConstant.arrowRight,
+          // Botão ArrowRight melhorado
+          SizedBox(
+            height: isTablet ? 40.w : 22.w,
+            width: isTablet ? 40.w : 22.w,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
+                onTap: () {
+                  // Adicione a ação do botão aqui
+                },
+                // ignore: deprecated_member_use
+                splashColor: Colors.grey.withOpacity(0.3),
+                // ignore: deprecated_member_use
+                highlightColor: Colors.grey.withOpacity(0.1),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
+                    border: Border.all(
+                      color: Colors.grey[300]!,
+                      width: 0.5.w,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(isTablet ? 8.w : 2.w),
+                  child: AnimatedScale(
+                    duration: Duration(milliseconds: 150),
+                    scale: 1.0,
+                    child: CustomImageView(
+                      imagePath: ImageConstant.arrowRight,
+                      height: isTablet ? 16.w : 12.w,
+                      width: isTablet ? 16.w : 12.w,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
