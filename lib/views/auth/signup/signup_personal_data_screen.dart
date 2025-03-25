@@ -35,8 +35,10 @@ class SignupPersonalDataScreen extends StatelessWidget {
             true, // Permite que a tela se ajuste ao teclado
         appBar: AppBar(
           elevation: 0,
+          scrolledUnderElevation: 0,
           toolbarHeight: 56.w,
-          backgroundColor: Colors.transparent,
+          backgroundColor:
+              appTheme.whiteA700, // Altere para a mesma cor do Scaffold
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
