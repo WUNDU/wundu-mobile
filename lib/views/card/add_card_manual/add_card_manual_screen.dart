@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/views/card/add_card_manual/bloc/add_card_manual_bloc.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
+import 'package:wundu/views/card/add_card_manual/widgets/confirm_dialog.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 import 'package:wundu/widgets/custom_field_text_form.dart';
 
@@ -48,14 +49,13 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
     return BlocConsumer<AddCardManualBloc, AddCardManualState>(
       listener: (context, state) {
         if (state.isSubmitted) {
-          // Navegue de volta para a tela de cartões após o sucesso
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Cartão adicionado com sucesso!'),
-              backgroundColor: Colors.green,
-            ),
+          // Show confirmation dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ConfirmDialog.builder(context);
+            },
           );
-          Navigator.pop(context);
         }
 
         if (state.errorMessage != null) {
