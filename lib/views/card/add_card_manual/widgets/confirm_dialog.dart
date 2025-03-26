@@ -3,7 +3,6 @@ import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/card/bloc/card_screen_bloc.dart';
 import 'package:wundu/views/card/models/card_screen_model.dart';
-import 'package:get/get.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart'; // Import GetX for localization
 
 class ConfirmDialog extends StatelessWidget {
@@ -16,18 +15,18 @@ class ConfirmDialog extends StatelessWidget {
           cardScreenModelObj: CardScreenModel(),
         ),
       )..add(CardScreenInitialEvent()),
-      child: ConfirmDialog(),
+      child: const ConfirmDialog(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
+    return Center(
+      child: Material(
+        type: MaterialType.transparency, // This makes the material transparent
+        child: Container(
           width: double.maxFinite,
+          margin: EdgeInsets.symmetric(horizontal: 20.h), // Add some margin
           padding: EdgeInsets.symmetric(
             horizontal: 36.h,
             vertical: 32.h,
@@ -71,7 +70,7 @@ class ConfirmDialog extends StatelessWidget {
                   right: 10.h,
                 ),
                 child: Text(
-                  "msg_agora_voc_pode".tr,
+                  "Agora você pode aproveitar e gerenciar o seu dinheiro de forma simples.",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -83,7 +82,7 @@ class ConfirmDialog extends StatelessWidget {
               SizedBox(height: 18.h),
               CustomElevatedButton(
                 height: 36.h,
-                text: "lbl continuar".tr,
+                text: "Continuar",
                 buttonStyle: CustomButtonStyles.fillGrayTL8,
                 buttonTextStyle: CustomTextStyles.labelLargePoppinsWhiteA700,
                 onPressed: () {
@@ -93,7 +92,7 @@ class ConfirmDialog extends StatelessWidget {
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 
