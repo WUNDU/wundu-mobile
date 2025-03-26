@@ -1,8 +1,10 @@
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 
 class TransactionMocks {
-  static List<TransactionModel> getMockTransactions() {
+  static List<TransactionModel> getMockTransactions(String? cardId) {
+    if (cardId == null) return []; // Retorna vazio se não houver cartão
     return [
       TransactionModel(
         id: "1",
@@ -13,6 +15,8 @@ class TransactionMocks {
         type: "transfer",
         backgroundColor: appTheme.yellow100,
         iconPath: ImageConstant.transfer,
+        buttonStyle: CustomButtonStyles.fillTeal,
+        cardId: cardId,
       ),
       TransactionModel(
         id: "2",
@@ -23,6 +27,8 @@ class TransactionMocks {
         type: "payment",
         backgroundColor: appTheme.deepOrangeA40019,
         iconPath: ImageConstant.arrowDown,
+        buttonStyle: CustomButtonStyles.fillDeepOrange,
+        cardId: cardId,
       ),
       TransactionModel(
         id: "3",
@@ -33,6 +39,8 @@ class TransactionMocks {
         type: "withdrawal",
         backgroundColor: appTheme.deepOrangeA40019,
         iconPath: ImageConstant.arrowDown,
+        buttonStyle: CustomButtonStyles.fillDeepOrange,
+        cardId: cardId,
       ),
       TransactionModel(
         id: "4",
@@ -41,8 +49,10 @@ class TransactionMocks {
         amount: 500.0,
         date: DateTime.now().subtract(const Duration(days: 3)),
         type: "deposit",
-        backgroundColor: appTheme.teal300,
+        backgroundColor: appTheme.tealA2004c,
         iconPath: ImageConstant.arrowUp,
+        buttonStyle: CustomButtonStyles.fillTeal,
+        cardId: cardId,
       ),
       TransactionModel(
         id: "5",
@@ -53,6 +63,8 @@ class TransactionMocks {
         type: "payment",
         backgroundColor: appTheme.deepOrangeA40019,
         iconPath: ImageConstant.arrowDown,
+        buttonStyle: CustomButtonStyles.fillDeepOrange,
+        cardId: cardId,
       ),
     ];
   }

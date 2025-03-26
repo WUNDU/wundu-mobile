@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class TransactionModel {
   final String id;
@@ -6,9 +6,11 @@ class TransactionModel {
   final String description;
   final double amount;
   final DateTime date;
-  final String type; // 'transfer', 'payment', 'withdrawal', etc.
+  final String type;
   final Color backgroundColor;
   final String? iconPath;
+  final ButtonStyle buttonStyle;
+  final String cardId; // Novo campo para identificar o cartão
 
   TransactionModel({
     required this.id,
@@ -18,10 +20,11 @@ class TransactionModel {
     required this.date,
     required this.type,
     required this.backgroundColor,
+    required this.buttonStyle,
+    required this.cardId, // Campo obrigatório
     this.iconPath,
   });
 
-  // Método para converter de/para JSON se necessário
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
       id: json['id'],
@@ -30,8 +33,10 @@ class TransactionModel {
       amount: json['amount'].toDouble(),
       date: DateTime.parse(json['date']),
       type: json['type'],
+      buttonStyle: json['buttonStyle'],
       backgroundColor: Color(json['backgroundColor']),
       iconPath: json['iconPath'],
+      cardId: json['cardId'],
     );
   }
 }

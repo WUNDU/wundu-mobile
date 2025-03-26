@@ -371,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                 alignment: Alignment.center,
                 children: [
                   CustomImageView(
-                    imagePath: ImageConstant.calendar,
+                    imagePath: ImageConstant.moneyOff,
                     height: isTablet ? 50.w : 40.w,
                     width: isTablet ? 52.w : 42.w,
                   ),
@@ -395,6 +395,17 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                 ),
               ),
             ),
+            SizedBox(height: isTablet ? 24.w : 20.w),
+            // CustomElevatedButton(
+            //   height: isTablet ? 48.w : 40.w,
+            //   width: isTablet ? 200.w : 180.w,
+            //   text: "Adicionar Cartão",
+            //   buttonStyle: CustomButtonStyles.fillYellowA,
+            //   buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
+            //   onPressed: () {
+            //     NavigatorService.pushNamed(AppRoutes.addCardManualScreen);
+            //   },
+            // ),
           ],
         ),
       ),

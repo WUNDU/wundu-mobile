@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
+import 'package:wundu/views/card/add_card_manual/utils/card_manager.dart';
 
 part 'add_card_manual_event.dart';
 part 'add_card_manual_state.dart';
@@ -71,7 +72,6 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
   ) async {
     emit(state.copyWith(isLoading: true));
 
-    // Valide os dados
     final isCardNumberValid = _validateCardNumber(event.cardNumber);
     final isExpiryDateValid = _validateExpiryDate(event.expiryDate);
     final isCardNameValid = event.cardName.isNotEmpty;
@@ -90,10 +90,21 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
     }
 
     try {
-      // Simule uma chamada de API ou serviço
       await Future.delayed(Duration(seconds: 1));
 
-      // Se tudo estiver ok, marque como enviado
+      // Criar o modelo do cartão
+      final card = AddCardManualModel(
+        cardNumber: event.cardNumber,
+        expiryDate: event.expiryDate,
+        cardName: event.cardName,
+        isValidCardNumber: true,
+        isValidExpiryDate: true,
+        isValidCardName: true,
+      );
+
+      // Adicionar ao CardManager
+      CardManager().addCard(card);
+
       emit(state.copyWith(
         isLoading: false,
         isSubmitted: true,

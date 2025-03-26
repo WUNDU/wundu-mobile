@@ -5,7 +5,6 @@ import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/views/transaction_details/bloc/transaction_details_screen_bloc.dart';
 import 'package:wundu/views/transaction_details/models/transaction_details_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_text_form_field.dart';
 import 'package:wundu/widgets/custom_icon_button.dart';
 import 'package:intl/intl.dart';
 
@@ -196,8 +195,10 @@ class TransactionDetailsScreen extends StatelessWidget {
             height: 34.h,
             width: 176.h,
             text: transaction?.type.toUpperCase() ?? "TRANSACTION",
-            buttonStyle: CustomButtonStyles.fillTeal,
-            buttonTextStyle: CustomTextStyles.bodyLargeTeal300,
+            buttonStyle: transaction?.buttonStyle,
+            buttonTextStyle: transaction?.type == "payment"
+                ? CustomTextStyles.bodyLargeTeal300
+                : CustomTextStyles.bodyLargeDeeporange300,
           ),
           Padding(
             padding: EdgeInsets.only(left: 44.h),
@@ -207,7 +208,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.all(4.h),
               decoration: IconButtonStyleHelper.fillBlueGrayTL10,
               child: CustomImageView(
-                imagePath: transaction?.iconPath ?? ImageConstant.download,
+                imagePath: ImageConstant.download,
               ),
             ),
           ),
@@ -305,56 +306,45 @@ class TransactionDetailsScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildDateEdit(BuildContext context) {
-    return BlocSelector<TransactionDetailsScreenBloc,
-        TransactionDetailsScreenState, TextEditingController?>(
-      selector: (state) => state.dateEditController,
-      builder: (context, dateEditController) {
-        return CustomTextFormField(
-          width: 250.h,
-          controller: dateEditController,
-          hintText: "12 jan de 2025",
-          hintStyle: CustomTextStyles.titleMediumBluegray900SemiBold,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 12.h,
-            vertical: 6.h,
-          ),
-          borderDecoration: TextFormFieldStyleHelper.fillBlueGray,
-          filled: true,
-          fillColor: appTheme.blueGray900.withValues(
-            alpha: 0.1,
-          ),
-        );
-      },
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+    return Container(
+      width: 400.h,
+      padding: EdgeInsets.symmetric(
+        horizontal: 12.h,
+        vertical: 6.h,
+      ),
+      decoration: BoxDecoration(
+        color: appTheme.blueGray900.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10.h),
+      ),
+      child: Text(
+        transaction?.date != null
+            ? DateFormat("dd MMM 'de' yyyy", 'pt_BR').format(transaction!.date)
+            : "12 jan de 2025",
+        style: CustomTextStyles.titleMediumBluegray900SemiBold,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 
   /// Section Widget
   Widget _buildTimeEdit(BuildContext context) {
-    return BlocSelector<TransactionDetailsScreenBloc,
-        TransactionDetailsScreenState, TextEditingController?>(
-      selector: (state) => state.timeEditController,
-      builder: (context, timeEditController) {
-        return CustomTextFormField(
-          readOnly: true,
-          width: 70.h,
-          controller: timeEditController,
-          hintText: "12:32",
-          hintStyle: CustomTextStyles.titleMediumBluegray700,
-          textInputAction: TextInputAction.done,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 12.h,
-            vertical: 6.h,
-          ),
-          borderDecoration: TextFormFieldStyleHelper.fillBlueGray,
-          filled: true,
-          fillColor: appTheme.blueGray900.withValues(
-            alpha: 0.1,
-          ),
-          onTap: () {
-            onTapTimeEdit(context);
-          },
-        );
-      },
+    return Container(
+      width: 70.h,
+      padding: EdgeInsets.symmetric(
+        horizontal: 12.h,
+        vertical: 6.h,
+      ),
+      decoration: BoxDecoration(
+        color: appTheme.blueGray900.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10.h),
+      ),
+      child: Text(
+        "12:32",
+        style: CustomTextStyles.titleMediumBluegray900SemiBold,
+      ),
     );
   }
 
@@ -369,25 +359,24 @@ class TransactionDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Data",
-                  style: CustomTextStyles.titleSmallInterGray90001,
-                ),
+                Text("Data", style: CustomTextStyles.titleSmallGray600),
+                Padding(padding: EdgeInsets.all(5.h)),
                 _buildDateEdit(context),
               ],
             ),
           ),
           SizedBox(
-            width: 140.h,
+            width: 20.h, // Reduced spacing between date and time
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   "Hora",
-                  style: CustomTextStyles.titleSmallInterGray90001,
+                  style: CustomTextStyles.titleSmallGray600,
                 ),
+                Padding(padding: EdgeInsets.all(5.h)),
                 _buildTimeEdit(context),
               ],
             ),
@@ -399,10 +388,12 @@ class TransactionDetailsScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildOperationNumberButton(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
     return CustomElevatedButton(
       height: 32.h,
       width: 112.h,
-      text: "287805888",
+      text: transaction?.id ?? "000000",
       margin: EdgeInsets.only(left: 6.h),
       buttonStyle: CustomButtonStyles.fillBlueGray,
       buttonTextStyle: CustomTextStyles.titleMediumBluegray700,
