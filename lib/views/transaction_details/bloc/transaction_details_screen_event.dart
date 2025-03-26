@@ -12,8 +12,12 @@ abstract class TransactionDetailsScreenEvent extends Equatable {
 /// Event that is dispatched when the TransactionDetailsScreen widget is initialized.
 class TransactionDetailsScreenInitialEvent
     extends TransactionDetailsScreenEvent {
+  final TransactionModel? transaction;
+
+  TransactionDetailsScreenInitialEvent({this.transaction});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [transaction];
 }
 
 /// Event for changing time.

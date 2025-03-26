@@ -291,14 +291,9 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               child: InkWell(
                 borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
                 onTap: () {
-                  Navigator.pushNamed(
-                      context,
-                      AppRoutes
-                          .transactionDetailsScreen); // Replace 'targetScreen' with the actual route name
+                  _navigateToTransactionDetails(context, transaction);
                 },
-                // ignore: deprecated_member_use
                 splashColor: Colors.grey.withOpacity(0.3),
-                // ignore: deprecated_member_use
                 highlightColor: Colors.grey.withOpacity(0.1),
                 child: Container(
                   decoration: BoxDecoration(
@@ -326,6 +321,14 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
           ),
         ],
       ),
+    );
+  }
+
+  void _navigateToTransactionDetails(
+      BuildContext context, TransactionModel transaction) {
+    NavigatorService.pushNamed(
+      AppRoutes.transactionDetailsScreen,
+      arguments: transaction,
     );
   }
 

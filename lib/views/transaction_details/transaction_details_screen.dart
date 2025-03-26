@@ -1,4 +1,3 @@
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
@@ -180,24 +179,22 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildTransferButton(BuildContext context) {
-    return CustomElevatedButton(
-      height: 34.h,
-      width: 176.h,
-      text: "Transferência",
-      buttonStyle: CustomButtonStyles.fillTeal,
-      buttonTextStyle: CustomTextStyles.bodyLargeTeal300,
-    );
-  }
-
-  /// Section Widget
   Widget _buildTransferRow(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+
     return SizedBox(
       width: double.maxFinite,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          _buildTransferButton(context),
+          CustomElevatedButton(
+            height: 34.h,
+            width: 176.h,
+            text: transaction?.type.toUpperCase() ?? "TRANSACTION",
+            buttonStyle: CustomButtonStyles.fillTeal,
+            buttonTextStyle: CustomTextStyles.bodyLargeTeal300,
+          ),
           Padding(
             padding: EdgeInsets.only(left: 44.h),
             child: CustomIconButton(
@@ -206,7 +203,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.all(4.h),
               decoration: IconButtonStyleHelper.fillBlueGrayTL10,
               child: CustomImageView(
-                imagePath: ImageConstant.download,
+                imagePath: transaction?.iconPath ?? ImageConstant.download,
               ),
             ),
           ),
@@ -215,12 +212,14 @@ class TransactionDetailsScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
   Widget _buildCreditedValueButton(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+
     return CustomElevatedButton(
       height: 32.h,
       width: 128.h,
-      text: "100.000,00Kz",
+      text: "${transaction?.amount.toStringAsFixed(2) ?? '0.00'}Kz",
       buttonStyle: CustomButtonStyles.fillIndigoA,
       buttonTextStyle: CustomTextStyles.titleMediumIndigoA200,
     );

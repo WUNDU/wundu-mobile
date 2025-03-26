@@ -1,5 +1,7 @@
+// home_screen_bloc.dart
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/mocks/category_mocks.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
 import 'package:wundu/views/home/models/home_screen_item_model.dart';
 import 'package:wundu/views/home/models/transaction_model.dart';
@@ -10,6 +12,7 @@ part 'home_screen_state.dart';
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   HomeScreenBloc(super.initialState) {
     on<HomeScreenInitialEvent>(_onInitialize);
+    on<LoadMoreTransactionsEvent>(_onLoadMoreTransactions);
   }
 
   _onInitialize(
@@ -19,64 +22,85 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     bool hasAccounts = true;
 
     if (hasAccounts) {
-      // Crie uma lista de TransactionModel
-      List<TransactionModel> transactions = [
-        TransactionModel(
-          id: "1",
-          title: "Transferência para Cliente",
-          description: "IBAN 0045678909876",
-          amount: 150.0,
-          date: DateTime.now(),
-          type: "transfer",
-          backgroundColor: appTheme.yellow100,
-          iconPath: ImageConstant.transfer,
-        ),
-        TransactionModel(
-          id: "2",
-          title: "Pagamento de Serviço",
-          description: "Fatura 87654321",
-          amount: 75.5,
-          date: DateTime.now().subtract(Duration(days: 1)),
-          type: "payment",
-          backgroundColor: appTheme.deepOrangeA40019,
-          iconPath: ImageConstant.arrowDown,
-        ),
-        TransactionModel(
-          id: "3",
-          title: "Levantamento",
-          description: "Terminal 12345",
-          amount: 200.0,
-          date: DateTime.now().subtract(Duration(days: 2)),
-          type: "withdrawal",
-          backgroundColor: appTheme.deepOrangeA40019,
-          iconPath: ImageConstant.arrowDown,
-        ),
-      ];
-
-      // Converta para HomeScreenItemModel
-      List<HomeScreenItemModel> itemList = transactions.map((transaction) {
-        return HomeScreenItemModel(
-          transactionType: transaction.title,
-          ibanCounter: transaction.description,
-          backgroundColor: transaction.backgroundColor,
-        );
-      }).toList();
+      // Carrega as transações mockadas
+      List<TransactionModel> transactions =
+          TransactionMocks.getMockTransactions();
 
       emit(state.copyWith(
         homeScreenModelObj: HomeScreenModel(
-          itemList: itemList,
-          transactions:
-              transactions, // Opcional: armazene também os modelos completos
+          itemList: transactions.map((transaction) {
+            return HomeScreenItemModel(
+              transactionType: transaction.title,
+              ibanCounter: transaction.description,
+              backgroundColor: transaction.backgroundColor,
+              iconPath: transaction.iconPath,
+            );
+          }).toList(),
+          transactions: transactions,
+          isLoading: false,
+          hasMore: true,
         ),
       ));
     }
-    // else {
-    //   emit(state.copyWith(
-    //     homeScreenModelObj: HomeScreenModel(
-    //       itemList: [],
-    //       transactions: [],
-    //     ),
-    //   ));
-    // }
+  }
+
+  _onLoadMoreTransactions(
+    LoadMoreTransactionsEvent event,
+    Emitter<HomeScreenState> emit,
+  ) async {
+    if (state.homeScreenModelObj?.isLoading ?? false) return;
+
+    emit(state.copyWith(
+      homeScreenModelObj: state.homeScreenModelObj?.copyWith(
+        isLoading: true,
+      ),
+    ));
+
+    // Simula um delay de carregamento
+    await Future.delayed(const Duration(seconds: 1));
+
+    // Adiciona mais transações mockadas
+    final newTransactions = [
+      TransactionModel(
+        id: "6",
+        title: "Transferência Recebida",
+        description: "IBAN 00987654321",
+        amount: 300.0,
+        date: DateTime.now().subtract(const Duration(days: 5)),
+        type: "transfer",
+        backgroundColor: appTheme.teal300,
+        iconPath: ImageConstant.arrowUp,
+      ),
+      TransactionModel(
+        id: "7",
+        title: "Pagamento de Serviço",
+        description: "Fatura 12345678",
+        amount: 85.0,
+        date: DateTime.now().subtract(const Duration(days: 6)),
+        type: "payment",
+        backgroundColor: appTheme.deepOrangeA40019,
+        iconPath: ImageConstant.arrowDown,
+      ),
+    ];
+
+    final currentTransactions = state.homeScreenModelObj?.transactions ?? [];
+    final allTransactions = [...currentTransactions, ...newTransactions];
+
+    emit(state.copyWith(
+      homeScreenModelObj: HomeScreenModel(
+        itemList: allTransactions.map((transaction) {
+          return HomeScreenItemModel(
+            transactionType: transaction.title,
+            ibanCounter: transaction.description,
+            backgroundColor: transaction.backgroundColor,
+            iconPath: transaction.iconPath,
+          );
+        }).toList(),
+        transactions: allTransactions,
+        isLoading: false,
+        hasMore: allTransactions.length <
+            10, // Limite de 10 transações para o exemplo
+      ),
+    ));
   }
 }
