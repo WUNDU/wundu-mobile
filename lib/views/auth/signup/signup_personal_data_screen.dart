@@ -6,7 +6,7 @@ import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class SignupPersonalDataScreen extends StatelessWidget {
   SignupPersonalDataScreen({super.key});

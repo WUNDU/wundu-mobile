@@ -36,4 +36,8 @@ class ImageConstant {
   static String transfer = '$imagePath/transfer.png';
   static String roundDone = '$imagePath/round-done.png';
   static String roundDoneAll = '$imagePath/round-done-all.png';
+  static String money = '$imagePath/money.png';
+  static String close = '$imagePath/close.png';
+  static String download = '$imagePath/download.png';
+  static String informationOutline = '$imagePath/information-outline.png';
 }

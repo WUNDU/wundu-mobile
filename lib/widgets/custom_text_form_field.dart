@@ -2,7 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/app_export.dart';
 
-extension TextFormFieldStyleHelper on CustomTextFormField {}
+extension TextFormFieldStyleHelper on CustomTextFormField {
+  static OutlineInputBorder get outlineGray => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appTheme.gray30001,
+          width: 1,
+        ),
+      );
+
+  static OutlineInputBorder get outlineBlueGray => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          // ignore: deprecated_member_use
+          color: appTheme.blueGray900.withOpacity(0.8),
+          width: 1,
+        ),
+      );
+
+  static OutlineInputBorder get fillBlueGray => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.h),
+        borderSide: BorderSide.none,
+      );
+
+  static OutlineInputBorder get outlineGrayTL81 => OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.h),
+        borderSide: BorderSide(
+          color: appTheme.gray90001.withOpacity(0.18),
+          width: 1,
+        ),
+      );
+}
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -41,13 +71,13 @@ class CustomTextFormField extends StatelessWidget {
   final Alignment? alignment;
   final double? width;
   final BoxDecoration? boxDecoration;
-  final TextEditingController? scrollPadding;
+  final EdgeInsets? scrollPadding;
   final TextEditingController? controller;
   final FocusNode? focusNode;
-  final bool? autofocus;
+  final bool autofocus;
   final TextStyle? textStyle;
-  final bool? obscureText;
-  final bool? readOnly;
+  final bool obscureText;
+  final bool readOnly;
   final VoidCallback? onTap;
   final TextInputAction? textInputAction;
   final TextInputType? textInputType;
@@ -62,7 +92,7 @@ class CustomTextFormField extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final InputBorder? borderDecoration;
   final Color? fillColor;
-  final bool? filled;
+  final bool filled;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final List<TextInputFormatter>? inputFormatters;
@@ -73,7 +103,8 @@ class CustomTextFormField extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: textFormFieldWidget(context))
+            child: textFormFieldWidget(context),
+          )
         : textFormFieldWidget(context);
   }
 
@@ -81,7 +112,7 @@ class CustomTextFormField extends StatelessWidget {
         width: width ?? double.maxFinite,
         decoration: boxDecoration,
         child: TextFormField(
-          scrollPadding:
+          scrollPadding: scrollPadding ??
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           controller: controller,
           focusNode: focusNode,
@@ -92,10 +123,10 @@ class CustomTextFormField extends StatelessWidget {
               FocusManager.instance.primaryFocus?.unfocus();
             }
           },
-          autofocus: autofocus!,
+          autofocus: autofocus,
           style: textStyle ?? CustomTextStyles.titleSmallBlack90001,
-          obscureText: obscureText!,
-          readOnly: readOnly!,
+          obscureText: obscureText,
+          readOnly: readOnly,
           onTap: onTap,
           textInputAction: textInputAction,
           keyboardType: keyboardType ?? textInputType,
@@ -158,9 +189,7 @@ class CustomTextFormField extends StatelessWidget {
                 ))
             .copyWith(
           borderSide: BorderSide(
-            color: appTheme.redA200.withValues(
-              alpha: 0.8,
-            ),
+            color: appTheme.redA200.withOpacity(0.8),
             width: 1,
           ),
         ),
@@ -175,9 +204,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
         ),
         errorStyle: TextStyle(
-          color: appTheme.redA200.withValues(
-            alpha: 0.8,
-          ),
+          color: appTheme.redA200.withOpacity(0.8),
           fontSize: 12.fSize,
         ),
       );

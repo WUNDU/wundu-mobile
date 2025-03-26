@@ -2,17 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
 
 class CustomButtonStyles {
-// Filled button style
-  static ButtonStyle get fillDeepOrange => ElevatedButton.styleFrom(
-        backgroundColor: appTheme.deepOrange300.withValues(
-          alpha: 0.1,
+  // Filled button style
+  static ButtonStyle get fillBlue => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.blue800,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14.h),
         ),
+        elevation: 0,
+        padding: EdgeInsets.zero,
+      );
+
+  static ButtonStyle get fillBlueGray => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.blueGray70001.withAlpha(25),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.h),
         ),
         elevation: 0,
         padding: EdgeInsets.zero,
       );
+
+  static ButtonStyle get fillDeepOrange => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.deepOrange300.withAlpha(25),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.h),
+        ),
+        elevation: 0,
+        padding: EdgeInsets.zero,
+      );
+
   static ButtonStyle get fillGrayTL8 => ElevatedButton.styleFrom(
         backgroundColor: appTheme.gray90001,
         shape: RoundedRectangleBorder(
@@ -21,6 +38,7 @@ class CustomButtonStyles {
         elevation: 0,
         padding: EdgeInsets.zero,
       );
+
   static ButtonStyle get fillGreen => ElevatedButton.styleFrom(
         backgroundColor: appTheme.green100,
         shape: RoundedRectangleBorder(
@@ -29,16 +47,34 @@ class CustomButtonStyles {
         elevation: 0,
         padding: EdgeInsets.zero,
       );
-  static ButtonStyle get fillWhiteA => ElevatedButton.styleFrom(
-        backgroundColor: appTheme.whiteA700.withValues(
-          alpha: 0.1,
-        ),
+
+  static ButtonStyle get fillIndigoA => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.indigoA200.withAlpha(25),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.h),
         ),
         elevation: 0,
         padding: EdgeInsets.zero,
       );
+
+  static ButtonStyle get fillTeal => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.teal300.withAlpha(25),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.h),
+        ),
+        elevation: 0,
+        padding: EdgeInsets.zero,
+      );
+
+  static ButtonStyle get fillWhiteA => ElevatedButton.styleFrom(
+        backgroundColor: appTheme.whiteA700.withAlpha(25),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.h),
+        ),
+        elevation: 0,
+        padding: EdgeInsets.zero,
+      );
+
   static ButtonStyle get fillYellowA => ElevatedButton.styleFrom(
         backgroundColor: appTheme.yellowA700,
         shape: RoundedRectangleBorder(
@@ -47,9 +83,8 @@ class CustomButtonStyles {
         elevation: 0,
         padding: EdgeInsets.zero,
       );
-// Outline button stvle
 
-// Outline button style
+  // Outline button style
   static ButtonStyle get outlineGray => OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
         side: BorderSide(
@@ -61,6 +96,7 @@ class CustomButtonStyles {
         ),
         padding: EdgeInsets.zero,
       );
+
   static ButtonStyle get outlineGrayTL6 => OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
         side: BorderSide(
@@ -72,12 +108,14 @@ class CustomButtonStyles {
         ),
         padding: EdgeInsets.zero,
       );
-// text button style
+
+  // Text button style
   static ButtonStyle get none => ButtonStyle(
-      backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
-      elevation: WidgetStateProperty.all<double>(0),
-      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
-      side: WidgetStateProperty.all<BorderSide>(
-        BorderSide(color: Colors.transparent),
-      ));
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+        elevation: WidgetStateProperty.all<double>(0),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
+        side: WidgetStateProperty.all<BorderSide>(
+          BorderSide(color: Colors.transparent),
+        ),
+      );
 }

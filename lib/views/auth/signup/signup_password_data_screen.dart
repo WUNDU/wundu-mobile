@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class SignupPasswordDataScreen extends StatelessWidget {
   SignupPasswordDataScreen({super.key});

@@ -5,8 +5,8 @@ import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/auth/login/bloc/login_screen_bloc.dart';
 import 'package:wundu/views/auth/login/models/login_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -279,7 +279,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 TextSpan(
                   text: " Crie uma conta",
-                  style: CustomTextStyles.labelLargePoppinsBlack90001SemiBold_1,
+                  style: CustomTextStyles.labelLargePoppinsBlack90001SemiBold,
                 ),
               ],
             ),

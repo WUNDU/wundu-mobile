@@ -5,7 +5,7 @@ import 'package:wundu/views/card/add_card_manual/bloc/add_card_manual_bloc.dart'
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
 import 'package:wundu/views/card/add_card_manual/widgets/confirm_dialog.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class AddCardManualScreen extends StatefulWidget {
   const AddCardManualScreen({super.key});
