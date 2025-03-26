@@ -217,6 +217,9 @@ class LoginScreen extends StatelessWidget {
                               .add(PasswordValidationErrorEvent());
                           return "Por favor insere a sua senha";
                         }
+                        if (value.length < 8) {
+                          return "A senha deve ter pelo menos 8 caracteres";
+                        }
                         return null;
                       },
                       onChanged: (value) {

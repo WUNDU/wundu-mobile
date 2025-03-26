@@ -127,8 +127,8 @@ class SignupPasswordDataScreen extends StatelessWidget {
                                                   value.isEmpty) {
                                                 return "Por favor, digite sua senha";
                                               }
-                                              if (value.length < 6) {
-                                                return "A senha deve ter pelo menos 6 caracteres";
+                                              if (value.length < 8) {
+                                                return "A senha deve ter pelo menos 8 caracteres";
                                               }
                                               return null;
                                             },
@@ -183,6 +183,9 @@ class SignupPasswordDataScreen extends StatelessWidget {
                                               if (value !=
                                                   passwordController?.text) {
                                                 return "As senhas não correspondem";
+                                              }
+                                              if (value.length < 8) {
+                                                return "A senha deve ter pelo menos 8 caracteres";
                                               }
                                               return null;
                                             },

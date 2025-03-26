@@ -34,4 +34,5 @@ class ImageConstant {
   static String arrowRotate = '$imagePath/arrow-rotate.png';
   static String arrowRight = '$imagePath/arrow-right.png';
   static String transfer = '$imagePath/transfer.png';
+  static String roundDone = '$imagePath/round-done.png';
 }
