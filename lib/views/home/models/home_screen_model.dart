@@ -1,7 +1,7 @@
 // home_screen_model.dart
 import 'package:equatable/equatable.dart';
 import 'package:wundu/views/home/models/home_screen_item_model.dart';
-import 'package:wundu/views/home/models/transaction_model.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 
 class HomeScreenModel extends Equatable {
   const HomeScreenModel({

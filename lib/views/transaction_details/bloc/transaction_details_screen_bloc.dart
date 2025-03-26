@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
-import 'package:wundu/views/home/models/transaction_model.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import '../../../core/app_export.dart';
 import '../models/transaction_details_screen_model.dart';
 part 'transaction_details_screen_event.dart';
@@ -23,6 +23,9 @@ class TransactionDetailsScreenBloc
 
     emit(
       state.copyWith(
+        transactionDetailsScreenModelObj: state.transactionDetailsScreenModelObj
+            ?.copyWith(
+                transaction: transaction), // Armazenar a transação no modelo
         dateEditController: TextEditingController(
           text: transaction != null
               ? DateFormat('dd MMM yyyy').format(transaction.date)

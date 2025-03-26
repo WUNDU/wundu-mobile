@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/views/transaction_details/bloc/transaction_details_screen_bloc.dart';
 import 'package:wundu/views/transaction_details/models/transaction_details_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
@@ -12,10 +13,13 @@ class TransactionDetailsScreen extends StatelessWidget {
   const TransactionDetailsScreen({super.key});
 
   static Widget builder(BuildContext context) {
+    final TransactionModel? transaction =
+        ModalRoute.of(context)?.settings.arguments as TransactionModel?;
     return BlocProvider<TransactionDetailsScreenBloc>(
       create: (context) => TransactionDetailsScreenBloc(
         TransactionDetailsScreenState(
-          transactionDetailsScreenModelObj: TransactionDetailsScreenModel(),
+          transactionDetailsScreenModelObj:
+              TransactionDetailsScreenModel(transaction: transaction),
         ),
       )..add(TransactionDetailsScreenInitialEvent()),
       child: TransactionDetailsScreen(),

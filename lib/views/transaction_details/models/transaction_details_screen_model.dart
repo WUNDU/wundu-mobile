@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
-import 'package:wundu/views/home/models/transaction_model.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 
 // ignore: must_be_immutable
 class TransactionDetailsScreenModel extends Equatable {

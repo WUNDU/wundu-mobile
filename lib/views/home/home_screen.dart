@@ -5,7 +5,7 @@ import 'package:wundu/core/session/activity_tracker.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/home/bloc/home_screen_bloc.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
-import 'package:wundu/views/home/models/transaction_model.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 import 'package:wundu/widgets/custom_icon_button.dart';
 import 'package:wundu/widgets/custom_outlined_button.dart';

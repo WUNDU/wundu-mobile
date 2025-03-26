@@ -1,10 +1,10 @@
 // home_screen_bloc.dart
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/core/mocks/category_mocks.dart';
+import 'package:wundu/core/mocks/transaction_mocks.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
 import 'package:wundu/views/home/models/home_screen_item_model.dart';
-import 'package:wundu/views/home/models/transaction_model.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
