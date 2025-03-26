@@ -28,6 +28,7 @@ extension TextFormFieldStyleHelper on CustomTextFormField {
   static OutlineInputBorder get outlineGrayTL81 => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.h),
         borderSide: BorderSide(
+          // ignore: deprecated_member_use
           color: appTheme.gray90001.withOpacity(0.18),
           width: 1,
         ),
@@ -189,6 +190,7 @@ class CustomTextFormField extends StatelessWidget {
                 ))
             .copyWith(
           borderSide: BorderSide(
+            // ignore: deprecated_member_use
             color: appTheme.redA200.withOpacity(0.8),
             width: 1,
           ),
@@ -204,6 +206,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
         ),
         errorStyle: TextStyle(
+          // ignore: deprecated_member_use
           color: appTheme.redA200.withOpacity(0.8),
           fontSize: 12.fSize,
         ),

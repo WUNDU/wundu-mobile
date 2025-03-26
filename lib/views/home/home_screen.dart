@@ -291,7 +291,10 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               child: InkWell(
                 borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
                 onTap: () {
-                  // Adicione a ação do botão aqui
+                  Navigator.pushNamed(
+                      context,
+                      AppRoutes
+                          .transactionDetailsScreen); // Replace 'targetScreen' with the actual route name
                 },
                 // ignore: deprecated_member_use
                 splashColor: Colors.grey.withOpacity(0.3),

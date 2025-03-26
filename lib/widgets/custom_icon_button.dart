@@ -5,12 +5,14 @@ extension IconButtonStyleHelper on CustomIconButton {
   static BoxDecoration get outlineIndigoA => BoxDecoration(
         borderRadius: BorderRadius.circular(20.h),
         border: Border.all(
+          // ignore: deprecated_member_use
           color: appTheme.indigoA200.withOpacity(0.46),
           width: 1.h,
         ),
       );
 
   static BoxDecoration get fillBlueGray => BoxDecoration(
+        // ignore: deprecated_member_use
         color: appTheme.blueGray900.withOpacity(0.39),
         borderRadius: BorderRadius.circular(20.h),
       );

@@ -170,7 +170,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                 onTapBtnQlementineone(context);
               },
               child: CustomImageView(
-                imagePath: ImageConstant.calendar,
+                imagePath: ImageConstant.close,
               ),
             ),
           ),
@@ -184,7 +184,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 34.h,
       width: 176.h,
-      text: "lbl_transfer_ncia",
+      text: "Transferência",
       buttonStyle: CustomButtonStyles.fillTeal,
       buttonTextStyle: CustomTextStyles.bodyLargeTeal300,
     );
@@ -204,7 +204,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               height: 34.h,
               width: 34.h,
               padding: EdgeInsets.all(4.h),
-              decoration: IconButtonStyleHelper.fillBlueGrayTL16,
+              decoration: IconButtonStyleHelper.fillBlueGrayTL10,
               child: CustomImageView(
                 imagePath: ImageConstant.download,
               ),
@@ -220,7 +220,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 32.h,
       width: 128.h,
-      text: "1bl_100_000_00kz",
+      text: "100.000,00Kz",
       buttonStyle: CustomButtonStyles.fillIndigoA,
       buttonTextStyle: CustomTextStyles.titleMediumIndigoA200,
     );
@@ -231,7 +231,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 32.h,
       width: 130.h,
-      text: "1b1_300_000_00kz",
+      text: "300.000,00Kz",
       buttonStyle: CustomButtonStyles.fillTeal,
       buttonTextStyle: CustomTextStyles.titleMediumTeal300,
     );
@@ -250,7 +250,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "msg_valor_acreditado",
+                  "Valor Acreditado",
                   style: CustomTextStyles.titleSmallInter1Bluegray900,
                 ),
                 _buildCreditedValueButton(context),
@@ -263,7 +263,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "msg_valor_ap_s_movimento",
+                  "Valor após movimento",
                   style: CustomTextStyles.titleSmallInter1Bluegray900,
                 ),
                 _buildPostMovementValueButton(context),
@@ -282,35 +282,16 @@ class TransactionDetailsScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 6.h),
       child: Row(
         children: [
-          BlocBuilder<TransactionDetailsScreenBloc,
-              TransactionDetailsScreenState>(
-            builder: (context, state) {
-              return SizedBox(
-                width: 24.h,
-                child: EasyDateTimeLine(
-                  initialDate:
-                      state.selectedDatesFromCalendar ?? DateTime.now(),
-                  locale: 'en_US',
-                  headerProps: EasyHeaderProps(
-                    dateFormatter: DateFormatter.fullDateDMY(),
-                    monthPickerType: MonthPickerType.switcher,
-                    showHeader: false,
-                  ),
-                  dayProps: EasyDayProps(
-                    width: 24.h,
-                    height: 24.h,
-                  ),
-                  onDateChange: (selectedDate) {
-                    state.selectedDatesFromCalendar = selectedDate;
-                  },
-                ),
-              );
-            },
+          CustomImageView(
+            imagePath: ImageConstant
+                .calendar, // Replace with the appropriate image path
+            height: 24.h,
+            width: 24.h,
           ),
           Padding(
             padding: EdgeInsets.only(left: 12.h),
             child: Text(
-              "1bl_data_e_hora",
+              "Data e Hora",
               style: CustomTextStyles.titleMediumBluegray900SemiBold_1,
             ),
           ),
@@ -326,9 +307,9 @@ class TransactionDetailsScreen extends StatelessWidget {
       selector: (state) => state.dateEditController,
       builder: (context, dateEditController) {
         return CustomTextFormField(
-          width: 134.h,
+          width: 250.h,
           controller: dateEditController,
-          hintText: "1bl_12_jan_de_2025",
+          hintText: "12 jan de 2025",
           hintStyle: CustomTextStyles.titleMediumBluegray900SemiBold,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 12.h,
@@ -352,9 +333,9 @@ class TransactionDetailsScreen extends StatelessWidget {
       builder: (context, timeEditController) {
         return CustomTextFormField(
           readOnly: true,
-          width: 64.h,
+          width: 70.h,
           controller: timeEditController,
-          hintText: "1b1_12_32",
+          hintText: "12:32",
           hintStyle: CustomTextStyles.titleMediumBluegray700,
           textInputAction: TextInputAction.done,
           contentPadding: EdgeInsets.symmetric(
@@ -386,7 +367,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "1bl_data",
+                  "Data",
                   style: CustomTextStyles.titleSmallInterGray90001,
                 ),
                 _buildDateEdit(context),
@@ -401,7 +382,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "1bl_hora",
+                  "Hora",
                   style: CustomTextStyles.titleSmallInterGray90001,
                 ),
                 _buildTimeEdit(context),
@@ -418,7 +399,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 32.h,
       width: 112.h,
-      text: "1bl_287805888",
+      text: "287805888",
       margin: EdgeInsets.only(left: 6.h),
       buttonStyle: CustomButtonStyles.fillBlueGray,
       buttonTextStyle: CustomTextStyles.titleMediumBluegray700,
@@ -429,12 +410,12 @@ class TransactionDetailsScreen extends StatelessWidget {
   Widget buildDefineCategoryButton(BuildContext context) {
     return CustomElevatedButton(
       height: 56.h,
-      text: "msg_definir_categ_ria",
+      text: "Definir Categoria",
       margin: EdgeInsets.only(bottom: 12.h),
       leftIcon: Container(
         margin: EdgeInsets.only(right: 14.h),
         child: CustomImageView(
-          imagePath: ImageConstant.close,
+          imagePath: ImageConstant.circlePlusWhite,
           height: 32.h,
           width: 32.h,
           fit: BoxFit.contain,
