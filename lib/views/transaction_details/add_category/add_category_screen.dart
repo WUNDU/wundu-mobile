@@ -3,6 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/transaction_details/add_category/models/add_category_model.dart';
+import 'package:wundu/views/transaction_details/add_category/widget/confirm_dialog.dart';
 import 'package:wundu/views/transaction_details/add_category/widget/view_category_item_widget.dart';
 import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/widgets/app_bar/custom_app_bar.dart';
@@ -259,9 +260,13 @@ class AddCategoryScreen extends StatelessWidget {
     final transaction =
         ModalRoute.of(context)?.settings.arguments as TransactionModel?;
     if (transaction != null && selectedCategory != null) {
-      final updatedTransaction =
-          transaction.copyWith(category: selectedCategory);
-      Navigator.pop(context, updatedTransaction);
+      // Show confirmation dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog.builder(context);
+        },
+      );
     } else {
       Navigator.pop(context);
     }
