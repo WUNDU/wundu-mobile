@@ -14,7 +14,7 @@ class TransactionModel extends Equatable {
   final String cardId;
   final String? category; // Nova propriedade para categoria
 
-  TransactionModel({
+  const TransactionModel({
     required this.id,
     required this.title,
     required this.description,

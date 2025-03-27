@@ -181,8 +181,7 @@ class TransactionDetailsScreen extends StatelessWidget {
         bloc.state.transactionDetailsScreenModelObj?.transaction);
 
     // Determina se é crédito (payment) ou débito
-    final isCredit =
-        transaction?.type == "transfer" || transaction?.type == "deposit";
+    final isCredit = transaction?.type == "deposit";
 
     return SizedBox(
       width: double.maxFinite,
@@ -222,8 +221,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
         bloc.state.transactionDetailsScreenModelObj?.transaction);
 
-    final isCredit =
-        transaction?.type == "transfer" || transaction?.type == "deposit";
+    final isCredit = transaction?.type == "deposit";
 
     return CustomElevatedButton(
       height: 32.h,
@@ -243,8 +241,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
         bloc.state.transactionDetailsScreenModelObj?.transaction);
 
-    final isCredit =
-        transaction?.type == "transfer" || transaction?.type == "deposit";
+    final isCredit = transaction?.type == "deposit";
 
     return CustomElevatedButton(
       height: 32.h,
@@ -264,8 +261,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
         bloc.state.transactionDetailsScreenModelObj?.transaction);
 
-    final isCredit =
-        transaction?.type == "transfer" || transaction?.type == "deposit";
+    final isCredit = transaction?.type == "deposit";
 
     return Container(
       width: double.maxFinite,
