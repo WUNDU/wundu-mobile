@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/mocks/card_mocks.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
 import 'package:wundu/views/card/add_card_manual/utils/card_manager.dart';
 
@@ -73,7 +74,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
     AddCardSubmitEvent event,
     Emitter<AddCardManualState> emit,
   ) async {
-    // Primeiro valida todos os campos
+    // Validações iniciais
     final isCardNumberValid = _validateCardNumber(event.cardNumber);
     final isExpiryDateValid = _validateExpiryDate(event.expiryDate);
     final isCardNameValid = event.cardName.isNotEmpty;
@@ -91,11 +92,40 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
-    // Só então inicia o loading e tenta adicionar
+    // Verifica se o cartão está na lista de mocks
+    final mockCards = CardMocks.getMockCards();
+    final matchingCard = mockCards.firstWhere(
+      (card) => card.cardNumber == event.cardNumber,
+      orElse: () => AddCardManualModel(
+        cardNumber: '',
+        expiryDate: '',
+        cardName: '',
+      ),
+    );
+
+    if (matchingCard.cardNumber!.isEmpty) {
+      emit(state.copyWith(
+        isLoading: false,
+        errorMessage: "Este cartão não é válido ou não está registrado.",
+      ));
+      return;
+    }
+
+    // Verifica se a data de expiração coincide com o mock
+    if (matchingCard.expiryDate != event.expiryDate) {
+      emit(state.copyWith(
+        isLoading: false,
+        errorMessage:
+            "A data de expiração não corresponde ao cartão registrado.",
+      ));
+      return;
+    }
+
+    // Inicia o processo de adição
     emit(state.copyWith(isLoading: true));
 
     try {
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       final card = AddCardManualModel(
         cardNumber: event.cardNumber,
@@ -106,7 +136,6 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         isValidCardName: true,
       );
 
-      // Verifica se o cartão já existe antes de adicionar
       if (!CardManager().cards.any((c) => c.cardNumber == card.cardNumber)) {
         CardManager().addCard(card);
         emit(state.copyWith(

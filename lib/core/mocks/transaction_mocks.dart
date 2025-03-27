@@ -4,9 +4,8 @@ import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 
 class TransactionMocks {
   static List<TransactionModel> getMockTransactions(String? cardId) {
-    if (cardId == null) return []; // Retorna vazio se não houver cartão
+    if (cardId == null) return [];
 
-    // Gera transações específicas para o cartão com base no cardId
     return [
       TransactionModel(
         id: "1-$cardId",
@@ -15,6 +14,7 @@ class TransactionMocks {
         amount: 150.0,
         date: DateTime.now(),
         type: "transfer",
+        category: "Transporte", // Adicionada categoria
         backgroundColor: appTheme.yellow100,
         iconPath: ImageConstant.transfer,
         buttonStyle: CustomButtonStyles.fillTeal,
@@ -27,6 +27,7 @@ class TransactionMocks {
         amount: 75.5,
         date: DateTime.now().subtract(const Duration(days: 1)),
         type: "payment",
+        category: "Saúde", // Adicionada categoria
         backgroundColor: appTheme.deepOrangeA40019,
         iconPath: ImageConstant.arrowDown,
         buttonStyle: CustomButtonStyles.fillDeepOrange,
@@ -39,6 +40,7 @@ class TransactionMocks {
         amount: 200.0,
         date: DateTime.now().subtract(const Duration(days: 2)),
         type: "withdrawal",
+        category: "Lazer", // Adicionada categoria
         backgroundColor: appTheme.deepOrangeA40019,
         iconPath: ImageConstant.arrowDown,
         buttonStyle: CustomButtonStyles.fillDeepOrange,
@@ -51,6 +53,7 @@ class TransactionMocks {
         amount: 500.0,
         date: DateTime.now().subtract(const Duration(days: 3)),
         type: "deposit",
+        category: null, // Depósitos podem não ter categoria
         backgroundColor: appTheme.tealA2004c,
         iconPath: ImageConstant.arrowUp,
         buttonStyle: CustomButtonStyles.fillTeal,

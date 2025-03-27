@@ -13,18 +13,38 @@ class WunduBloc extends Bloc<WunduEvent, WunduState> {
   }
 
   void _onInitialEvent(WunduInitialEvent event, Emitter<WunduState> emit) {
-    final transactions = TransactionMocks.getMockTransactions("5002940260147404");
-    final categorizedTransactions = transactions.where((t) => t.category != null).toList();
+    final transactions =
+        TransactionMocks.getMockTransactions("5002940260147404");
+    final categorizedTransactions = transactions
+        .where((t) => t.category != null && t.type != "deposit")
+        .toList();
     final categoryTotals = _calculateCategoryTotals(categorizedTransactions);
 
-    emit(WunduState(wunduModelObj: WunduModel(categoryTotals: categoryTotals)));
+    // Encontrar a categoria que mais gasta
+    String? topCategory;
+    double maxAmount = 0.0;
+    categoryTotals.forEach((category, amount) {
+      if (amount > maxAmount) {
+        maxAmount = amount;
+        topCategory = category;
+      }
+    });
+
+    emit(WunduState(
+        wunduModelObj: WunduModel(
+      categoryTotals: categoryTotals,
+      topCategory: topCategory,
+      topCategoryAmount: maxAmount,
+    )));
   }
 
-  Map<String, double> _calculateCategoryTotals(List<TransactionModel> transactions) {
+  Map<String, double> _calculateCategoryTotals(
+      List<TransactionModel> transactions) {
     final Map<String, double> totals = {};
     for (var transaction in transactions) {
       if (transaction.category != null) {
-        totals[transaction.category!] = (totals[transaction.category!] ?? 0) + transaction.amount;
+        totals[transaction.category!] =
+            (totals[transaction.category!] ?? 0) + transaction.amount;
       }
     }
     return totals;

@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class TransactionModel {
+class TransactionModel extends Equatable {
   final String id;
   final String title;
   final String description;
@@ -58,4 +59,19 @@ class TransactionModel {
       category: category ?? this.category,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        amount,
+        date,
+        type,
+        backgroundColor,
+        iconPath,
+        buttonStyle,
+        cardId,
+        category,
+      ];
 }
