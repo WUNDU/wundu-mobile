@@ -417,6 +417,9 @@ class TransactionDetailsScreen extends StatelessWidget {
       ),
       buttonStyle: CustomButtonStyles.fillYellowA,
       buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
+      onPressed: () {
+        NavigatorService.pushNamed(AppRoutes.addCategoryScreen);
+      },
     );
   }
 
