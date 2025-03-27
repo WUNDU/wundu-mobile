@@ -1,28 +1,38 @@
 part of 'add_category_bloc.dart';
 
-/// Abstract class for all events that can be dispatched from the
-/// AddCategory widget.
-
-/// Events must be immutable and implement the [Equatable] interface.
 abstract class AddCategoryEvent extends Equatable {
+  const AddCategoryEvent();
+
   @override
   List<Object?> get props => [];
 }
 
-/// Event that is dispatched when the AddCategory widget is initialized.
-class AddCategoryInitialEvent extends AddCategoryEvent {
-  @override
-  List<Object?> get props => [];
-}
+class AddCategoryInitialEvent extends AddCategoryEvent {}
 
-/// Event for changing ChipView selection.
-// ignore_for_file: must_be_immutable
 class UpdateChipViewEvent extends AddCategoryEvent {
-  UpdateChipViewEvent({required this.index, this.isSelected});
-
   final int index;
   final bool? isSelected;
 
+  const UpdateChipViewEvent({required this.index, this.isSelected});
+
   @override
   List<Object?> get props => [index, isSelected];
+}
+
+class UpdateDescriptionEvent extends AddCategoryEvent {
+  final String description;
+
+  const UpdateDescriptionEvent(this.description);
+
+  @override
+  List<Object?> get props => [description];
+}
+
+class SaveCategoryEvent extends AddCategoryEvent {
+  final Function(String?) onCategorySaved;
+
+  const SaveCategoryEvent(this.onCategorySaved);
+
+  @override
+  List<Object?> get props => [onCategorySaved];
 }

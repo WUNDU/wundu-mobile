@@ -318,6 +318,7 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   /// Botão "Definir Categoria"
+// transaction_details_screen.dart
   Widget buildDefineCategoryButton(BuildContext context) {
     return CustomElevatedButton(
       height: 56.h,
@@ -334,8 +335,22 @@ class TransactionDetailsScreen extends StatelessWidget {
       ),
       buttonStyle: CustomButtonStyles.fillYellowA,
       buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
-      onPressed: () {
-        NavigatorService.pushNamed(AppRoutes.addCategoryScreen);
+      onPressed: () async {
+        final updatedTransaction = await NavigatorService.pushNamed(
+          AppRoutes.addCategoryScreen,
+          arguments: context
+              .read<TransactionDetailsScreenBloc>()
+              .state
+              .transactionDetailsScreenModelObj
+              ?.transaction,
+        );
+        if (updatedTransaction != null &&
+            updatedTransaction is TransactionModel) {
+          context.read<TransactionDetailsScreenBloc>().add(
+                TransactionDetailsScreenInitialEvent(
+                    transaction: updatedTransaction),
+              );
+        }
       },
     );
   }

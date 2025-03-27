@@ -1,30 +1,38 @@
 part of 'add_category_bloc.dart';
 
-/// Represents the state of AddCategory in the application.
-// ignore: must_be_immutable
 class AddCategoryState extends Equatable {
-  AddCategoryState({
-    this.descriptionController,
-    this.addCategoryModelObj,
-  });
+  final AddCategoryModel? addCategoryModelObj;
+  final TextEditingController? descriptionController;
+  final bool isCategorySelected; // Controla se uma categoria foi selecionada
+  final bool isDescriptionFilled; // Controla se a descrição foi preenchida
 
-  TextEditingController? descriptionController;
-  AddCategoryModel? addCategoryModelObj;
+  const AddCategoryState({
+    this.addCategoryModelObj,
+    this.descriptionController,
+    this.isCategorySelected = false,
+    this.isDescriptionFilled = false,
+  });
 
   @override
   List<Object?> get props => [
-        descriptionController,
         addCategoryModelObj,
+        descriptionController,
+        isCategorySelected,
+        isDescriptionFilled,
       ];
 
   AddCategoryState copyWith({
-    TextEditingController? descriptionController,
     AddCategoryModel? addCategoryModelObj,
+    TextEditingController? descriptionController,
+    bool? isCategorySelected,
+    bool? isDescriptionFilled,
   }) {
     return AddCategoryState(
+      addCategoryModelObj: addCategoryModelObj ?? this.addCategoryModelObj,
       descriptionController:
           descriptionController ?? this.descriptionController,
-      addCategoryModelObj: addCategoryModelObj ?? this.addCategoryModelObj,
+      isCategorySelected: isCategorySelected ?? this.isCategorySelected,
+      isDescriptionFilled: isDescriptionFilled ?? this.isDescriptionFilled,
     );
   }
 }

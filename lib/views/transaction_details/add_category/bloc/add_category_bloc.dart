@@ -11,6 +11,8 @@ class AddCategoryBloc extends Bloc<AddCategoryEvent, AddCategoryState> {
   AddCategoryBloc(super.initialState) {
     on<AddCategoryInitialEvent>(_onInitialize);
     on<UpdateChipViewEvent>(_updateChipView);
+    on<UpdateDescriptionEvent>(_updateDescription);
+    on<SaveCategoryEvent>(_saveCategory);
   }
 
   Future<void> _onInitialize(
@@ -20,6 +22,8 @@ class AddCategoryBloc extends Bloc<AddCategoryEvent, AddCategoryState> {
     emit(
       state.copyWith(
         descriptionController: TextEditingController(),
+        isCategorySelected: false,
+        isDescriptionFilled: false,
       ),
     );
     emit(
@@ -37,28 +41,60 @@ class AddCategoryBloc extends Bloc<AddCategoryEvent, AddCategoryState> {
   ) {
     List<ViewCategoryItemModel> newList = List<ViewCategoryItemModel>.from(
         state.addCategoryModelObj!.viewCategoryItemList);
-    newList[event.index] = newList[event.index].copyWith(
-      isSelected: event.isSelected,
-    );
+
+    // Desmarcar todas as categorias
+    for (int i = 0; i < newList.length; i++) {
+      newList[i] = newList[i].copyWith(isSelected: false);
+    }
+
+    // Selecionar a categoria clicada
+    if (event.isSelected == true) {
+      newList[event.index] = newList[event.index].copyWith(isSelected: true);
+    }
 
     emit(
       state.copyWith(
         addCategoryModelObj: state.addCategoryModelObj?.copyWith(
           viewCategoryItemList: newList,
         ),
+        isCategorySelected: event.isSelected == true,
       ),
     );
   }
 
-  List<ViewCategoryItemModel> fillViewCategoryItemList() {
-    return [
-      ViewCategoryItemModel(transporteOne: "Transporte"),
-      ViewCategoryItemModel(transporteOne: "Alimentão"),
-      ViewCategoryItemModel(transporteOne: "Entretenimento"),
-      ViewCategoryItemModel(transporteOne: "Saúde"),
-      ViewCategoryItemModel(transporteOne: "Educação"),
-      ViewCategoryItemModel(transporteOne: "Lazer"),
-      ViewCategoryItemModel(transporteOne: "Outros"),
-    ];
+  void _updateDescription(
+    UpdateDescriptionEvent event,
+    Emitter<AddCategoryState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        isDescriptionFilled: event.description.isNotEmpty,
+      ),
+    );
   }
+
+  void _saveCategory(
+    SaveCategoryEvent event,
+    Emitter<AddCategoryState> emit,
+  ) {
+    final selectedCategory = state.addCategoryModelObj?.viewCategoryItemList
+        .firstWhere((item) => item.isSelected ?? false,
+            orElse: () => ViewCategoryItemModel())
+        .transporteOne;
+
+    event.onCategorySaved(selectedCategory);
+    emit(state.copyWith());
+  }
+}
+
+List<ViewCategoryItemModel> fillViewCategoryItemList() {
+  return [
+    ViewCategoryItemModel(transporteOne: "Transporte"),
+    ViewCategoryItemModel(transporteOne: "Alimentão"),
+    ViewCategoryItemModel(transporteOne: "Entretenimento"),
+    ViewCategoryItemModel(transporteOne: "Saúde"),
+    ViewCategoryItemModel(transporteOne: "Educação"),
+    ViewCategoryItemModel(transporteOne: "Lazer"),
+    ViewCategoryItemModel(transporteOne: "Outros"),
+  ];
 }

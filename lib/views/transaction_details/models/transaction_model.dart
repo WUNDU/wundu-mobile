@@ -10,7 +10,8 @@ class TransactionModel {
   final Color backgroundColor;
   final String? iconPath;
   final ButtonStyle buttonStyle;
-  final String cardId; // Novo campo para identificar o cartão
+  final String cardId;
+  final String? category; // Nova propriedade para categoria
 
   TransactionModel({
     required this.id,
@@ -21,8 +22,9 @@ class TransactionModel {
     required this.type,
     required this.backgroundColor,
     required this.buttonStyle,
-    required this.cardId, // Campo obrigatório
+    required this.cardId,
     this.iconPath,
+    this.category, // Pode ser null inicialmente
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,23 @@ class TransactionModel {
       backgroundColor: Color(json['backgroundColor']),
       iconPath: json['iconPath'],
       cardId: json['cardId'],
+      category: json['category'],
+    );
+  }
+
+  TransactionModel copyWith({String? category}) {
+    return TransactionModel(
+      id: id,
+      title: title,
+      description: description,
+      amount: amount,
+      date: date,
+      type: type,
+      backgroundColor: backgroundColor,
+      iconPath: iconPath,
+      buttonStyle: buttonStyle,
+      cardId: cardId,
+      category: category ?? this.category,
     );
   }
 }

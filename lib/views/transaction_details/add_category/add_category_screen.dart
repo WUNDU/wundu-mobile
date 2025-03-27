@@ -4,6 +4,7 @@ import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/transaction_details/add_category/models/add_category_model.dart';
 import 'package:wundu/views/transaction_details/add_category/widget/view_category_item_widget.dart';
+import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/widgets/app_bar/custom_app_bar.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 import 'package:wundu/widgets/custom_icon_button.dart';
@@ -65,9 +66,7 @@ class AddCategoryScreen extends StatelessWidget {
                         SizedBox(
                           width: double.maxFinite,
                           child: Divider(
-                            color: appTheme.gray30003.withValues(
-                              alpha: 0.4,
-                            ),
+                            color: appTheme.gray30003.withValues(alpha: 0.4),
                             indent: 6.h,
                             endIndent: 6.h,
                           ),
@@ -75,20 +74,33 @@ class AddCategoryScreen extends StatelessWidget {
                         SizedBox(height: 48.h),
                         _buildCategorySection(context),
                         SizedBox(height: 18.h),
-                        _buildDescriptionSection(context),
-                        SizedBox(height: 110.h),
-                        CustomElevatedButton(
-                          height: 56.h,
-                          text: "Guardar",
-                          margin: EdgeInsets.only(left: 2.h),
-                          buttonStyle: CustomButtonStyles.fillYellowA,
-                          buttonTextStyle:
-                              CustomTextStyles.titleMediumWhiteA700SemiBold,
-                          onPressed: () {
-                            onTapGuardar(context);
+                        BlocSelector<AddCategoryBloc, AddCategoryState, bool>(
+                          selector: (state) => state.isCategorySelected,
+                          builder: (context, isCategorySelected) {
+                            return isCategorySelected
+                                ? _buildDescriptionSection(context)
+                                : const SizedBox.shrink();
                           },
                         ),
                         SizedBox(height: 18.h),
+                        BlocSelector<AddCategoryBloc, AddCategoryState, bool>(
+                          selector: (state) => state.isDescriptionFilled,
+                          builder: (context, isDescriptionFilled) {
+                            return isDescriptionFilled
+                                ? CustomElevatedButton(
+                                    height: 56.h,
+                                    text: "Guardar",
+                                    margin: EdgeInsets.only(left: 2.h),
+                                    buttonStyle: CustomButtonStyles.fillYellowA,
+                                    buttonTextStyle: CustomTextStyles
+                                        .titleMediumWhiteA700SemiBold,
+                                    onPressed: () {
+                                      onTapGuardar(context);
+                                    },
+                                  )
+                                : const SizedBox.shrink();
+                          },
+                        ),
                         SizedBox(height: 42.h),
                       ],
                     ),
@@ -104,22 +116,21 @@ class AddCategoryScreen extends StatelessWidget {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-        height: 56.h,
-        leadingWidth: 41.h,
-        leading: Container(
-            height: 14.h,
-            width: 21.h,
-            margin: EdgeInsets.only(left: 20.h),
-            child: BackButton()));
+      height: 56.h,
+      leadingWidth: 41.h,
+      leading: Container(
+        height: 14.h,
+        width: 21.h,
+        margin: EdgeInsets.only(left: 20.h),
+        child: const BackButton(),
+      ),
+    );
   }
 
   Widget _buildCategorySection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: EdgeInsets.only(
-        left: 10.h,
-        right: 6.h,
-      ),
+      margin: EdgeInsets.only(left: 10.h, right: 6.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -129,10 +140,7 @@ class AddCategoryScreen extends StatelessWidget {
           ),
           Container(
             width: double.maxFinite,
-            padding: EdgeInsets.symmetric(
-              horizontal: 2.h,
-              vertical: 6.h,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 6.h),
             decoration: AppDecoration.outlineGray30003.copyWith(
               borderRadius: BorderRadiusStyle.roundedBorder8,
             ),
@@ -158,6 +166,14 @@ class AddCategoryScreen extends StatelessWidget {
                                 ViewCategoryItemModel();
                             return ViewCategoryItemWidget(
                               model,
+                              onSelectedChipView: (isSelected) {
+                                context.read<AddCategoryBloc>().add(
+                                      UpdateChipViewEvent(
+                                        index: index,
+                                        isSelected: isSelected,
+                                      ),
+                                    );
+                              },
                             );
                           },
                         ),
@@ -176,9 +192,9 @@ class AddCategoryScreen extends StatelessWidget {
                       bottom: 1.h,
                     ),
                     strokeWidth: 1.h,
-                    radius: Radius.circular(50),
+                    radius: const Radius.circular(50),
                     borderType: BorderType.RRect,
-                    dashPattern: [2, 2],
+                    dashPattern: const [2, 2],
                     child: CustomIconButton(
                       height: 50.h,
                       width: 50.h,
@@ -201,15 +217,12 @@ class AddCategoryScreen extends StatelessWidget {
   Widget _buildDescriptionSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: EdgeInsets.only(
-        left: 10.h,
-        right: 6.h,
-      ),
+      margin: EdgeInsets.only(left: 10.h, right: 6.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Descricção",
+            "Descrição",
             style: theme.textTheme.titleSmall,
           ),
           BlocSelector<AddCategoryBloc, AddCategoryState,
@@ -222,6 +235,11 @@ class AddCategoryScreen extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 maxLines: 5,
                 contentPadding: EdgeInsets.fromLTRB(16.h, 14.h, 16.h, 12.h),
+                onChanged: (value) {
+                  context.read<AddCategoryBloc>().add(
+                        UpdateDescriptionEvent(value),
+                      );
+                },
               );
             },
           ),
@@ -231,13 +249,21 @@ class AddCategoryScreen extends StatelessWidget {
   }
 
   void onTapGuardar(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        // content: .builder(context),
-        backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.zero,
-      ),
-    );
+    final bloc = context.read<AddCategoryBloc>();
+    final selectedCategory = bloc
+        .state.addCategoryModelObj?.viewCategoryItemList
+        .firstWhere((item) => item.isSelected ?? false,
+            orElse: () => ViewCategoryItemModel())
+        .transporteOne;
+
+    final transaction =
+        ModalRoute.of(context)?.settings.arguments as TransactionModel?;
+    if (transaction != null && selectedCategory != null) {
+      final updatedTransaction =
+          transaction.copyWith(category: selectedCategory);
+      Navigator.pop(context, updatedTransaction);
+    } else {
+      Navigator.pop(context);
+    }
   }
 }
