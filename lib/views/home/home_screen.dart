@@ -7,7 +7,6 @@ import 'package:wundu/views/home/bloc/home_screen_bloc.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
 import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_icon_button.dart';
 import 'package:wundu/widgets/custom_outlined_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,141 +47,15 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                   child: Column(
                     children: [
                       SizedBox(height: 14.w),
-                      SizedBox(
-                        height: isTablet ? 250.w : 192.w,
-                        width: double.maxFinite,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CustomImageView(
-                              imagePath: ImageConstant.rectangleCard,
-                              height: isTablet ? 250.w : 192.w,
-                              width: double.maxFinite,
-                              radius: BorderRadius.circular(16.w),
-                            ),
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                width: double.maxFinite,
-                                margin: EdgeInsets.only(
-                                  left: 10.w,
-                                  top: 10.w,
-                                  right: 10.w,
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.menu,
-                                      height: 24.w,
-                                      width: 26.w,
-                                      alignment: Alignment.centerRight,
-                                      color: Colors.white,
-                                      border: Border.all(),
-                                      radius: BorderRadius.circular(18),
-                                    ),
-                                    CustomElevatedButton(
-                                      height: isTablet ? 40.w : 34.w,
-                                      text: "$cardCount contas associadas",
-                                      margin: EdgeInsets.only(
-                                        left: isTablet ? 100.w : 84.w,
-                                        right: isTablet ? 100.w : 82.w,
-                                      ),
-                                      buttonStyle:
-                                          CustomButtonStyles.fillDeepOrange,
-                                      buttonTextStyle: CustomTextStyles
-                                          .bodyLargeDeeporange300,
-                                    ),
-                                    SizedBox(height: isTablet ? 16.w : 12.w),
-                                    Text(
-                                      "Valor total",
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    SizedBox(height: 2.w),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            context.read<HomeScreenBloc>().add(
-                                                ToggleBalanceVisibilityEvent());
-                                          },
-                                          child: CustomImageView(
-                                            imagePath: isBalanceVisible
-                                                ? ImageConstant.view
-                                                : ImageConstant.viewOff,
-                                            color: Colors.white,
-                                            height: 24.w,
-                                            width: 24.w,
-                                          ),
-                                        ),
-                                        SizedBox(width: 8.w),
-                                        Text(
-                                          isBalanceVisible
-                                              ? "${totalBalance.toStringAsFixed(2)} Kz"
-                                              : " ************",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      _buildCardSection(
+                        context,
+                        cardCount: cardCount,
+                        totalBalance: totalBalance,
+                        isBalanceVisible: isBalanceVisible,
+                        isTablet: isTablet,
                       ),
                       SizedBox(height: isTablet ? 40.w : 30.w),
-                      Container(
-                        width: double.maxFinite,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 18.w,
-                          vertical: isTablet ? 20.w : 10.w,
-                        ),
-                        decoration: AppDecoration.outlineGray.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder16,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(height: isTablet ? 15.w : 10.w),
-                            SizedBox(
-                              width: double.maxFinite,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Movimentações".toUpperCase(),
-                                    style: CustomTextStyles
-                                        .titleSmallInterBluegray900SemiBold,
-                                  ),
-                                  CustomIconButton(
-                                    height: isTablet ? 50.w : 40.w,
-                                    width: isTablet ? 50.w : 40.w,
-                                    padding: EdgeInsets.all(8.w),
-                                    decoration: IconButtonStyleHelper.fillGray,
-                                    child: CustomImageView(
-                                      imagePath: ImageConstant.filter,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: isTablet ? 24.w : 20.w),
-                            SizedBox(
-                              width: double.maxFinite,
-                              child: Divider(),
-                            ),
-                            SizedBox(height: isTablet ? 24.w : 20.w),
-                            _buildTransactionSection(context, state, isTablet),
-                          ],
-                        ),
-                      ),
+                      _buildMovimentacoesSection(context, state, isTablet),
                     ],
                   ),
                 ),
@@ -190,6 +63,156 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildCardSection(
+    BuildContext context, {
+    required int cardCount,
+    required double totalBalance,
+    required bool isBalanceVisible,
+    required bool isTablet,
+  }) {
+    return SizedBox(
+      height: isTablet ? 250.w : 192.w,
+      width: double.maxFinite,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background card image
+          CustomImageView(
+            imagePath: ImageConstant.rectangleCard,
+            height: isTablet ? 250.w : 192.w,
+            width: double.maxFinite,
+            radius: BorderRadius.circular(16.w),
+          ),
+          // Menu button with animation
+          Positioned(
+            top: 10.w,
+            right: 10.w,
+            child: _AnimatedIconButton(
+              icon: ImageConstant.menu,
+              height: 24.w,
+              width: 26.w,
+              backgroundColor: Colors.grey
+                  .withOpacity(0.5), // Adjusted for better visibility
+              borderColor: Colors.white,
+              onTap: () {},
+            ),
+          ),
+          // Card content
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              width: double.maxFinite,
+              margin: EdgeInsets.only(
+                left: 10.w,
+                top: 10.w,
+                right: 10.w,
+              ),
+              child: Column(
+                spacing: 5,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 27.w)),
+                  CustomElevatedButton(
+                    height: isTablet ? 40.w : 34.w,
+                    text: "$cardCount contas associadas",
+                    margin: EdgeInsets.symmetric(horizontal: 84.w),
+                    buttonStyle: cardCount == 0
+                        ? CustomButtonStyles.fillDeepOrange
+                        : CustomButtonStyles.fillWhiteA,
+                    buttonTextStyle: cardCount == 0
+                        ? CustomTextStyles.bodyLargeDeeporange300
+                        : theme.textTheme.bodyLarge,
+                  ),
+                  SizedBox(
+                      height: isTablet
+                          ? 24.w
+                          : 20.w), // Adjusted spacing to match menu button area
+                  Text(
+                    "Valor total",
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  SizedBox(height: 2.w),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context
+                              .read<HomeScreenBloc>()
+                              .add(ToggleBalanceVisibilityEvent());
+                        },
+                        child: CustomImageView(
+                          imagePath: isBalanceVisible
+                              ? ImageConstant.view
+                              : ImageConstant.viewOff,
+                          color: Colors.white,
+                          height: 24.w,
+                          width: 24.w,
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Text(
+                        isBalanceVisible
+                            ? "${totalBalance.toStringAsFixed(2)} Kz"
+                            : " ************",
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMovimentacoesSection(
+      BuildContext context, HomeScreenState state, bool isTablet) {
+    return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.symmetric(
+        horizontal: 18.w,
+        vertical: isTablet ? 20.w : 10.w,
+      ),
+      decoration: AppDecoration.outlineGray.copyWith(
+        borderRadius: BorderRadiusStyle.roundedBorder16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: isTablet ? 15.w : 10.w),
+          SizedBox(
+            width: double.maxFinite,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Movimentações".toUpperCase(),
+                  style: CustomTextStyles.titleSmallInterBluegray900SemiBold,
+                ),
+                _AnimatedIconButton(
+                  icon: ImageConstant.filter,
+                  height: 40.w,
+                  width: 40.w,
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: isTablet ? 24.w : 20.w),
+          SizedBox(
+            width: double.maxFinite,
+            child: Divider(),
+          ),
+          SizedBox(height: isTablet ? 24.w : 20.w),
+          _buildTransactionSection(context, state, isTablet),
+        ],
       ),
     );
   }
@@ -284,50 +307,22 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               children: [
                 Text(
                   transaction.title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: CustomTextStyles.titleMediumPoppinsBlack90001,
                 ),
                 Text(
                   transaction.description,
-                  style: Theme.of(context).textTheme.labelLarge,
+                  style: CustomTextStyles.labelLargeGray90001,
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: isTablet ? 40.w : 22.w,
-            width: isTablet ? 40.w : 22.w,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
-                onTap: () {
-                  _navigateToTransactionDetails(context, transaction);
-                },
-                splashColor: Colors.grey.withOpacity(0.3),
-                highlightColor: Colors.grey.withOpacity(0.1),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(isTablet ? 20.w : 16.w),
-                    border: Border.all(
-                      color: Colors.grey[300]!,
-                      width: 0.5.w,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(isTablet ? 8.w : 2.w),
-                  child: AnimatedScale(
-                    duration: Duration(milliseconds: 150),
-                    scale: 1.0,
-                    child: CustomImageView(
-                      imagePath: ImageConstant.arrowRight,
-                      height: isTablet ? 16.w : 12.w,
-                      width: isTablet ? 16.w : 12.w,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          _AnimatedIconButton(
+            icon: ImageConstant.arrowRight,
+            height: isTablet ? 40.w : 26.w, // Increased from 32.w
+            width: isTablet ? 40.w : 26.w, // Increased from 32.w
+            onTap: () {
+              _navigateToTransactionDetails(context, transaction);
+            },
           ),
         ],
       ),
@@ -390,13 +385,14 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
             ),
             SizedBox(height: isTablet ? 16.w : 10.w),
             Text(
-              "Sem movimentos para mostrar",
+              "Sem movimentações para mostrar",
               style: CustomTextStyles.titleMediumBluegray900,
+              textAlign: TextAlign.center,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Text(
-                "Registre um cartão e começe a ver seus movimentos",
+                "Registre um cartão e comece a ver seus movimentos",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
@@ -406,16 +402,16 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               ),
             ),
             SizedBox(height: isTablet ? 24.w : 20.w),
-            CustomElevatedButton(
-              height: isTablet ? 48.w : 40.w,
-              width: isTablet ? 200.w : 180.w,
-              text: "Adicionar Cartão",
-              buttonStyle: CustomButtonStyles.fillYellowA,
-              buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
-              onPressed: () {
-                NavigatorService.pushNamed(AppRoutes.addCardManualScreen);
-              },
-            ),
+            // CustomElevatedButton(
+            //   height: isTablet ? 48.w : 40.w,
+            //   width: isTablet ? 200.w : 180.w,
+            //   text: "Adicionar Cartão",
+            //   buttonStyle: CustomButtonStyles.fillYellowA,
+            //   buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
+            //   onPressed: () {
+            //     NavigatorService.pushNamed(AppRoutes.addCardManualScreen);
+            //   },
+            // ),
           ],
         ),
       ),
@@ -441,5 +437,73 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
     if (date == today) return "Hoje";
     if (date == yesterday) return "Ontem";
     return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
+  }
+}
+
+// Animated Icon Button Widget
+class _AnimatedIconButton extends StatefulWidget {
+  final String icon;
+  final double height;
+  final double width;
+  final Color? backgroundColor;
+  final Color? borderColor;
+  final VoidCallback onTap;
+
+  const _AnimatedIconButton({
+    required this.icon,
+    required this.height,
+    required this.width,
+    this.borderColor,
+    required this.onTap,
+    // ignore: unused_element_parameter
+    this.backgroundColor,
+  });
+
+  @override
+  State<_AnimatedIconButton> createState() => _AnimatedIconButtonState();
+}
+
+class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
+  bool isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() => isPressed = true);
+      },
+      onTapUp: (_) {
+        setState(() => isPressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () {
+        setState(() => isPressed = false);
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        transform:
+            isPressed ? (Matrix4.identity()..scale(0.9)) : Matrix4.identity(),
+        child: Container(
+          height: widget.height,
+          width: widget.width,
+          decoration: BoxDecoration(
+            // ignore: deprecated_member_use
+            color: widget.backgroundColor ?? appTheme.gray30003.withOpacity(1),
+            borderRadius: BorderRadius.circular(widget.height / 2),
+            border: widget.borderColor != null
+                ? Border.all(color: widget.borderColor!, width: 0.5.w)
+                : null,
+          ),
+          padding: EdgeInsets.all(widget.height * 0.2),
+          child: CustomImageView(
+            imagePath: widget.icon,
+            height: widget.height * 0.6,
+            width: widget.width * 0.6,
+            color: widget.borderColor ?? Colors.black,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -67,7 +67,9 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     Emitter<HomeScreenState> emit,
   ) async {
     if (!_cardManager.hasCards ||
-        (state.homeScreenModelObj?.isLoading ?? false)) return;
+        (state.homeScreenModelObj?.isLoading ?? false)) {
+      return;
+    }
 
     emit(state.copyWith(
       homeScreenModelObj: state.homeScreenModelObj?.copyWith(isLoading: true),

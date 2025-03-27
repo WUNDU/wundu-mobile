@@ -4,7 +4,6 @@ import 'package:wundu/core/app_export.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/transaction_details/add_category/models/add_category_model.dart';
 import 'package:wundu/views/transaction_details/add_category/widget/view_category_item_widget.dart';
-import 'package:wundu/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:wundu/widgets/app_bar/custom_app_bar.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 import 'package:wundu/widgets/custom_icon_button.dart';
@@ -59,7 +58,7 @@ class AddCategoryScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "1bl_categ_rias",
+                          "Categórias",
                           style: CustomTextStyles.headlineSmallBluegray900,
                         ),
                         SizedBox(height: 22.h),
@@ -80,7 +79,7 @@ class AddCategoryScreen extends StatelessWidget {
                         SizedBox(height: 110.h),
                         CustomElevatedButton(
                           height: 56.h,
-                          text: "1bl_guardar",
+                          text: "Guardar",
                           margin: EdgeInsets.only(left: 2.h),
                           buttonStyle: CustomButtonStyles.fillYellowA,
                           buttonTextStyle:
@@ -105,34 +104,13 @@ class AddCategoryScreen extends StatelessWidget {
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      height: 56.h,
-      leadingWidth: 41.h,
-      leading: Container(
-        height: 14.h,
-        width: 21.h,
-        margin: EdgeInsets.only(left: 20.h),
-        child: Stack(
-          children: [
-            CustomImageView(
-              imagePath: ImageConstant.logo,
-              height: 1.h,
-              width: double.maxFinite,
-            ),
-            CustomImageView(
-              imagePath: ImageConstant.logo,
-              height: 14.h,
-              width: 8.h,
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(right: 14.h),
-            ),
-          ],
-        ),
-      ),
-      title: AppbarSubtitleOne(
-        text: "1bl_voltar",
-        margin: EdgeInsets.only(left: 15.h),
-      ),
-    );
+        height: 56.h,
+        leadingWidth: 41.h,
+        leading: Container(
+            height: 14.h,
+            width: 21.h,
+            margin: EdgeInsets.only(left: 20.h),
+            child: BackButton()));
   }
 
   Widget _buildCategorySection(BuildContext context) {
@@ -146,7 +124,7 @@ class AddCategoryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "msg_categorias_padr_o",
+            "Categorias padrão",
             style: theme.textTheme.titleSmall,
           ),
           Container(
@@ -198,7 +176,7 @@ class AddCategoryScreen extends StatelessWidget {
                       bottom: 1.h,
                     ),
                     strokeWidth: 1.h,
-                    radius: Radius.circular(24),
+                    radius: Radius.circular(50),
                     borderType: BorderType.RRect,
                     dashPattern: [2, 2],
                     child: CustomIconButton(
@@ -207,7 +185,7 @@ class AddCategoryScreen extends StatelessWidget {
                       padding: EdgeInsets.all(12.h),
                       decoration: IconButtonStyleHelper.outlineIndigo,
                       child: CustomImageView(
-                        imagePath: ImageConstant.circlePlus,
+                        imagePath: ImageConstant.roundPlus,
                       ),
                     ),
                   ),
@@ -231,7 +209,7 @@ class AddCategoryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "1bl_descric_o",
+            "Descricção",
             style: theme.textTheme.titleSmall,
           ),
           BlocSelector<AddCategoryBloc, AddCategoryState,
@@ -240,7 +218,6 @@ class AddCategoryScreen extends StatelessWidget {
             builder: (context, descriptionController) {
               return CustomTextFormField(
                 controller: descriptionController,
-                hintText: "msg_utilizei_este_dinheiro",
                 hintStyle: CustomTextStyles.bodyMediumPoppins1Black90001,
                 textInputAction: TextInputAction.done,
                 maxLines: 5,

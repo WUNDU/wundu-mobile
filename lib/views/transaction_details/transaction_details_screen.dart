@@ -62,9 +62,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                         SizedBox(
                           width: double.maxFinite,
                           child: Divider(
-                            color: appTheme.gray30003.withValues(
-                              alpha: 0.6,
-                            ),
+                            color: appTheme.gray30003.withValues(alpha: 0.6),
                             indent: 6.h,
                             endIndent: 6.h,
                           ),
@@ -87,9 +85,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                         SizedBox(
                           width: double.maxFinite,
                           child: Divider(
-                            color: appTheme.gray30003.withValues(
-                              alpha: 0.6,
-                            ),
+                            color: appTheme.gray30003.withValues(alpha: 0.6),
                             indent: 6.h,
                             endIndent: 6.h,
                           ),
@@ -102,9 +98,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                         SizedBox(
                           width: double.maxFinite,
                           child: Divider(
-                            color: appTheme.gray30003.withValues(
-                              alpha: 0.6,
-                            ),
+                            color: appTheme.gray30003.withValues(alpha: 0.6),
                             indent: 6.h,
                             endIndent: 6.h,
                           ),
@@ -124,7 +118,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                           padding: EdgeInsets.only(left: 6.h),
                           child: Text(
                             "Número de operação",
-                            style: CustomTextStyles.titleSmallInterBluegray900,
+                            style: CustomTextStyles.titleSmallInter1Bluegray900,
                           ),
                         ),
                         SizedBox(height: 12.h),
@@ -143,7 +137,7 @@ class TransactionDetailsScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
+  /// Header com título "Detalhes" e botão de fechar
   Widget _buildDetailsHeader(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
@@ -181,10 +175,14 @@ class TransactionDetailsScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
+  /// Botão de tipo de transação (Transferência) com cor dinâmica
   Widget _buildTransferRow(BuildContext context) {
     final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
         bloc.state.transactionDetailsScreenModelObj?.transaction);
+
+    // Determina se é crédito (payment) ou débito
+    final isCredit =
+        transaction?.type == "transfer" || transaction?.type == "deposit";
 
     return SizedBox(
       width: double.maxFinite,
@@ -194,9 +192,11 @@ class TransactionDetailsScreen extends StatelessWidget {
           CustomElevatedButton(
             height: 34.h,
             width: 176.h,
-            text: transaction?.type.toUpperCase() ?? "TRANSACTION",
-            buttonStyle: transaction?.buttonStyle,
-            buttonTextStyle: transaction?.type == "payment"
+            text: isCredit ? "Crédito" : "Débito",
+            buttonStyle: isCredit
+                ? CustomButtonStyles.fillTeal
+                : CustomButtonStyles.fillDeepOrange,
+            buttonTextStyle: isCredit
                 ? CustomTextStyles.bodyLargeTeal300
                 : CustomTextStyles.bodyLargeDeeporange300,
           ),
@@ -217,32 +217,56 @@ class TransactionDetailsScreen extends StatelessWidget {
     );
   }
 
+  /// Botão de valor creditado/debitado com cor dinâmica
   Widget _buildCreditedValueButton(BuildContext context) {
     final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
         bloc.state.transactionDetailsScreenModelObj?.transaction);
+
+    final isCredit =
+        transaction?.type == "transfer" || transaction?.type == "deposit";
 
     return CustomElevatedButton(
       height: 32.h,
       width: 128.h,
       text: "${transaction?.amount.toStringAsFixed(2) ?? '0.00'}Kz",
-      buttonStyle: CustomButtonStyles.fillIndigoA,
-      buttonTextStyle: CustomTextStyles.titleMediumIndigoA200,
+      buttonStyle: isCredit
+          ? CustomButtonStyles.fillIndigoA
+          : CustomButtonStyles.fillDeepOrange,
+      buttonTextStyle: isCredit
+          ? CustomTextStyles.titleMediumIndigoA200
+          : CustomTextStyles.titleMediumDeeporange300,
     );
   }
 
-  /// Section Widget
+  /// Botão de valor após movimento com cor dinâmica
   Widget _buildPostMovementValueButton(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+
+    final isCredit =
+        transaction?.type == "transfer" || transaction?.type == "deposit";
+
     return CustomElevatedButton(
       height: 32.h,
       width: 130.h,
-      text: "300.000,00Kz",
-      buttonStyle: CustomButtonStyles.fillTeal,
-      buttonTextStyle: CustomTextStyles.titleMediumTeal300,
+      text: "300.000,00Kz", // Substitua por valor real se disponível
+      buttonStyle: isCredit
+          ? CustomButtonStyles.fillTeal
+          : CustomButtonStyles.fillDeepOrange,
+      buttonTextStyle: isCredit
+          ? CustomTextStyles.titleMediumTeal300
+          : CustomTextStyles.titleMediumDeeporange300,
     );
   }
 
-  /// Section Widget
+  /// Seção de valores com rótulo dinâmico
   Widget _buildValueRow(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+
+    final isCredit =
+        transaction?.type == "transfer" || transaction?.type == "deposit";
+
     return Container(
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 6.h),
@@ -254,7 +278,7 @@ class TransactionDetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Valor Acreditado",
+                  isCredit ? "Valor Acreditado" : "Valor Débitado",
                   style: CustomTextStyles.titleSmallInter1Bluegray900,
                 ),
                 _buildCreditedValueButton(context),
@@ -278,6 +302,50 @@ class TransactionDetailsScreen extends StatelessWidget {
       ),
     );
   }
+
+  /// Botão de número de operação
+  Widget _buildOperationNumberButton(BuildContext context) {
+    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
+        bloc.state.transactionDetailsScreenModelObj?.transaction);
+    return CustomElevatedButton(
+      height: 32.h,
+      width: 112.h,
+      text: transaction?.id ?? "287805888",
+      margin: EdgeInsets.only(left: 6.h),
+      buttonStyle: CustomButtonStyles.fillBlueGray,
+      buttonTextStyle: CustomTextStyles.titleMediumBluegray700,
+    );
+  }
+
+  /// Botão "Definir Categoria"
+  Widget buildDefineCategoryButton(BuildContext context) {
+    return CustomElevatedButton(
+      height: 56.h,
+      text: "Definir Categoria",
+      margin: EdgeInsets.only(bottom: 12.h),
+      leftIcon: Container(
+        margin: EdgeInsets.only(right: 14.h),
+        child: CustomImageView(
+          imagePath: ImageConstant.circlePlusWhite,
+          height: 32.h,
+          width: 32.h,
+          fit: BoxFit.contain,
+        ),
+      ),
+      buttonStyle: CustomButtonStyles.fillYellowA,
+      buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
+      onPressed: () {
+        NavigatorService.pushNamed(AppRoutes.addCategoryScreen);
+      },
+    );
+  }
+
+  /// Navegação ao clicar no botão de fechar
+  void onTapBtnQlementineone(BuildContext context) {
+    NavigatorService.pushNamed(AppRoutes.mainScreen);
+  }
+
+  // Outros métodos como _buildCalendarRow, _buildDateTimeRow, etc., permanecem inalterados
 
   /// Section Widget
   Widget _buildCalendarRow(BuildContext context) {
@@ -387,43 +455,6 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildOperationNumberButton(BuildContext context) {
-    final transaction = context.select((TransactionDetailsScreenBloc bloc) =>
-        bloc.state.transactionDetailsScreenModelObj?.transaction);
-    return CustomElevatedButton(
-      height: 32.h,
-      width: 112.h,
-      text: transaction?.id ?? "000000",
-      margin: EdgeInsets.only(left: 6.h),
-      buttonStyle: CustomButtonStyles.fillBlueGray,
-      buttonTextStyle: CustomTextStyles.titleMediumBluegray700,
-    );
-  }
-
-  /// Section Widget
-  Widget buildDefineCategoryButton(BuildContext context) {
-    return CustomElevatedButton(
-      height: 56.h,
-      text: "Definir Categoria",
-      margin: EdgeInsets.only(bottom: 12.h),
-      leftIcon: Container(
-        margin: EdgeInsets.only(right: 14.h),
-        child: CustomImageView(
-          imagePath: ImageConstant.circlePlusWhite,
-          height: 32.h,
-          width: 32.h,
-          fit: BoxFit.contain,
-        ),
-      ),
-      buttonStyle: CustomButtonStyles.fillYellowA,
-      buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
-      onPressed: () {
-        NavigatorService.pushNamed(AppRoutes.addCategoryScreen);
-      },
-    );
-  }
-
-  /// Section Widget
   Widget _buildDefineCategoryColumn(BuildContext context) {
     return Container(
       width: double.maxFinite,
@@ -463,15 +494,6 @@ class TransactionDetailsScreen extends StatelessWidget {
     );
   }
 
-  /// Navigates to the homeScreen when the action is triggered.
-  onTapBtnQlementineone(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.mainScreen,
-    );
-  }
-
-  /// Displays a time picker dialog and updates the selected time in the
-  /// current [telaMovimentoDetalhesAddCategRiaModelObj] object if the user selects a valid time.
   Future<void> onTapTimeEdit(BuildContext context) async {
     var initialState =
         BlocProvider.of<TransactionDetailsScreenBloc>(context).state;

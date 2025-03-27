@@ -52,12 +52,13 @@ class AddCategoryBloc extends Bloc<AddCategoryEvent, AddCategoryState> {
 
   List<ViewCategoryItemModel> fillViewCategoryItemList() {
     return [
-      ViewCategoryItemModel(transporteOne: "1bl_transporte"),
-      ViewCategoryItemModel(transporteOne: "1bl_alimenta_o"),
-      ViewCategoryItemModel(transporteOne: "1bl_entretenimento"),
-      ViewCategoryItemModel(transporteOne: "1b1_sa_de"),
-      ViewCategoryItemModel(transporteOne: "1bl_educa_o"),
-      ViewCategoryItemModel(transporteOne: "1bl_lazer"),
+      ViewCategoryItemModel(transporteOne: "Transporte"),
+      ViewCategoryItemModel(transporteOne: "Alimentão"),
+      ViewCategoryItemModel(transporteOne: "Entretenimento"),
+      ViewCategoryItemModel(transporteOne: "Saúde"),
+      ViewCategoryItemModel(transporteOne: "Educação"),
+      ViewCategoryItemModel(transporteOne: "Lazer"),
+      ViewCategoryItemModel(transporteOne: "Outros"),
     ];
   }
 }

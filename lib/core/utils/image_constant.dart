@@ -29,6 +29,7 @@ class ImageConstant {
   static String rectangleAddCard = '$imagePath/rectangle_dashed';
   static String circlePlus = '$imagePath/circle-plus.png';
   static String circlePlusWhite = '$imagePath/circle-plus-white.png';
+  static String roundPlus = '$imagePath/round-plus.png';
   static String userProfile = '$imagePath/user_profile.png';
   static String calendar = '$imagePath/calendar.png';
   static String arrowUp = '$imagePath/arrow-up.png';
