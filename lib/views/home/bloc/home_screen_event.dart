@@ -11,3 +11,5 @@ class HomeScreenInitialEvent extends HomeScreenEvent {
 }
 
 class LoadMoreTransactionsEvent extends HomeScreenEvent {}
+
+class ToggleBalanceVisibilityEvent extends HomeScreenEvent {}

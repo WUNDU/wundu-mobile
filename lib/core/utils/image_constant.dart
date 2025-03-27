@@ -21,7 +21,8 @@ class ImageConstant {
   static String notification = '$imagePath/notification.png';
   static String rectangleCard = '$imagePath/rectangle_card.png';
   static String logoHome = '$imagePath/logo_home.svg';
-  static String ayeOff = '$imagePath/eye-off.png';
+  static String viewOff = '$imagePath/view-off.png';
+  static String view = '$imagePath/view.png';
   static String moneyOff = '$imagePath/money-off.svg';
   static String filter = '$imagePath/horizontal.png';
   static String menu = '$imagePath/menu.png';

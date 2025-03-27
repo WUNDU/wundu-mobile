@@ -37,6 +37,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardNumber: event.cardNumber,
         isValidCardNumber: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -50,6 +51,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         expiryDate: event.expiryDate,
         isValidExpiryDate: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -63,6 +65,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardName: event.cardName,
         isValidCardName: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -70,8 +73,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
     AddCardSubmitEvent event,
     Emitter<AddCardManualState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
-
+    // Primeiro valida todos os campos
     final isCardNumberValid = _validateCardNumber(event.cardNumber);
     final isExpiryDateValid = _validateExpiryDate(event.expiryDate);
     final isCardNameValid = event.cardName.isNotEmpty;
@@ -89,10 +91,12 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
+    // Só então inicia o loading e tenta adicionar
+    emit(state.copyWith(isLoading: true));
+
     try {
       await Future.delayed(Duration(seconds: 1));
 
-      // Criar o modelo do cartão
       final card = AddCardManualModel(
         cardNumber: event.cardNumber,
         expiryDate: event.expiryDate,
@@ -102,14 +106,20 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         isValidCardName: true,
       );
 
-      // Adicionar ao CardManager
-      CardManager().addCard(card);
-
-      emit(state.copyWith(
-        isLoading: false,
-        isSubmitted: true,
-        errorMessage: null,
-      ));
+      // Verifica se o cartão já existe antes de adicionar
+      if (!CardManager().cards.any((c) => c.cardNumber == card.cardNumber)) {
+        CardManager().addCard(card);
+        emit(state.copyWith(
+          isLoading: false,
+          isSubmitted: true,
+          errorMessage: null,
+        ));
+      } else {
+        emit(state.copyWith(
+          isLoading: false,
+          errorMessage: "Este cartão já foi adicionado.",
+        ));
+      }
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
@@ -119,64 +129,45 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
   }
 
   bool _validateCardNumber(String cardNumber) {
-    // Remove espaços e traços
     final cleanedNumber = cardNumber.replaceAll(RegExp(r'[\s-]'), '');
-
-    // Deve ter entre 13 e 19 dígitos
     if (cleanedNumber.length < 13 || cleanedNumber.length > 19) {
       return false;
     }
-
-    // Deve conter apenas dígitos
     if (!RegExp(r'^[0-9]+$').hasMatch(cleanedNumber)) {
       return false;
     }
-
-    // Algoritmo de Luhn (verificação de dígito)
     int sum = 0;
     bool alternate = false;
-
     for (int i = cleanedNumber.length - 1; i >= 0; i--) {
       int n = int.parse(cleanedNumber[i]);
-
       if (alternate) {
         n *= 2;
         if (n > 9) {
           n = (n % 10) + 1;
         }
       }
-
       sum += n;
       alternate = !alternate;
     }
-
     return sum % 10 == 0;
   }
 
   bool _validateExpiryDate(String expiryDate) {
-    // Formato esperado: MM/AA
     if (!RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{2})$').hasMatch(expiryDate)) {
       return false;
     }
-
-    // Extrai mês e ano
     final parts = expiryDate.split('/');
     final month = int.parse(parts[0]);
     final year = int.parse('20${parts[1]}');
-
-    // Verificar se a data não está expirada
     final now = DateTime.now();
     final currentYear = now.year;
     final currentMonth = now.month;
-
     if (year < currentYear) {
       return false;
     }
-
     if (year == currentYear && month < currentMonth) {
       return false;
     }
-
     return true;
   }
 }

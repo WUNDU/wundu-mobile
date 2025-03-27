@@ -24,12 +24,15 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
     final bool isTablet = ScreenUtil().screenWidth > 600;
 
     return BlocProvider<HomeScreenBloc>(
-      create: (context) => HomeScreenBloc(HomeScreenState(
-        homeScreenModelObj: HomeScreenModel(),
-      ))
-        ..add(HomeScreenInitialEvent()),
+      create: (context) =>
+          HomeScreenBloc(HomeScreenState())..add(HomeScreenInitialEvent()),
       child: BlocBuilder<HomeScreenBloc, HomeScreenState>(
         builder: (context, state) {
+          final model = state.homeScreenModelObj ?? HomeScreenModel();
+          final cardCount = model.cards.length;
+          final totalBalance = model.totalBalance;
+          final isBalanceVisible = model.isBalanceVisible;
+
           return SafeArea(
             top: false,
             child: SizedBox(
@@ -80,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                                     ),
                                     CustomElevatedButton(
                                       height: isTablet ? 40.w : 34.w,
-                                      text: "0 contas associadas",
+                                      text: "$cardCount contas associadas",
                                       margin: EdgeInsets.only(
                                         left: isTablet ? 100.w : 84.w,
                                         right: isTablet ? 100.w : 82.w,
@@ -101,15 +104,25 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        CustomImageView(
-                                          imagePath: ImageConstant.ayeOff,
-                                          color: Colors.white,
-                                          height: 24.w,
-                                          width: 24.w,
-                                          alignment: Alignment.bottomCenter,
+                                        GestureDetector(
+                                          onTap: () {
+                                            context.read<HomeScreenBloc>().add(
+                                                ToggleBalanceVisibilityEvent());
+                                          },
+                                          child: CustomImageView(
+                                            imagePath: isBalanceVisible
+                                                ? ImageConstant.view
+                                                : ImageConstant.viewOff,
+                                            color: Colors.white,
+                                            height: 24.w,
+                                            width: 24.w,
+                                          ),
                                         ),
+                                        SizedBox(width: 8.w),
                                         Text(
-                                          " ************",
+                                          isBalanceVisible
+                                              ? "${totalBalance.toStringAsFixed(2)} Kz"
+                                              : " ************",
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall,
@@ -195,15 +208,12 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
 
     return Column(
       children: [
-        // Lista de transações agrupadas por data
         ...groupedTransactions.entries.map((entry) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDateSection(_formatDate(entry.key)), // Cabeçalho com a data
+              _buildDateSection(_formatDate(entry.key)),
               SizedBox(height: isTablet ? 16.w : 12.w),
-
-              // Lista de transações para esta data
               ...entry.value.map((transaction) {
                 return Column(
                   children: [
@@ -220,8 +230,6 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
             ],
           );
         }),
-
-        // Botão "Ver mais"
         SizedBox(height: isTablet ? 24.w : 20.w),
         CustomOutlinedButton(
           height: isTablet ? 48.w : 40.w,
@@ -237,6 +245,9 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
             ),
           ),
           buttonTextStyle: CustomTextStyles.labelLargePoppinsBlack90001,
+          onPressed: () {
+            context.read<HomeScreenBloc>().add(LoadMoreTransactionsEvent());
+          },
         ),
       ],
     );
@@ -282,7 +293,6 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               ],
             ),
           ),
-          // Botão ArrowRight melhorado
           SizedBox(
             height: isTablet ? 40.w : 22.w,
             width: isTablet ? 40.w : 22.w,
@@ -396,55 +406,40 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               ),
             ),
             SizedBox(height: isTablet ? 24.w : 20.w),
-            // CustomElevatedButton(
-            //   height: isTablet ? 48.w : 40.w,
-            //   width: isTablet ? 200.w : 180.w,
-            //   text: "Adicionar Cartão",
-            //   buttonStyle: CustomButtonStyles.fillYellowA,
-            //   buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
-            //   onPressed: () {
-            //     NavigatorService.pushNamed(AppRoutes.addCardManualScreen);
-            //   },
-            // ),
+            CustomElevatedButton(
+              height: isTablet ? 48.w : 40.w,
+              width: isTablet ? 200.w : 180.w,
+              text: "Adicionar Cartão",
+              buttonStyle: CustomButtonStyles.fillYellowA,
+              buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
+              onPressed: () {
+                NavigatorService.pushNamed(AppRoutes.addCardManualScreen);
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  // Função para agrupar transações por data
   Map<DateTime, List<TransactionModel>> _groupTransactionsByDate(
       List<TransactionModel> transactions) {
     final map = <DateTime, List<TransactionModel>>{};
-
     for (var transaction in transactions) {
       final date = DateTime(
           transaction.date.year, transaction.date.month, transaction.date.day);
-      if (!map.containsKey(date)) {
-        map[date] = [];
-      }
-      map[date]!.add(transaction);
+      map.putIfAbsent(date, () => []).add(transaction);
     }
-
-    // Ordenar por data (mais recente primeiro)
     final sortedKeys = map.keys.toList()..sort((a, b) => b.compareTo(a));
-    final sortedMap = <DateTime, List<TransactionModel>>{};
-    for (var key in sortedKeys) {
-      sortedMap[key] = map[key]!;
-    }
-
-    return sortedMap;
+    return Map.fromEntries(sortedKeys.map((key) => MapEntry(key, map[key]!)));
   }
 
-  // Função para formatar a data
   String _formatDate(DateTime date) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(Duration(days: 1));
-
     if (date == today) return "Hoje";
     if (date == yesterday) return "Ontem";
-
     return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
   }
 }

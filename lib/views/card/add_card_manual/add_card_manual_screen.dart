@@ -49,6 +49,25 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
     return BlocConsumer<AddCardManualBloc, AddCardManualState>(
       listener: (context, state) {
         if (state.isSubmitted) {
+          // Mostra diálogo de confirmação apenas se foi submetido com sucesso
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ConfirmDialog.builder(context);
+            },
+          );
+        }
+
+        if (state.errorMessage != null && !state.isLoading) {
+          // Mostra snackbar apenas se não estiver carregando
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage!),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        if (state.isSubmitted) {
           // Show confirmation dialog
           showDialog(
             context: context,

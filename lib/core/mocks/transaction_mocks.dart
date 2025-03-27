@@ -5,9 +5,11 @@ import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 class TransactionMocks {
   static List<TransactionModel> getMockTransactions(String? cardId) {
     if (cardId == null) return []; // Retorna vazio se não houver cartão
+
+    // Gera transações específicas para o cartão com base no cardId
     return [
       TransactionModel(
-        id: "1",
+        id: "1-$cardId",
         title: "Transferência para Cliente",
         description: "IBAN 0045678909876",
         amount: 150.0,
@@ -19,7 +21,7 @@ class TransactionMocks {
         cardId: cardId,
       ),
       TransactionModel(
-        id: "2",
+        id: "2-$cardId",
         title: "Pagamento de Serviço",
         description: "Fatura 87654321",
         amount: 75.5,
@@ -31,7 +33,7 @@ class TransactionMocks {
         cardId: cardId,
       ),
       TransactionModel(
-        id: "3",
+        id: "3-$cardId",
         title: "Levantamento",
         description: "Terminal 12345",
         amount: 200.0,
@@ -43,7 +45,7 @@ class TransactionMocks {
         cardId: cardId,
       ),
       TransactionModel(
-        id: "4",
+        id: "4-$cardId",
         title: "Depósito",
         description: "Agência 5678",
         amount: 500.0,
@@ -52,18 +54,6 @@ class TransactionMocks {
         backgroundColor: appTheme.tealA2004c,
         iconPath: ImageConstant.arrowUp,
         buttonStyle: CustomButtonStyles.fillTeal,
-        cardId: cardId,
-      ),
-      TransactionModel(
-        id: "5",
-        title: "Pagamento de Fatura",
-        description: "Cartão 4321",
-        amount: 120.0,
-        date: DateTime.now().subtract(const Duration(days: 4)),
-        type: "payment",
-        backgroundColor: appTheme.deepOrangeA40019,
-        iconPath: ImageConstant.arrowDown,
-        buttonStyle: CustomButtonStyles.fillDeepOrange,
         cardId: cardId,
       ),
     ];
