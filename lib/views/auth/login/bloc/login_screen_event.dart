@@ -26,3 +26,5 @@ class LoginFailedEvent extends LoginScreenEvent {
 }
 
 class LoginSuccessEvent extends LoginScreenEvent {}
+
+class LoginSuccessState extends LoginScreenState {}
