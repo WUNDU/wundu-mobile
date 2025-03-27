@@ -8,7 +8,7 @@ part 'wundu_event.dart';
 part 'wundu_state.dart';
 
 class WunduBloc extends Bloc<WunduEvent, WunduState> {
-  WunduBloc(WunduState initialState) : super(initialState) {
+  WunduBloc(super.initialState) {
     on<WunduInitialEvent>(_onInitialEvent);
   }
 
