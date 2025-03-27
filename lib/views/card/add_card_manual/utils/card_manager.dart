@@ -1,7 +1,8 @@
-import 'package:wundu/core/mocks/card_mocks.dart';
+import 'dart:async';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
 import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/core/mocks/transaction_mocks.dart';
+import 'package:wundu/core/mocks/card_mocks.dart';
 
 class CardManager {
   static final CardManager _instance = CardManager._internal();
@@ -9,9 +10,12 @@ class CardManager {
   CardManager._internal();
 
   final List<AddCardManualModel> _cards = [];
-  final Map<String, double> _balances = {}; // Saldo por cartão
-  final Map<String, List<TransactionModel>> _cardTransactions =
-      {}; // Transações por cartão
+  final Map<String, double> _balances = {};
+  final Map<String, List<TransactionModel>> _cardTransactions = {};
+
+  // Adicionar um StreamController para notificar mudanças
+  final _cardChangeController = StreamController<void>.broadcast();
+  Stream<void> get onCardChanged => _cardChangeController.stream;
 
   List<AddCardManualModel> get cards => _cards;
   int get cardCount => _cards.length;
@@ -19,12 +23,11 @@ class CardManager {
   void addCard(AddCardManualModel card) {
     if (!_cards.any((c) => c.cardNumber == card.cardNumber)) {
       _cards.add(card);
-      // Corrigir a chamada para usar card.cardNumber
       _balances[card.cardNumber!] = CardMocks.getMockBalance(card.cardNumber!);
-      // Associa transações mockadas ao cartão
       _cardTransactions[card.cardNumber!] =
           TransactionMocks.getMockTransactions(card.cardNumber);
       _updateBalance(card.cardNumber!);
+      _cardChangeController.add(null); // Notificar que houve mudança
     }
   }
 
@@ -51,5 +54,9 @@ class CardManager {
       }
     }
     _balances[cardId] = balance;
+  }
+
+  void dispose() {
+    _cardChangeController.close();
   }
 }

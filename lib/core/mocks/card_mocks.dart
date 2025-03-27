@@ -25,7 +25,7 @@ class CardMocks {
   static double getMockBalance(String cardNumber) {
     // Saldo mockado para cada cartão
     final balances = {
-      "1234567890123456": 11500.75,
+      "5002940260147404": 14500.75,
       "9876543210987654": 11300.50,
     };
     return balances[cardNumber] ?? 0.0;

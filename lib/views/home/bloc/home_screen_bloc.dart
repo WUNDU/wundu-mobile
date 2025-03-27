@@ -1,24 +1,30 @@
+import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/views/card/add_card_manual/utils/card_manager.dart';
 import 'package:wundu/views/home/models/home_screen_item_model.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
 import 'package:wundu/core/mocks/transaction_mocks.dart';
-import 'package:wundu/core/mocks/card_mocks.dart';
 
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final CardManager _cardManager = CardManager();
+  StreamSubscription? _cardChangeSubscription;
 
   HomeScreenBloc(super.initialState) {
     on<HomeScreenInitialEvent>(_onInitialize);
     on<LoadMoreTransactionsEvent>(_onLoadMoreTransactions);
     on<ToggleBalanceVisibilityEvent>(_onToggleBalanceVisibility);
+
+    // Escutar mudanças no CardManager
+    _cardChangeSubscription = _cardManager.onCardChanged.listen((_) {
+      add(HomeScreenInitialEvent()); // Re-inicializar quando houver mudanças
+    });
   }
 
-  _onInitialize(
+  Future<void> _onInitialize(
     HomeScreenInitialEvent event,
     Emitter<HomeScreenState> emit,
   ) async {
@@ -27,7 +33,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       final firstCardId = _cardManager.getFirstCardId();
       final transactions = TransactionMocks.getMockTransactions(firstCardId);
       final totalBalance = cards.fold<double>(
-          0, (sum, card) => sum + CardMocks.getMockBalance(card.cardNumber!));
+          0, (sum, card) => sum + _cardManager.getBalance(card.cardNumber!));
 
       emit(state.copyWith(
         homeScreenModelObj: HomeScreenModel(
@@ -42,7 +48,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           transactions: transactions,
           cards: cards,
           totalBalance: totalBalance,
-          isBalanceVisible: false, // Inicialmente escondido
+          isBalanceVisible: false,
           isLoading: false,
           hasMore: true,
         ),
@@ -95,5 +101,11 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         isBalanceVisible: !state.homeScreenModelObj!.isBalanceVisible,
       ),
     ));
+  }
+
+  @override
+  Future<void> close() {
+    _cardChangeSubscription?.cancel();
+    return super.close();
   }
 }
