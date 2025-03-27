@@ -6,7 +6,7 @@ import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class SignupPersonalDataScreen extends StatelessWidget {
   SignupPersonalDataScreen({super.key});
@@ -35,8 +35,10 @@ class SignupPersonalDataScreen extends StatelessWidget {
             true, // Permite que a tela se ajuste ao teclado
         appBar: AppBar(
           elevation: 0,
+          scrolledUnderElevation: 0,
           toolbarHeight: 56.w,
-          backgroundColor: Colors.transparent,
+          backgroundColor:
+              appTheme.whiteA700, // Altere para a mesma cor do Scaffold
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),

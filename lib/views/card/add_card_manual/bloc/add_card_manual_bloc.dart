@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/mocks/card_mocks.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
+import 'package:wundu/views/card/add_card_manual/utils/card_manager.dart';
 
 part 'add_card_manual_event.dart';
 part 'add_card_manual_state.dart';
@@ -36,6 +38,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardNumber: event.cardNumber,
         isValidCardNumber: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -49,6 +52,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         expiryDate: event.expiryDate,
         isValidExpiryDate: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -62,6 +66,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardName: event.cardName,
         isValidCardName: isValid,
       ),
+      errorMessage: isValid ? null : state.errorMessage,
     ));
   }
 
@@ -69,9 +74,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
     AddCardSubmitEvent event,
     Emitter<AddCardManualState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
-
-    // Valide os dados
+    // Validações iniciais
     final isCardNumberValid = _validateCardNumber(event.cardNumber);
     final isExpiryDateValid = _validateExpiryDate(event.expiryDate);
     final isCardNameValid = event.cardName.isNotEmpty;
@@ -89,16 +92,63 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
-    try {
-      // Simule uma chamada de API ou serviço
-      await Future.delayed(Duration(seconds: 1));
+    // Verifica se o cartão está na lista de mocks
+    final mockCards = CardMocks.getMockCards();
+    final matchingCard = mockCards.firstWhere(
+      (card) => card.cardNumber == event.cardNumber,
+      orElse: () => AddCardManualModel(
+        cardNumber: '',
+        expiryDate: '',
+        cardName: '',
+      ),
+    );
 
-      // Se tudo estiver ok, marque como enviado
+    if (matchingCard.cardNumber!.isEmpty) {
       emit(state.copyWith(
         isLoading: false,
-        isSubmitted: true,
-        errorMessage: null,
+        errorMessage: "Este cartão não é válido ou não está registrado.",
       ));
+      return;
+    }
+
+    // Verifica se a data de expiração coincide com o mock
+    if (matchingCard.expiryDate != event.expiryDate) {
+      emit(state.copyWith(
+        isLoading: false,
+        errorMessage:
+            "A data de expiração não corresponde ao cartão registrado.",
+      ));
+      return;
+    }
+
+    // Inicia o processo de adição
+    emit(state.copyWith(isLoading: true));
+
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+
+      final card = AddCardManualModel(
+        cardNumber: event.cardNumber,
+        expiryDate: event.expiryDate,
+        cardName: event.cardName,
+        isValidCardNumber: true,
+        isValidExpiryDate: true,
+        isValidCardName: true,
+      );
+
+      if (!CardManager().cards.any((c) => c.cardNumber == card.cardNumber)) {
+        CardManager().addCard(card);
+        emit(state.copyWith(
+          isLoading: false,
+          isSubmitted: true,
+          errorMessage: null,
+        ));
+      } else {
+        emit(state.copyWith(
+          isLoading: false,
+          errorMessage: "Este cartão já foi adicionado.",
+        ));
+      }
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
@@ -108,64 +158,45 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
   }
 
   bool _validateCardNumber(String cardNumber) {
-    // Remove espaços e traços
     final cleanedNumber = cardNumber.replaceAll(RegExp(r'[\s-]'), '');
-
-    // Deve ter entre 13 e 19 dígitos
     if (cleanedNumber.length < 13 || cleanedNumber.length > 19) {
       return false;
     }
-
-    // Deve conter apenas dígitos
     if (!RegExp(r'^[0-9]+$').hasMatch(cleanedNumber)) {
       return false;
     }
-
-    // Algoritmo de Luhn (verificação de dígito)
     int sum = 0;
     bool alternate = false;
-
     for (int i = cleanedNumber.length - 1; i >= 0; i--) {
       int n = int.parse(cleanedNumber[i]);
-
       if (alternate) {
         n *= 2;
         if (n > 9) {
           n = (n % 10) + 1;
         }
       }
-
       sum += n;
       alternate = !alternate;
     }
-
     return sum % 10 == 0;
   }
 
   bool _validateExpiryDate(String expiryDate) {
-    // Formato esperado: MM/AA
     if (!RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{2})$').hasMatch(expiryDate)) {
       return false;
     }
-
-    // Extrai mês e ano
     final parts = expiryDate.split('/');
     final month = int.parse(parts[0]);
     final year = int.parse('20${parts[1]}');
-
-    // Verificar se a data não está expirada
     final now = DateTime.now();
     final currentYear = now.year;
     final currentMonth = now.month;
-
     if (year < currentYear) {
       return false;
     }
-
     if (year == currentYear && month < currentMonth) {
       return false;
     }
-
     return true;
   }
 }

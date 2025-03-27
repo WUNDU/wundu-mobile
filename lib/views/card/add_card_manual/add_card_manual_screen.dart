@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/views/card/add_card_manual/bloc/add_card_manual_bloc.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
+import 'package:wundu/views/card/add_card_manual/widgets/confirm_dialog.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
-import 'package:wundu/widgets/custom_field_text_form.dart';
+import 'package:wundu/widgets/custom_text_form_field.dart';
 
 class AddCardManualScreen extends StatefulWidget {
   const AddCardManualScreen({super.key});
@@ -48,14 +49,32 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
     return BlocConsumer<AddCardManualBloc, AddCardManualState>(
       listener: (context, state) {
         if (state.isSubmitted) {
-          // Navegue de volta para a tela de cartões após o sucesso
+          // Mostra diálogo de confirmação apenas se foi submetido com sucesso
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ConfirmDialog.builder(context);
+            },
+          );
+        }
+
+        if (state.errorMessage != null && !state.isLoading) {
+          // Mostra snackbar apenas se não estiver carregando
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Cartão adicionado com sucesso!'),
-              backgroundColor: Colors.green,
+              content: Text(state.errorMessage!),
+              backgroundColor: Colors.red,
             ),
           );
-          Navigator.pop(context);
+        }
+        if (state.isSubmitted) {
+          // Show confirmation dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ConfirmDialog.builder(context);
+            },
+          );
         }
 
         if (state.errorMessage != null) {
