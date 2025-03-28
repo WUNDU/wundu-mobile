@@ -47,6 +47,14 @@ Você pode baixar e instalar o aplicativo através do link abaixo:
    flutter run
    ```
 
+## 🧪 Dados Mockados para Testes
+
+Para testar a funcionalidade de **adição de cartão**, você pode utilizar os seguintes dados que estão mockados no sistema:
+
+- **Número do Cartão**: `5002940260147404`  
+- **Data de Expiração**: `12/26`
+
+Esses dados são necessários para simular o processo de adição de cartões durante o desenvolvimento ou testes do aplicativo.
+
 ## 📩 Contato
 Caso tenha dúvidas ou sugestões, entre em contato com a equipe Wundu. 🚀
-
