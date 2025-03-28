@@ -4,8 +4,8 @@ import '../../core/app_export.dart';
 enum Style { bgFillwhiteA700_1, bgFillWhiteA700 }
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({
-    Key? key,
+  const CustomAppBar({
+    super.key,
     this.height,
     this.shape,
     this.styleType,
@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.centerTitle,
     this.actions,
-  }) : super(key: key);
+  });
 
   final double? height;
   final ShapeBorder? shape;

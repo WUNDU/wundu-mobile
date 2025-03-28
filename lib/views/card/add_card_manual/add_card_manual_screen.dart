@@ -49,40 +49,11 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
     return BlocConsumer<AddCardManualBloc, AddCardManualState>(
       listener: (context, state) {
         if (state.isSubmitted) {
-          // Mostra diálogo de confirmação apenas se foi submetido com sucesso
           showDialog(
             context: context,
             builder: (BuildContext context) {
               return ConfirmDialog.builder(context);
             },
-          );
-        }
-
-        if (state.errorMessage != null && !state.isLoading) {
-          // Mostra snackbar apenas se não estiver carregando
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage!),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-        if (state.isSubmitted) {
-          // Show confirmation dialog
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ConfirmDialog.builder(context);
-            },
-          );
-        }
-
-        if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage!),
-              backgroundColor: Colors.red,
-            ),
           );
         }
       },
@@ -296,14 +267,26 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
                         isLoading: state.isLoading,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            context.read<AddCardManualBloc>().add(
-                                  AddCardSubmitEvent(
-                                    cardNumber: _cardNumberController.text
-                                        .replaceAll(' ', ''),
-                                    expiryDate: _expiryDateController.text,
-                                    cardName: _cardNameController.text,
-                                  ),
-                                );
+                            final bloc = context.read<AddCardManualBloc>();
+                            bloc.add(
+                              AddCardSubmitEvent(
+                                cardNumber: _cardNumberController.text
+                                    .replaceAll(' ', ''),
+                                expiryDate: _expiryDateController.text,
+                                cardName: _cardNameController.text,
+                              ),
+                            );
+
+                            // Mostra o Snackbar apenas uma vez após o submit
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            if (state.errorMessage != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(state.errorMessage!),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
                           }
                         },
                       ),

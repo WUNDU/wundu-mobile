@@ -32,22 +32,10 @@ class LoginScreen extends StatelessWidget {
     ScreenUtil.init(context, designSize: const Size(360, 800));
     return BlocConsumer<LoginScreenBloc, LoginScreenState>(
       listener: (context, state) {
-        // Handle navigation on successful login
-        if (!state.isLoading &&
-            !state.hasError &&
-            state.emailController != null &&
-            state.emailController!.text.isNotEmpty &&
-            state.passwordController != null &&
-            state.passwordController!.text.isNotEmpty &&
-            _formKey.currentState!.validate()) {
-          // Adiciona verificação de validação
-          // Check if this is after a successful login attempt
-          final currentRoute = ModalRoute.of(context)?.settings.name;
-          if (currentRoute == AppRoutes.loginScreen) {
-            NavigatorService.pushNamedAndRemovedUntil(
-              AppRoutes.mainScreen, // Replace with your home/dashboard route
-            );
-          }
+        if (state is LoginSuccessState) {
+          NavigatorService.pushNamedAndRemovedUntil(
+            AppRoutes.mainScreen, // Replace with your home/dashboard route
+          );
         }
       },
       builder: (context, state) {

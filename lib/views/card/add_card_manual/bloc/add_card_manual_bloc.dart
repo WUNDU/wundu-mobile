@@ -38,7 +38,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardNumber: event.cardNumber,
         isValidCardNumber: isValid,
       ),
-      errorMessage: isValid ? null : state.errorMessage,
+      // Não defina errorMessage aqui
     ));
   }
 
@@ -52,7 +52,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         expiryDate: event.expiryDate,
         isValidExpiryDate: isValid,
       ),
-      errorMessage: isValid ? null : state.errorMessage,
+      // Não defina errorMessage aqui
     ));
   }
 
@@ -66,7 +66,7 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         cardName: event.cardName,
         isValidCardName: isValid,
       ),
-      errorMessage: isValid ? null : state.errorMessage,
+      // Não defina errorMessage aqui
     ));
   }
 
@@ -111,7 +111,6 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
-    // Verifica se a data de expiração coincide com o mock
     if (matchingCard.expiryDate != event.expiryDate) {
       emit(state.copyWith(
         isLoading: false,
@@ -121,7 +120,6 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
-    // Inicia o processo de adição
     emit(state.copyWith(isLoading: true));
 
     try {

@@ -78,10 +78,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     ));
   }
 
-  _onSubmitLogin(
-    SubmitLoginEvent event,
-    Emitter<LoginScreenState> emit,
-  ) async {
+  _onSubmitLogin(SubmitLoginEvent event, Emitter<LoginScreenState> emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, errorMessage: null));
 
     try {
@@ -95,6 +92,8 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
           response['token'],
           response['data']['userDTO'],
         );
+        emit(state.copyWith(
+            isLoading: false)); // Atualiza o estado antes da navegação
         add(LoginSuccessEvent());
       } else {
         add(LoginFailedEvent(errorMessage: response['message']));
@@ -129,11 +128,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     LoginSuccessEvent event,
     Emitter<LoginScreenState> emit,
   ) {
-    emit(state.copyWith(
-      isLoading: false,
-      hasError: false,
-      errorMessage: null,
-    ));
-    // Navigation will be handled by the BlocListener in the UI
+    emit(
+        LoginSuccessState()); // Navigation will be handled by the BlocListener in the UI
   }
 }
