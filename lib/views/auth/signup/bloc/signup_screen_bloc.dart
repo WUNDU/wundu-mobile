@@ -11,6 +11,7 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
   SignupScreenBloc(super.initialState) {
     on<SignupScreenInitialEvent>(_onInitialize);
     on<ChangeStepEvent>(_onChangeStep);
+    on<PreparePhoneNumberEvent>(_onPreparePhoneNumber);
     on<CompleteRegistrationEvent>(_onCompleteRegistration);
   }
 
@@ -28,6 +29,7 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
         currentStep: 0,
         isLoading: false,
         errorMessage: null,
+        processedPhoneNumber: null,
       ),
     );
   }
@@ -41,6 +43,15 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
     ));
   }
 
+  _onPreparePhoneNumber(
+    PreparePhoneNumberEvent event,
+    Emitter<SignupScreenState> emit,
+  ) {
+    emit(state.copyWith(
+      processedPhoneNumber: event.phoneNumber,
+    ));
+  }
+
   _onCompleteRegistration(
     CompleteRegistrationEvent event,
     Emitter<SignupScreenState> emit,
@@ -49,11 +60,15 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     try {
+      // Use the processed phone number instead of the controller text
+      final phoneNumber =
+          state.processedPhoneNumber ?? state.numberController!.text;
+
       // Call the API service
       final response = await ApiService.registerUser(
         name: state.nameController!.text,
         email: state.emailController!.text,
-        phoneNumber: state.numberController!.text,
+        phoneNumber: phoneNumber,
         password: state.passwordController!.text,
       );
 

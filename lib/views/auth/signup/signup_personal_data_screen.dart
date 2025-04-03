@@ -182,14 +182,14 @@ class SignupPersonalDataScreen extends StatelessWidget {
                                     EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
                                 inputFormatters: [
                                   PhoneNumberFormatter(),
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[\d+]')),
+                                  LengthLimitingTextInputFormatter(
+                                      16), // +244 999 999 999
                                 ],
                                 validator: (value) {
                                   if (value == null ||
                                       (!isValidPhone(value,
                                           isRequired: true))) {
-                                    return "Por favor insira um número correcto (com ou sem +244)";
+                                    return "Número inválido. Exemplo: +244 923 456 789";
                                   }
                                   return null;
                                 },
@@ -200,22 +200,35 @@ class SignupPersonalDataScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 50.w),
-                    CustomElevatedButton(
+              CustomElevatedButton(
                       text: "Próximo",
-                      buttonTextStyle: CustomTextStyles.titleLargeGray200,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           final bloc = context.read<SignupScreenBloc>();
-                          context
-                              .read<SignupScreenBloc>()
-                              .add(ChangeStepEvent(step: 1));
 
+                          // Obtenha o número de telefone formatado
+                          final formattedPhoneNumber =
+                              bloc.state.numberController?.text;
+
+                          // Processe o número para o formato necessário para o backend
+                          // sem alterar o que o usuário vê no campo
+                          final rawPhone = formattedPhoneNumber!
+                              .replaceAll(' ', '')
+                              .replaceAll('+244', '9')
+                              .substring(0, 9);
+
+                          // Armazene o valor processado em algum lugar no bloc sem atualizar o controlador
+                          bloc.add(
+                              PreparePhoneNumberEvent(phoneNumber: rawPhone));
+
+                          // Continue com o fluxo normal
+                          bloc.add(ChangeStepEvent(step: 1));
                           NavigatorService.pushNamed(
                               arguments: bloc,
                               AppRoutes.signupPasswordDataScreen);
                         }
                       },
-                    ),
+                    )
                   ],
                 ),
               ),

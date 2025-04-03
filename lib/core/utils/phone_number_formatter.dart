@@ -3,61 +3,69 @@ import 'package:flutter/services.dart';
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final text = newValue.text;
-    final oldText = oldValue.text;
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Check if we're deleting
+    bool isDeleting = oldValue.text.length > newValue.text.length;
 
-    // Permite apenas dígitos e '+'
-    String cleanedText = text.replaceAll(RegExp(r'[^\d+]'), '');
+    // Get just the digits
+    String digitsOnly = newValue.text.replaceAll(RegExp(r'[^\d+]'), '');
 
-    String prefix = '';
-    String numberPart = '';
+    // Always ensure we have the +244 prefix
+    String prefix = '+244';
+    String phoneDigits = '';
 
-    // Identificar o prefixo
-    if (cleanedText.startsWith('+244')) {
-      prefix = '+244';
-      numberPart = cleanedText.substring(4);
-    } else if (cleanedText.startsWith('244')) {
-      prefix = '244';
-      numberPart = cleanedText.substring(3);
-    } else if (cleanedText.startsWith('0')) {
-      prefix = '0';
-      numberPart = cleanedText.substring(1);
-    } else {
-      numberPart = cleanedText;
-    }
-
-    // Limitar a parte numérica a 9 dígitos
-    numberPart = numberPart.replaceAll(RegExp(r'[^\d]'), '');
-    if (numberPart.length > 9) {
-      numberPart = numberPart.substring(0, 9);
-    }
-
-    // Formatar a parte numérica com espaços
-    String formattedNumber = '';
-    for (int i = 0; i < numberPart.length; i++) {
-      if (i > 0 && i % 3 == 0) {
-        formattedNumber += ' ';
+    // Extract the phone number part
+    if (digitsOnly.startsWith('+244')) {
+      phoneDigits = digitsOnly.substring(4);
+    } else if (digitsOnly.startsWith('244')) {
+      phoneDigits = digitsOnly.substring(3);
+    } else if (digitsOnly.startsWith('+')) {
+      phoneDigits = digitsOnly;
+      if (phoneDigits.length > 1) {
+        phoneDigits = phoneDigits.substring(1);
+      } else {
+        phoneDigits = '';
       }
-      formattedNumber += numberPart[i];
+    } else {
+      phoneDigits = digitsOnly;
     }
 
-    // Combinar prefixo e número formatado
-    String result = prefix;
-    if (prefix.isNotEmpty && formattedNumber.isNotEmpty) {
-      result += ' ';
+    // Limit to exactly 9 digits for the phone part
+    if (phoneDigits.length > 9) {
+      phoneDigits = phoneDigits.substring(0, 9);
     }
-    result += formattedNumber;
 
-    // Manter o cursor na posição correta
-    int cursorPosition = result.length;
-    if (oldText.length >= text.length) {
-      cursorPosition = newValue.selection.baseOffset;
+    // Format with spaces after every 3 digits
+    String formatted = '';
+    for (int i = 0; i < phoneDigits.length; i++) {
+      if (i > 0 && i % 3 == 0) {
+        formatted += ' ';
+      }
+      formatted += phoneDigits[i];
+    }
+
+    // Construct the final result
+    String result = formatted.isEmpty ? prefix : '$prefix $formatted';
+
+    // If deleting and at the prefix boundary, prevent deletion of prefix
+    if (isDeleting && oldValue.text.length <= prefix.length + 1) {
+      result = prefix;
+    }
+
+    // Calculate the new cursor position
+    int newCursorPosition = result.length;
+    if (newValue.selection.baseOffset < newValue.text.length) {
+      // Try to keep the cursor at a sensible position
+      newCursorPosition = result.length -
+          (newValue.text.length - newValue.selection.baseOffset);
+      newCursorPosition = newCursorPosition.clamp(prefix.length, result.length);
     }
 
     return TextEditingValue(
       text: result,
-      selection: TextSelection.collapsed(offset: cursorPosition),
+      selection: TextSelection.collapsed(offset: newCursorPosition),
     );
   }
 }

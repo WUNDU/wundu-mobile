@@ -10,6 +10,8 @@ class SignupScreenState extends Equatable {
   final int currentStep;
   final bool isLoading;
   final String? errorMessage;
+  final String?
+      processedPhoneNumber; // Novo campo para armazenar número processado
 
   const SignupScreenState({
     this.signupScreenModel,
@@ -21,6 +23,7 @@ class SignupScreenState extends Equatable {
     this.currentStep = 0,
     this.isLoading = false,
     this.errorMessage,
+    this.processedPhoneNumber,
   });
 
   SignupScreenState copyWith({
@@ -33,6 +36,7 @@ class SignupScreenState extends Equatable {
     int? currentStep,
     bool? isLoading,
     String? errorMessage,
+    String? processedPhoneNumber,
   }) {
     return SignupScreenState(
       signupScreenModel: signupScreenModel ?? this.signupScreenModel,
@@ -45,6 +49,7 @@ class SignupScreenState extends Equatable {
       currentStep: currentStep ?? this.currentStep,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage,
+      processedPhoneNumber: processedPhoneNumber ?? this.processedPhoneNumber,
     );
   }
 
@@ -59,5 +64,6 @@ class SignupScreenState extends Equatable {
         currentStep,
         isLoading,
         errorMessage,
+        processedPhoneNumber,
       ];
 }

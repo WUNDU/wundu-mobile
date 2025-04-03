@@ -31,18 +31,26 @@ bool isValidEmail(String? inputString, {bool isRequired = false}) {
   return isInputStringValid;
 }
 
-/// Checks if string is phone number
 bool isValidPhone(String? inputString, {bool isRequired = false}) {
-  bool isInputStringValid = false;
   if (!isRequired && (inputString == null || inputString.isEmpty)) {
-    isInputStringValid = true;
+    return true;
   }
-  if (inputString != null && inputString.isNotEmpty) {
-    String cleanedInput = inputString.replaceAll(' ', '');
-    const pattern =
-        r'^(?:\+244|244|0)?9[1-9]\d{7}$'; // Permite +244, 244, 0 como prefixo
-    final regExp = RegExp(pattern);
-    isInputStringValid = regExp.hasMatch(cleanedInput);
+
+  // Extract just the digits
+  final cleaned = inputString?.replaceAll(RegExp(r'[^\d+]'), '') ?? '';
+
+  // Check for international format: +244 followed by 9 digits starting with 9
+  if (cleaned.startsWith('+244')) {
+    return cleaned.length == 13 &&
+        RegExp(r'^\+2449[1-9]\d{7}$').hasMatch(cleaned);
   }
-  return isInputStringValid;
+
+  // Check for format with just 244 prefix
+  if (cleaned.startsWith('244')) {
+    return cleaned.length == 12 &&
+        RegExp(r'^2449[1-9]\d{7}$').hasMatch(cleaned);
+  }
+
+  // Check for local format (just 9 digits)
+  return cleaned.length == 9 && RegExp(r'^9[1-9]\d{7}$').hasMatch(cleaned);
 }
