@@ -38,10 +38,11 @@ bool isValidPhone(String? inputString, {bool isRequired = false}) {
     isInputStringValid = true;
   }
   if (inputString != null && inputString.isNotEmpty) {
-    if (inputString.length > 16 || inputString.length < 6) return false;
-    const pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[) ]{0,1}[-\s\./0-9]*$';
+    String cleanedInput = inputString.replaceAll(' ', '');
+    const pattern =
+        r'^(?:\+244|244|0)?9[1-9]\d{7}$'; // Permite +244, 244, 0 como prefixo
     final regExp = RegExp(pattern);
-    isInputStringValid = regExp.hasMatch(inputString);
+    isInputStringValid = regExp.hasMatch(cleanedInput);
   }
   return isInputStringValid;
 }

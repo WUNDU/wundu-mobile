@@ -67,6 +67,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType,
     this.inputFormatters,
     this.textCapitalization = TextCapitalization.none,
+    this.maxLength,
   });
 
   final Alignment? alignment;
@@ -98,6 +99,7 @@ class CustomTextFormField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final TextCapitalization textCapitalization;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +134,7 @@ class CustomTextFormField extends StatelessWidget {
           textInputAction: textInputAction,
           keyboardType: keyboardType ?? textInputType,
           maxLines: maxLines ?? 1,
+          maxLength: maxLength,
           decoration: decoration.copyWith(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.h),

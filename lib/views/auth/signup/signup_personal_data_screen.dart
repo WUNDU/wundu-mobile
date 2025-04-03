@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Importe o flutter_screenutil
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/utils/phone_number_formatter.dart';
 import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
@@ -174,18 +176,23 @@ class SignupPersonalDataScreen extends StatelessWidget {
                               return CustomTextFormField(
                                 controller: numberController,
                                 hintText: "Digite seu nº telefónico",
+                                textInputType: TextInputType.phone,
                                 textInputAction: TextInputAction.done,
                                 contentPadding:
                                     EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
+                                inputFormatters: [
+                                  PhoneNumberFormatter(),
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[\d+]')),
+                                ],
                                 validator: (value) {
                                   if (value == null ||
                                       (!isValidPhone(value,
                                           isRequired: true))) {
-                                    return "Por favor insira um número correcto";
+                                    return "Por favor insira um número correcto (com ou sem +244)";
                                   }
                                   return null;
                                 },
-                                onChanged: (value) {},
                               );
                             },
                           ),

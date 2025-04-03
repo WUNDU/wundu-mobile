@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
   // Replace with your actual API base URL
-  static String baseUrl = 'https://api-finaces-production.up.railway.app/api';
+  // static String baseUrl = 'https://api-finaces-production.up.railway.app/api';
+  static String baseUrl = Platform.isAndroid
+      ? 'http://10.0.2.2:8089/api' // Android emulator
+      : 'http://127.0.0.1:8089/api';
 
   // Method to register a new user
   static Future<Map<String, dynamic>> registerUser(
