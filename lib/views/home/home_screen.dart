@@ -453,6 +453,7 @@ class _AnimatedIconButton extends StatefulWidget {
     required this.icon,
     required this.height,
     required this.width,
+    // ignore: unused_element_parameter
     this.borderColor,
     required this.onTap,
     // ignore: unused_element_parameter
