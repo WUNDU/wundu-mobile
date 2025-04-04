@@ -30,6 +30,11 @@ class LibraryScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: appTheme.blueGray50,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: appTheme.whiteA700,
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
       body: SafeArea(
         child: SizedBox(
           width: double.maxFinite,
@@ -48,17 +53,18 @@ class LibraryScreen extends StatelessWidget {
                     width: double.maxFinite,
                     padding: EdgeInsets.only(
                       left: 16.h,
-                      top: 18.h,
+                      top: 12.h,
                       right: 16.h,
+                      bottom: 12.h,
                     ),
                     decoration: AppDecoration.fillwhiteA700.copyWith(
                       borderRadius: BorderRadiusStyle.roundedBorder20,
                     ),
                     child: Column(
-                      spacing: 34,
+                      spacing: 24,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(height: 12.h),
+                        SizedBox(height: 8.h),
                         _buildRowsearch(context),
                         _buildRowfinanas(context),
                         _buildColumnartigosno(context),
@@ -69,7 +75,7 @@ class LibraryScreen extends StatelessWidget {
                           rightIcon: Container(
                             margin: EdgeInsets.only(left: 8.h),
                             child: CustomImageView(
-                              imagePath: ImageConstant.filter,
+                              imagePath: ImageConstant.arrowRotate,
                               height: 16.h,
                               width: 16.h,
                               fit: BoxFit.contain,
@@ -106,17 +112,41 @@ class LibraryScreen extends StatelessWidget {
                   controller: searchController,
                   hintText: "msg_pesquisar_por_um".tr,
                   contentPadding: EdgeInsets.fromLTRB(14.h, 8.h, 12.h, 8.h),
+                  borderDecoration: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.h),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade300,
+                      width: 0.5,
+                    ),
+                  ),
+                  suffix: null,
+                  showClearButton: false,
                 );
               },
             ),
           ),
-          CustomIconButton(
-            height: 40.h,
-            width: 40.h,
-            padding: EdgeInsets.all(8.h),
-            decoration: IconButtonStyleHelper.fillGray,
-            child: CustomImageView(
-              imagePath: ImageConstant.filter,
+          SizedBox(width: 8.h),
+          Container(
+            decoration: BoxDecoration(
+              color: appTheme.whiteA700,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: CustomIconButton(
+              height: 40.h,
+              width: 40.h,
+              padding: EdgeInsets.all(8.h),
+              decoration: IconButtonStyleHelper.fillGray,
+              child: CustomImageView(
+                imagePath: ImageConstant.filter,
+              ),
             ),
           ),
         ],
@@ -156,7 +186,7 @@ class LibraryScreen extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder12,
             ),
             child: Text(
-              "lbl_investimentos".tr,
+              "1bl_investimentos".tr,
               textAlign: TextAlign.center,
               style: CustomTextStyles.labelLargeGray90001_1,
             ),
@@ -207,10 +237,6 @@ class LibraryScreen extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Text(
-                  "1bl_artigos_novos".tr,
-                  style: CustomTextStyles.labelLargeGray90001_1,
-                ),
                 Text(
                   "lbl_artigos_novos".tr,
                   style: CustomTextStyles.labelLargeGray90001_1,

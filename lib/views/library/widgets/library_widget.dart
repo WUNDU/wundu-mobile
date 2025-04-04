@@ -12,18 +12,25 @@ class LibraryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      decoration: AppDecoration.outlineBluegray9001.copyWith(
-        borderRadius: BorderRadiusStyle.roundedBorder12,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey.shade300,
+          width: 0.5,
+        ),
+        borderRadius: BorderRadius.circular(12.h),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomImageView(
-            imagePath: libraryItemModelObj.image!,
-            height: 96.h,
-            width: double.maxFinite,
-            radius: BorderRadius.vertical(
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(
               top: Radius.circular(12.h),
+            ),
+            child: CustomImageView(
+              imagePath: libraryItemModelObj.image!,
+              height: 96.h,
+              width: double.maxFinite,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(height: 8.h),
@@ -61,7 +68,7 @@ class LibraryWidget extends StatelessWidget {
                   style: CustomTextStyles.labelSmallGray90002,
                 ),
                 CustomImageView(
-                  imagePath: ImageConstant.download,
+                  imagePath: ImageConstant.arrowRight2,
                   height: 16.h,
                   width: 16.h,
                   margin: EdgeInsets.only(left: 4.h),

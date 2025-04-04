@@ -67,10 +67,12 @@ class _MainScaffoldState extends State<MainScaffold> {
         final userData = snapshot.data;
         return Scaffold(
           backgroundColor: appTheme.blueGray50,
-          appBar: CustomAppBar(
-            userName: userData?['name'] ?? 'Usuário',
-            welcomeMessage: "Bem-vindo ao wundu",
-          ),
+          appBar: _currentIndex == 3
+              ? null
+              : CustomAppBar(
+                  userName: userData?['name'] ?? 'Usuário',
+                  welcomeMessage: "Bem-vindo ao wundu",
+                ),
           body: PageView(
             controller: _pageController,
             physics:

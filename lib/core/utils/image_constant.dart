@@ -42,5 +42,7 @@ class ImageConstant {
   static String money = '$imagePath/money.png';
   static String close = '$imagePath/close.png';
   static String download = '$imagePath/download.png';
+  static String search = '$imagePath/search.png';
   static String informationOutline = '$imagePath/information-outline.png';
+  static String arrowRight2 = '$imagePath/arrow-right-02.png';
 }

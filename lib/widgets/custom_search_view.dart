@@ -26,6 +26,7 @@ class CustomSearchView extends StatelessWidget {
     this.filled = false,
     this.validator,
     this.onChanged,
+    this.showClearButton = true,
   });
 
   final Alignment? alignment;
@@ -50,6 +51,7 @@ class CustomSearchView extends StatelessWidget {
   final bool filled;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
+  final bool showClearButton;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,7 @@ class CustomSearchView extends StatelessWidget {
                 vertical: 8.h,
               ),
               child: CustomImageView(
-                imagePath: ImageConstant.close,
+                imagePath: ImageConstant.search,
                 height: 24.h,
                 width: 24.h,
               ),
@@ -104,19 +106,21 @@ class CustomSearchView extends StatelessWidget {
             BoxConstraints(
               maxHeight: 40.h,
             ),
-        suffixIcon: suffix ??
-            Padding(
-              padding: EdgeInsets.only(
-                right: 15.h,
-              ),
-              child: IconButton(
-                onPressed: () => controller?.clear(),
-                icon: Icon(
-                  Icons.clear,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-            ),
+        suffixIcon: showClearButton
+            ? (suffix ??
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 15.h,
+                  ),
+                  child: IconButton(
+                    onPressed: () => controller?.clear(),
+                    icon: Icon(
+                      Icons.clear,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ))
+            : null,
         suffixIconConstraints: suffixConstraints ??
             BoxConstraints(
               maxHeight: 40.h,
