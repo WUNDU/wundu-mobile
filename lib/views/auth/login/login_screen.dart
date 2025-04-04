@@ -21,6 +21,7 @@ class LoginScreen extends StatelessWidget {
         isPasswordValid: true,
         hasError: false,
         isLoading: false,
+        isPasswordVisible: false,
       ))
         ..add(LoginScreenInitialEvent()),
       child: LoginScreen(),
@@ -47,16 +48,19 @@ class LoginScreen extends StatelessWidget {
               key: _formKey,
               child: LayoutBuilder(
                 builder: (context, constraints) {
+                  final isTablet = MediaQuery.of(context).size.width > 600;
                   return Center(
-                    child: constraints.maxHeight < SizeExtension(800).h
-                        ? SingleChildScrollView(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: _buildContent(context, state),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 14.w),
-                            child: _buildContent(context, state),
-                          ),
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isTablet ? 40.w : 14.w,
+                      ),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: isTablet ? 600 : double.infinity,
+                        ),
+                        child: _buildContent(context, state),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -68,61 +72,67 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, LoginScreenState state) {
+    final isTablet = MediaQuery.of(context).size.width > 600;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomImageView(
           imagePath: ImageConstant.logo,
           alignment: Alignment.centerLeft,
+          height: isTablet ? 60.w : 40.w,
         ),
-        SizedBox(height: 16.w), // Reduced spacing
-        // ... Previous code remains the same
-
+        SizedBox(height: isTablet ? 32.w : 16.w),
         Stack(
           alignment: Alignment.center,
           children: [
             CustomImageView(
               imagePath: ImageConstant.backgroundSmall,
-              height: 200.w,
-              width: 300.w,
+              height: isTablet ? 300.w : 200.w,
+              width: isTablet ? 450.w : 300.w,
             ),
-            CustomImageView(
-              imagePath:
-                  state.hasError ? ImageConstant.pana : ImageConstant.cuate,
-              height: 90.w,
-              width: 90.w,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomImageView(
+                  imagePath:
+                      state.hasError ? ImageConstant.pana : ImageConstant.cuate,
+                  height: isTablet ? 120.w : 90.w,
+                  width: isTablet ? 120.w : 90.w,
+                ),
+                SizedBox(height: isTablet ? 16.w : 12.w),
+                if (state.hasError)
+                  Text(
+                    state.errorMessage ??
+                        "Email ou senha incorretos, tente novamente",
+                    style: CustomTextStyles.titleMediumPoppinsRedA200
+                        .copyWith(height: 1.50),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  )
+                else
+                  Column(
+                    children: [
+                      Text(
+                        "faça seu login".toUpperCase(),
+                        style: CustomTextStyles.titleLargePoppinsBluegray900,
+                      ),
+                      SizedBox(height: 2.w),
+                      Text(
+                        "Faça login e melhore a tua vida financeira",
+                        style: CustomTextStyles.titleMediumGray500cc,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ],
         ),
-        SizedBox(height: 12.w),
-        if (state.hasError)
-          Text(
-            state.errorMessage ?? "Email ou senha incorretos, tente novamente",
-            style: CustomTextStyles.titleMediumPoppinsRedA200
-                .copyWith(height: 1.50),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          )
-        else
-          Column(
-            children: [
-              Text(
-                "faça seu login".toUpperCase(),
-                style: CustomTextStyles.titleLargePoppinsBluegray900,
-              ),
-              SizedBox(height: 2.w),
-              Text(
-                "Faça login e melhore a tua vida financeira",
-                style: CustomTextStyles.titleMediumGray500cc,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        SizedBox(height: 24.w),
-
+        SizedBox(height: isTablet ? 40.w : 24.w),
         SizedBox(
           width: double.maxFinite,
           child: Column(
@@ -180,7 +190,7 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 28.w),
+        SizedBox(height: isTablet ? 36.w : 28.w),
         SizedBox(
           width: double.maxFinite,
           child: Column(
@@ -200,7 +210,7 @@ class LoginScreen extends StatelessWidget {
                       hintText: "Digite a sua senha",
                       textInputAction: TextInputAction.done,
                       textInputType: TextInputType.visiblePassword,
-                      obscureText: true,
+                      obscureText: !state.isPasswordVisible,
                       contentPadding:
                           EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
                       borderDecoration: OutlineInputBorder(
@@ -215,6 +225,19 @@ class LoginScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       fillColor: state.isPasswordValid ? null : Colors.red[50],
+                      suffix: IconButton(
+                        icon: Icon(
+                          state.isPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          context
+                              .read<LoginScreenBloc>()
+                              .add(TogglePasswordVisibilityEvent());
+                        },
+                      ),
                       validator: (value) {
                         if (value == null ||
                             (!isValidPassword(value, isRequired: true))) {
@@ -238,7 +261,7 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20.w), // Reduced spacing
+        SizedBox(height: isTablet ? 24.w : 20.w),
         Align(
           alignment: Alignment.centerRight,
           child: GestureDetector(
@@ -251,7 +274,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 30.w), // Reduced spacing
+        SizedBox(height: isTablet ? 40.w : 30.w),
         BlocSelector<LoginScreenBloc, LoginScreenState, bool>(
           selector: (state) => state.isLoading,
           builder: (context, isLoading) {
@@ -271,7 +294,7 @@ class LoginScreen extends StatelessWidget {
                   );
           },
         ),
-        SizedBox(height: 40.w), // Reduced spacing
+        SizedBox(height: isTablet ? 50.w : 40.w),
         GestureDetector(
           onTap: () {
             onTapSignup(context);

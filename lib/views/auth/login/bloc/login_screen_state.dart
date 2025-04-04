@@ -9,6 +9,7 @@ class LoginScreenState extends Equatable {
   final bool hasError;
   final bool isLoading;
   final String? errorMessage;
+  final bool isPasswordVisible;
 
   const LoginScreenState({
     this.loginModelObj,
@@ -19,6 +20,7 @@ class LoginScreenState extends Equatable {
     this.hasError = false,
     this.isLoading = false,
     this.errorMessage,
+    this.isPasswordVisible = false,
   });
 
   LoginScreenState copyWith({
@@ -30,6 +32,7 @@ class LoginScreenState extends Equatable {
     bool? hasError,
     bool? isLoading,
     String? errorMessage,
+    bool? isPasswordVisible,
   }) {
     return LoginScreenState(
       loginModelObj: loginModelObj ?? this.loginModelObj,
@@ -40,6 +43,7 @@ class LoginScreenState extends Equatable {
       hasError: hasError ?? this.hasError,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage,
+      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
     );
   }
 
@@ -53,5 +57,6 @@ class LoginScreenState extends Equatable {
         hasError,
         isLoading,
         errorMessage,
+        isPasswordVisible,
       ];
 }

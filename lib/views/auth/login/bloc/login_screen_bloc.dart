@@ -19,6 +19,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     on<SubmitLoginEvent>(_onSubmitLogin);
     on<LoginFailedEvent>(_onLoginFailed);
     on<LoginSuccessEvent>(_onLoginSuccess);
+    on<TogglePasswordVisibilityEvent>(_onTogglePasswordVisibility);
   }
 
   _onInitialize(
@@ -34,6 +35,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
         hasError: false,
         isLoading: false,
         errorMessage: null,
+        isPasswordVisible: false,
       ),
     );
   }
@@ -75,6 +77,15 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
   ) {
     emit(state.copyWith(
       isPasswordValid: false,
+    ));
+  }
+
+  _onTogglePasswordVisibility(
+    TogglePasswordVisibilityEvent event,
+    Emitter<LoginScreenState> emit,
+  ) {
+    emit(state.copyWith(
+      isPasswordVisible: !state.isPasswordVisible,
     ));
   }
 

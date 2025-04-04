@@ -4,18 +4,17 @@ import '../core/app_export.dart';
 
 extension TextFormFieldStyleHelper on CustomTextFormField {
   static OutlineInputBorder get outlineGray => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.h),
+        borderRadius: BorderRadius.circular(12.h),
         borderSide: BorderSide(
-          color: appTheme.gray30001,
+          color: appTheme.gray30001.withAlpha(128),
           width: 1,
         ),
       );
 
   static OutlineInputBorder get outlineBlueGray => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.h),
+        borderRadius: BorderRadius.circular(12.h),
         borderSide: BorderSide(
-          // ignore: deprecated_member_use
-          color: appTheme.blueGray900.withOpacity(0.8),
+          color: appTheme.blueGray900.withAlpha(128),
           width: 1,
         ),
       );
@@ -26,10 +25,9 @@ extension TextFormFieldStyleHelper on CustomTextFormField {
       );
 
   static OutlineInputBorder get outlineGrayTL81 => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8.h),
+        borderRadius: BorderRadius.circular(12.h),
         borderSide: BorderSide(
-          // ignore: deprecated_member_use
-          color: appTheme.gray90001.withOpacity(0.18),
+          color: appTheme.gray90001.withAlpha(31),
           width: 1,
         ),
       );
@@ -127,7 +125,11 @@ class CustomTextFormField extends StatelessWidget {
             }
           },
           autofocus: autofocus,
-          style: textStyle ?? CustomTextStyles.titleSmallBlack90001,
+          style: textStyle ??
+              CustomTextStyles.titleSmallBlack90001.copyWith(
+                fontSize: 14.fSize,
+                letterSpacing: 0.2,
+              ),
           obscureText: obscureText,
           readOnly: readOnly,
           onTap: onTap,
@@ -137,10 +139,10 @@ class CustomTextFormField extends StatelessWidget {
           maxLength: maxLength,
           decoration: decoration.copyWith(
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.h),
+              borderRadius: BorderRadius.circular(12.h),
               borderSide: BorderSide(
-                color: Colors.black, // Preto denso
-                width: 1, // Borda mais fina
+                color: Colors.black.withAlpha(204),
+                width: 1.5,
               ),
             ),
           ),
@@ -153,65 +155,69 @@ class CustomTextFormField extends StatelessWidget {
 
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
-        hintStyle: hintStyle ?? CustomTextStyles.titleSmallBlack90001,
+        hintStyle: hintStyle ??
+            CustomTextStyles.titleSmallBlack90001.copyWith(
+              fontSize: 14.fSize,
+              color: Colors.black.withAlpha(128),
+              letterSpacing: 0.2,
+            ),
         prefixIcon: prefix,
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,
         suffixIconConstraints: suffixConstraints,
         isDense: true,
-        contentPadding:
-            contentPadding ?? EdgeInsets.fromLTRB(10.h, 14.h, 10.h, 10.h),
-        fillColor: fillColor,
+        contentPadding: contentPadding ??
+            EdgeInsets.symmetric(horizontal: 16.h, vertical: 16.h),
+        fillColor: fillColor ?? Colors.white,
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.h),
+              borderRadius: BorderRadius.circular(12.h),
               borderSide: BorderSide(
-                color: appTheme.gray300,
+                color: appTheme.gray300.withAlpha(128),
                 width: 1,
               ),
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.h),
+              borderRadius: BorderRadius.circular(12.h),
               borderSide: BorderSide(
-                color: appTheme.gray300,
+                color: appTheme.gray300.withAlpha(128),
                 width: 1,
               ),
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.h),
+              borderRadius: BorderRadius.circular(12.h),
               borderSide: BorderSide(
-                color: Colors.black, // Preto denso
-                width: 1, // Borda mais fina
+                color: Colors.black.withAlpha(204),
+                width: 1.5,
               ),
             ),
         errorBorder: (borderDecoration ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.h),
+                  borderRadius: BorderRadius.circular(12.h),
                 ))
             .copyWith(
           borderSide: BorderSide(
-            // ignore: deprecated_member_use
-            color: appTheme.redA200.withOpacity(0.8),
+            color: appTheme.redA200.withAlpha(153),
             width: 1,
           ),
         ),
         focusedErrorBorder: (borderDecoration ??
                 OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.h),
+                  borderRadius: BorderRadius.circular(12.h),
                 ))
             .copyWith(
           borderSide: BorderSide(
-            color: Colors.black, // Preto denso
-            width: 1, // Borda mais fina
+            color: Colors.black.withAlpha(204),
+            width: 1.5,
           ),
         ),
         errorStyle: TextStyle(
-          // ignore: deprecated_member_use
-          color: appTheme.redA200.withOpacity(0.8),
+          color: appTheme.redA200.withAlpha(204),
           fontSize: 12.fSize,
+          fontWeight: FontWeight.w500,
         ),
       );
 }
