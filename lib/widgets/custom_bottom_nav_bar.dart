@@ -63,8 +63,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           // Profile
           _buildAnimatedNavItem(
             icon: ImageConstant.user,
-            iconHeight: 22.h,
-            iconWidth: 22.h,
             label: "Perfil",
             isSelected: widget.currentIndex == 4,
             onTap: () => widget.onTap(4),

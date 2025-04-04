@@ -200,10 +200,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                             : 40), // Ajuste para tablet
                                     CustomImageView(
                                       imagePath: _contents[index].imagePath,
-                                      height: isTablet
-                                          ? 400
-                                          : 310, // Ajuste para tablet
+                                      height: isTablet ? 400 : 310,
                                       width: double.maxFinite,
+                                      fit: BoxFit.contain,
                                       margin: EdgeInsets.only(
                                           right: isTablet ? 40 : 28),
                                     ),

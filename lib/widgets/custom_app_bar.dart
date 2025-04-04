@@ -32,24 +32,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CustomImageView(
                     imagePath: ImageConstant.userProfile,
-                    height: 50.h,
-                    width: 50.h,
+                    height: 40.h,
+                    width: 40.h,
                     radius: BorderRadius.circular(
-                      24.h,
+                      20.h,
                     ),
                   ),
+                  SizedBox(width: 12.h),
                   Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           userName,
                           style: theme.textTheme.titleMedium,
                         ),
+                        SizedBox(height: 2.h),
                         Text(
                           welcomeMessage,
                           style: theme.textTheme.bodyMedium,
@@ -57,6 +60,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ],
                     ),
                   ),
+                  SizedBox(width: 8.h),
                   // Botão com animação de toque
                   _AnimatedIconButton(
                     icon: ImageConstant.wunduIA,
@@ -101,6 +105,32 @@ class _AnimatedIconButton extends StatefulWidget {
 class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
   bool isPressed = false;
 
+  BoxDecoration _getButtonDecoration() {
+    if (widget.icon == ImageConstant.wunduIA) {
+      return BoxDecoration(
+        color: appTheme.whiteA700,
+        borderRadius: BorderRadius.circular(20.h),
+        border: Border.all(
+          color: appTheme.indigoA200,
+          width: 1.5,
+        ),
+      );
+    } else if (widget.icon == ImageConstant.notification) {
+      return BoxDecoration(
+        color: appTheme.gray100,
+        borderRadius: BorderRadius.circular(20.h),
+      );
+    }
+    return BoxDecoration(
+      color: appTheme.whiteA700,
+      borderRadius: BorderRadius.circular(8.h),
+      border: Border.all(
+        color: appTheme.gray300,
+        width: 1.5,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -118,11 +148,11 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
         duration: Duration(milliseconds: 100),
         transform:
             isPressed ? (Matrix4.identity()..scale(0.9)) : Matrix4.identity(),
-        child: CustomIconButton(
+        child: Container(
           height: 40.h,
           width: 40.h,
           padding: EdgeInsets.all(8.h),
-          decoration: IconButtonStyleHelper.outlineIndigoA,
+          decoration: _getButtonDecoration(),
           child: CustomImageView(
             imagePath: widget.icon,
           ),
