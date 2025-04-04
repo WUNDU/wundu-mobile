@@ -111,7 +111,7 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
         color: appTheme.whiteA700,
         borderRadius: BorderRadius.circular(20.h),
         border: Border.all(
-          color: appTheme.indigoA200,
+          color: appTheme.indigoA200.withOpacity(0.5),
           width: 1.5,
         ),
       );
@@ -151,10 +151,13 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
         child: Container(
           height: 40.h,
           width: 40.h,
-          padding: EdgeInsets.all(8.h),
+          padding: widget.icon == ImageConstant.wunduIA
+              ? EdgeInsets.all(5.h)
+              : EdgeInsets.all(6.h),
           decoration: _getButtonDecoration(),
           child: CustomImageView(
             imagePath: widget.icon,
+            fit: BoxFit.contain,
           ),
         ),
       ),

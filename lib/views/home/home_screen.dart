@@ -93,12 +93,11 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
             right: 10.w,
             child: _AnimatedIconButton(
               icon: ImageConstant.menu,
-              height: 24.w,
-              width: 26.w,
-              backgroundColor: Colors.grey.withValues(
-                  alpha: 128), // Using withValues instead of withOpacity
-              borderColor: Colors.white,
+              height: 32.w,
+              width: 32.w,
+              backgroundColor: Colors.grey.withValues(alpha: 0.6),
               onTap: () {},
+              iconColor: Colors.white,
             ),
           ),
           // Card content
@@ -119,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                   CustomElevatedButton(
                     height: isTablet ? 40.w : 34.w,
                     text: "$cardCount contas associadas",
-                    margin: EdgeInsets.symmetric(horizontal: 84.w),
+                    margin: EdgeInsets.symmetric(horizontal: 78.w),
                     buttonStyle: cardCount == 0
                         ? CustomButtonStyles.fillDeepOrange
                         : CustomButtonStyles.fillWhiteA,
@@ -448,6 +447,7 @@ class _AnimatedIconButton extends StatefulWidget {
   final Color? backgroundColor;
   final Color? borderColor;
   final VoidCallback onTap;
+  final Color? iconColor;
 
   const _AnimatedIconButton({
     required this.icon,
@@ -457,6 +457,7 @@ class _AnimatedIconButton extends StatefulWidget {
     required this.onTap,
     // ignore: unused_element_parameter
     this.backgroundColor,
+    this.iconColor,
   });
 
   @override
@@ -499,7 +500,7 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
             imagePath: widget.icon,
             height: widget.height * 0.6,
             width: widget.width * 0.6,
-            color: widget.borderColor ?? Colors.black,
+            color: widget.iconColor ?? Colors.black,
             fit: BoxFit.contain,
           ),
         ),
