@@ -314,7 +314,6 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   /// Botão "Definir Categoria"
-// transaction_details_screen.dart
   Widget buildDefineCategoryButton(BuildContext context) {
     return CustomElevatedButton(
       height: 56.h,
@@ -332,20 +331,20 @@ class TransactionDetailsScreen extends StatelessWidget {
       buttonStyle: CustomButtonStyles.fillYellowA,
       buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
       onPressed: () async {
+        final bloc = context.read<TransactionDetailsScreenBloc>();
+        final transaction =
+            bloc.state.transactionDetailsScreenModelObj?.transaction;
         final updatedTransaction = await NavigatorService.pushNamed(
           AppRoutes.addCategoryScreen,
-          arguments: context
-              .read<TransactionDetailsScreenBloc>()
-              .state
-              .transactionDetailsScreenModelObj
-              ?.transaction,
+          arguments: transaction,
         );
         if (updatedTransaction != null &&
-            updatedTransaction is TransactionModel) {
-          context.read<TransactionDetailsScreenBloc>().add(
-                TransactionDetailsScreenInitialEvent(
-                    transaction: updatedTransaction),
-              );
+            updatedTransaction is TransactionModel &&
+            context.mounted) {
+          bloc.add(
+            TransactionDetailsScreenInitialEvent(
+                transaction: updatedTransaction),
+          );
         }
       },
     );
@@ -506,14 +505,12 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   Future<void> onTapTimeEdit(BuildContext context) async {
-    var initialState =
-        BlocProvider.of<TransactionDetailsScreenBloc>(context).state;
+    final bloc = context.read<TransactionDetailsScreenBloc>();
+    var initialState = bloc.state;
     TimeOfDay? time =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (time != null) {
-      context
-          .read<TransactionDetailsScreenBloc>()
-          .add(ChangeTimeEvent(time: time));
+    if (time != null && context.mounted) {
+      bloc.add(ChangeTimeEvent(time: time));
       var parseDate = DateFormat.jm().parse(time.format(context));
       initialState.timeEditController?.text =
           DateFormat('HH:mm').format(parseDate);

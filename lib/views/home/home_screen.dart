@@ -95,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               icon: ImageConstant.menu,
               height: 24.w,
               width: 26.w,
-              backgroundColor: Colors.grey
-                  .withOpacity(0.5), // Adjusted for better visibility
+              backgroundColor: Colors.grey.withValues(
+                  alpha: 128), // Using withValues instead of withOpacity
               borderColor: Colors.white,
               onTap: () {},
             ),

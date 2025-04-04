@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccessState) {
           NavigatorService.pushNamedAndRemovedUntil(
-            AppRoutes.mainScreen, // Replace with your home/dashboard route
+            AppRoutes.mainScreen,
           );
         }
       },
@@ -76,42 +76,53 @@ class LoginScreen extends StatelessWidget {
           alignment: Alignment.centerLeft,
         ),
         SizedBox(height: 16.w), // Reduced spacing
+        // ... Previous code remains the same
+
         Stack(
           alignment: Alignment.center,
           children: [
             CustomImageView(
               imagePath: ImageConstant.backgroundSmall,
-              height: 200.w, // Adjusted height
-              width: 300.w, // Adjusted width
+              height: 200.w,
+              width: 300.w,
             ),
             CustomImageView(
               imagePath:
                   state.hasError ? ImageConstant.pana : ImageConstant.cuate,
-              height: 90.w, // Adjusted height
-              width: 90.w, // Adjusted width
+              height: 90.w,
+              width: 90.w,
             ),
           ],
         ),
-        SizedBox(height: 12.w), // Reduced spacing
-        Text(
-          "faça seu login".toUpperCase(),
-          style: CustomTextStyles.titleLargePoppinsBluegray900,
-        ),
-        SizedBox(height: 2.w),
-        Text(
-          state.hasError
-              ? state.errorMessage ??
-                  "Email ou senha incorretos, tente novamente"
-              : "Faça login e melhore a tua vida financeira",
-          style: state.hasError
-              ? CustomTextStyles.titleMediumPoppinsRedA200
-                  .copyWith(height: 1.50)
-              : CustomTextStyles.titleMediumGray500cc,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 24.w), // Reduced spacing
+        SizedBox(height: 12.w),
+        if (state.hasError)
+          Text(
+            state.errorMessage ?? "Email ou senha incorretos, tente novamente",
+            style: CustomTextStyles.titleMediumPoppinsRedA200
+                .copyWith(height: 1.50),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          )
+        else
+          Column(
+            children: [
+              Text(
+                "faça seu login".toUpperCase(),
+                style: CustomTextStyles.titleLargePoppinsBluegray900,
+              ),
+              SizedBox(height: 2.w),
+              Text(
+                "Faça login e melhore a tua vida financeira",
+                style: CustomTextStyles.titleMediumGray500cc,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        SizedBox(height: 24.w),
+
         SizedBox(
           width: double.maxFinite,
           child: Column(
@@ -134,7 +145,11 @@ class LoginScreen extends StatelessWidget {
                           EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
                       borderDecoration: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: state.isEmailValid ? Colors.grey : Colors.red,
+                          color: state.errorMessage != null
+                              ? Colors.red
+                              : (state.isPasswordValid
+                                  ? Colors.grey
+                                  : Colors.red),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8),
@@ -190,8 +205,11 @@ class LoginScreen extends StatelessWidget {
                           EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
                       borderDecoration: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color:
-                              state.isPasswordValid ? Colors.grey : Colors.red,
+                          color: state.errorMessage != null
+                              ? Colors.red
+                              : (state.isPasswordValid
+                                  ? Colors.grey
+                                  : Colors.red),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8),

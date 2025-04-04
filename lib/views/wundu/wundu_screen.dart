@@ -125,7 +125,7 @@ class WunduScreen extends StatelessWidget {
                     show: true,
                     toY: categoryTotals.values.reduce((a, b) => a > b ? a : b) *
                         1.2,
-                    color: appTheme.gray300.withOpacity(0.2),
+                    color: appTheme.gray300.withValues(alpha: 51),
                   ),
                 ),
               ],
@@ -170,7 +170,7 @@ class WunduScreen extends StatelessWidget {
             show: true,
             drawVerticalLine: false,
             getDrawingHorizontalLine: (value) => FlLine(
-              color: appTheme.gray300.withOpacity(0.5),
+              color: appTheme.gray300.withValues(alpha: 128),
               strokeWidth: 1,
             ),
           ),
