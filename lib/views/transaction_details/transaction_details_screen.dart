@@ -50,7 +50,7 @@ class TransactionDetailsScreen extends StatelessWidget {
                       top: 12.h,
                       right: 14.h,
                     ),
-                    decoration: AppDecoration.fillWhiteA700.copyWith(
+                    decoration: AppDecoration.fillwhiteA700.copyWith(
                       borderRadius: BorderRadiusStyle.roundedBorder16,
                     ),
                     child: Column(
@@ -251,7 +251,7 @@ class TransactionDetailsScreen extends StatelessWidget {
           ? CustomButtonStyles.fillTeal
           : CustomButtonStyles.fillDeepOrange,
       buttonTextStyle: isCredit
-          ? CustomTextStyles.titleMediumTeal300
+          ? CustomTextStyles.titleMediumTea1300
           : CustomTextStyles.titleMediumDeeporange300,
     );
   }

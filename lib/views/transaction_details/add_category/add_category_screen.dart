@@ -53,7 +53,7 @@ class AddCategoryScreen extends StatelessWidget {
                       top: 10.h,
                       right: 12.h,
                     ),
-                    decoration: AppDecoration.fillWhiteA700.copyWith(
+                    decoration: AppDecoration.fillwhiteA700.copyWith(
                       borderRadius: BorderRadiusStyle.roundedBorder16,
                     ),
                     child: Column(

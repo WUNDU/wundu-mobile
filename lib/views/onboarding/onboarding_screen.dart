@@ -100,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               body: Container(
                 width: double.maxFinite,
                 height: SizeUtils.height,
-                decoration: AppDecoration.fillWhiteA,
+                decoration: AppDecoration.fillwhiteA,
                 child: SafeArea(
                   child: SizedBox(
                     width: double.maxFinite,

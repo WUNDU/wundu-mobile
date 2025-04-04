@@ -56,7 +56,7 @@ class WunduScreen extends StatelessWidget {
   Widget _buildPieChart(Map<String, double> categoryTotals) {
     return Container(
       height: 220.w,
-      decoration: AppDecoration.fillWhiteA700.copyWith(
+      decoration: AppDecoration.fillwhiteA700.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder12,
         boxShadow: [
           BoxShadow(
@@ -96,7 +96,7 @@ class WunduScreen extends StatelessWidget {
   Widget _buildBarChart(Map<String, double> categoryTotals) {
     return Container(
       height: 320.w,
-      decoration: AppDecoration.fillWhiteA700.copyWith(
+      decoration: AppDecoration.fillwhiteA700.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder12,
         boxShadow: [
           BoxShadow(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/widgets/custom_icon_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String userName;
@@ -111,7 +110,7 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
         color: appTheme.whiteA700,
         borderRadius: BorderRadius.circular(20.h),
         border: Border.all(
-          color: appTheme.indigoA200.withOpacity(0.5),
+          color: appTheme.indigoA200.withValues(alpha: 128),
           width: 1.5,
         ),
       );

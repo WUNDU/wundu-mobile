@@ -31,7 +31,7 @@ class AuthScreen extends StatelessWidget {
           body: Container(
             width: double.maxFinite,
             height: SizeUtils.height,
-            decoration: AppDecoration.fillWhiteA,
+            decoration: AppDecoration.fillwhiteA,
             child: SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(

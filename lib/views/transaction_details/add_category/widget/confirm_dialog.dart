@@ -31,7 +31,7 @@ class ConfirmDialog extends StatelessWidget {
             horizontal: 36.h,
             vertical: 32.h,
           ),
-          decoration: AppDecoration.fillWhiteA700.copyWith(
+          decoration: AppDecoration.fillwhiteA700.copyWith(
             borderRadius: BorderRadiusStyle.roundedBorder16,
           ),
           child: Column(

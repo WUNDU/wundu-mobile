@@ -3,6 +3,7 @@ import 'package:wundu/core/app_export.dart';
 import 'package:wundu/core/session/session_service.dart';
 import 'package:wundu/views/card/card_screen.dart';
 import 'package:wundu/views/home/home_screen.dart';
+import 'package:wundu/views/library/library_screen.dart';
 import 'package:wundu/views/wundu/wundu_screen.dart';
 import 'package:wundu/widgets/custom_app_bar.dart';
 import 'package:wundu/widgets/custom_bottom_nav_bar.dart';
@@ -32,7 +33,7 @@ class _MainScaffoldState extends State<MainScaffold> {
       HomeScreen(), // Conteúdo da tela Home
       CardScreen(), // Conteúdo da tela Card
       WunduScreen.builder(context), // Placeholder para o botão central
-      Container(), // Placeholder para a biblioteca
+      LibraryScreen.builder(context), // Biblioteca
       Container(), // Placeholder para o perfil
     ];
   }

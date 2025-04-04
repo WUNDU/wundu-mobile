@@ -44,7 +44,7 @@ class _CardScreenState extends State<CardScreen> {
                           top: 100.h,
                           right: 8.h,
                         ),
-                        decoration: AppDecoration.fillWhiteA700.copyWith(
+                        decoration: AppDecoration.fillwhiteA700.copyWith(
                           borderRadius: BorderRadiusStyle.roundedBorder20,
                         ),
                         child: Column(
