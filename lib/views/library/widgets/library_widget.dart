@@ -36,9 +36,13 @@ class LibraryWidget extends StatelessWidget {
           SizedBox(height: 8.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.h),
-            child: Text(
-              libraryItemModelObj.title!,
-              style: CustomTextStyles.labelLargeGray90001SemiBold,
+            child: Container(
+              width: double.maxFinite,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                libraryItemModelObj.title!,
+                style: CustomTextStyles.labelLargeGray90001SemiBold,
+              ),
             ),
           ),
           SizedBox(height: 2.h),

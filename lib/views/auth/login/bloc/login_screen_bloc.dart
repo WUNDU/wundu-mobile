@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wundu/core/mocks/user_mocks.dart';
 import 'package:wundu/core/session/session_service.dart';
-import 'package:wundu/services/api_service.dart';
 import 'package:wundu/views/auth/login/models/login_screen_model.dart';
 
 part 'login_screen_event.dart';
@@ -93,9 +93,10 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     emit(state.copyWith(isLoading: true, hasError: false, errorMessage: null));
 
     try {
-      final response = await ApiService.loginUser(
-        email: state.emailController!.text,
-        password: state.passwordController!.text,
+      // Use mock data instead of API call
+      final response = UserMocks.mockLoginResponse(
+        state.emailController!.text,
+        state.passwordController!.text,
       );
 
       if (response['success']) {

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wundu/services/api_service.dart';
+import 'package:wundu/core/mocks/user_mocks.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
 
 part 'signup_screen_event.dart';
@@ -64,12 +64,12 @@ class SignupScreenBloc extends Bloc<SignupScreenEvent, SignupScreenState> {
       final phoneNumber =
           state.processedPhoneNumber ?? state.numberController!.text;
 
-      // Call the API service
-      final response = await ApiService.registerUser(
-        name: state.nameController!.text,
-        email: state.emailController!.text,
-        phoneNumber: phoneNumber,
-        password: state.passwordController!.text,
+      // Use mock data instead of API call
+      final response = UserMocks.mockRegisterResponse(
+        state.nameController!.text,
+        state.emailController!.text,
+        phoneNumber,
+        state.passwordController!.text,
       );
 
       // Handle the response

@@ -33,12 +33,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.userProfile,
-                    height: 40.h,
-                    width: 40.h,
-                    radius: BorderRadius.circular(
-                      20.h,
+                  Container(
+                    height: 44.h,
+                    width: 44.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: appTheme.gray200,
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(22.h),
+                      child: CustomImageView(
+                        imagePath: ImageConstant.userProfile,
+                        height: 44.h,
+                        width: 44.h,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(width: 12.h),
@@ -110,7 +129,7 @@ class _AnimatedIconButtonState extends State<_AnimatedIconButton> {
         color: appTheme.whiteA700,
         borderRadius: BorderRadius.circular(20.h),
         border: Border.all(
-          color: appTheme.indigoA200.withValues(alpha: 128),
+          color: appTheme.indigoA200,
           width: 1.5,
         ),
       );

@@ -21,7 +21,6 @@ class MainScaffold extends StatefulWidget {
 
 class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController();
 
   // Lista de conteúdos de páginas que serão exibidos
   late final List<Widget> _pages;
@@ -38,24 +37,12 @@ class _MainScaffoldState extends State<MainScaffold> {
     ];
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   void _onNavItemTapped(int index) {
     // Se clicar no mesmo item, não fazemos nada
     if (index == _currentIndex) return;
 
     setState(() {
       _currentIndex = index;
-      // Animar a transição de página sem reconstruir o Scaffold
-      _pageController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
     });
   }
 
@@ -73,16 +60,9 @@ class _MainScaffoldState extends State<MainScaffold> {
                   userName: userData?['name'] ?? 'Usuário',
                   welcomeMessage: "Bem-vindo ao wundu",
                 ),
-          body: PageView(
-            controller: _pageController,
-            physics:
-                NeverScrollableScrollPhysics(), // Desativar o gesto de deslizar
+          body: IndexedStack(
+            index: _currentIndex,
             children: _pages,
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
           ),
           bottomNavigationBar: CustomBottomNavBar(
             currentIndex: _currentIndex,
