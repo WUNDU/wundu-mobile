@@ -52,6 +52,7 @@ const Map<String, String> pt = {
   "1bl_categ_rias": "Categórias",
   "1bl_confirmar": "Confirmar",
   "1bl_continuar": "Continuar",
+  "1bl_comecar": "Começar",
   "1bl_converter": "Converter",
   "1bl_crie_uma_conta": "Crie uma conta",
   "1bl_crie_uma_conta2": "Crie uma conta",

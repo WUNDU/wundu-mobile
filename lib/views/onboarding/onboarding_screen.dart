@@ -222,8 +222,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           child: CustomElevatedButton(
                             text: _currentPage < _contents.length - 1
-                                ? "próximo"
-                                : "começar",
+                                ? "1bl_continuar".tr
+                                : "1bl_comecar".tr,
                             buttonTextStyle:
                                 CustomTextStyles.titleLargeGray200.copyWith(
                               fontSize:
