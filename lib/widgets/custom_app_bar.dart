@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/routes/app_routes.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String userName;
@@ -91,7 +92,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   _AnimatedIconButton(
                     icon: ImageConstant.notification,
                     onTap: () {
-                      // Ação ao tocar no botão
+                      Navigator.pushNamed(
+                          context, AppRoutes.notificationScreen);
                     },
                   ),
                 ],

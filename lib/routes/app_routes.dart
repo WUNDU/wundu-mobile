@@ -5,6 +5,7 @@ import 'package:wundu/views/auth/signup/signup_confirm_screen.dart';
 import 'package:wundu/views/auth/signup/signup_password_data_screen.dart';
 import 'package:wundu/views/auth/signup/signup_personal_data_screen.dart';
 import 'package:wundu/views/card/add_card_manual/add_card_manual_screen.dart';
+import 'package:wundu/views/notification/notification_screen.dart';
 import 'package:wundu/views/onboarding/onboarding_screen.dart';
 import 'package:wundu/views/splash/splash_screen.dart';
 import 'package:wundu/views/transaction_details/add_category/add_category_screen.dart';
@@ -23,7 +24,7 @@ class AppRoutes {
   static const addCardManualScreen = '/add_card_manual_screen';
   static const transactionDetailsScreen = '/transaction_details_screen';
   static const addCategoryScreen = '/add_category_screen';
-  
+  static const notificationScreen = '/notification';
 
   static Map<String, WidgetBuilder> get routes => {
         loginScreen: LoginScreen.builder,
@@ -37,5 +38,6 @@ class AppRoutes {
         addCardManualScreen: AddCardManualScreen.builder,
         transactionDetailsScreen: TransactionDetailsScreen.builder,
         addCategoryScreen: AddCategoryScreen.builder,
+        notificationScreen: NotificationScreen.builder,
       };
 }
