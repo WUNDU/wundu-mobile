@@ -46,6 +46,7 @@ class NotificationScreen extends StatelessWidget {
                     borderRadius: BorderRadiusStyle.roundedBorder16,
                   ),
                   child: Column(
+                    spacing: 24,
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -61,11 +62,11 @@ class NotificationScreen extends StatelessWidget {
                         ),
                       ),
                       _buildNotificationList(context),
-                      SizedBox(height: 32.h),
                     ],
                   ),
                 ),
               ),
+              SizedBox(height: 32.h),
             ],
           ),
         ),
@@ -78,30 +79,12 @@ class NotificationScreen extends StatelessWidget {
     return CustomAppBar(
       height: 56.h,
       leadingWidth: 57.h,
-      leading: Container(
-        height: 14.h,
-        width: 22.h,
-        margin: EdgeInsets.only(left: 35.h),
-        child: Stack(
-          children: [
-            CustomImageView(
-              imagePath: ImageConstant.logo,
-              height: 1.h,
-              width: double.maxFinite,
-            ),
-            CustomImageView(
-              imagePath: ImageConstant.logo,
-              height: 14.h,
-              width: 8.h,
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(right: 16.h),
-            ),
-          ],
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+          color: appTheme.blueGray900,
         ),
-      ),
-      title: AppbarSubtitleOne(
-        text: "1bl_voltar".tr,
-        margin: EdgeInsets.only(left: 14.h),
+        onPressed: () => Navigator.pop(context),
       ),
     );
   }
@@ -123,7 +106,7 @@ class NotificationScreen extends StatelessWidget {
                 child: Divider(
                   height: 1.h,
                   thickness: 1.h,
-                  color: appTheme.gray30003.withOpacity(0.4),
+                  color: appTheme.gray30003.withValues(alpha: 0.4),
                 ),
               );
             },

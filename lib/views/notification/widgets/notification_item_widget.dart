@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/views/notification/model/notification_item_model.dart';
 import '../../../core/app_export.dart';
+
 // ignore_for_file: must_be_immutable
 class NotificationItemWidget extends StatelessWidget {
-   const NotificationItemWidget(this.notificationItemModelObj, {super.key});
+  const NotificationItemWidget(this.notificationItemModelObj, {super.key});
 
   final NotificationItemModel notificationItemModelObj;
 
@@ -28,8 +29,10 @@ class NotificationItemWidget extends StatelessWidget {
             ],
           ),
         ),
+        Padding(padding: EdgeInsets.only(right: 10.h)),
         Expanded(
           child: Column(
+            spacing: 8,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(

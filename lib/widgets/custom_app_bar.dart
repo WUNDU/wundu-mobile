@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/routes/app_routes.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String userName;

@@ -4,7 +4,7 @@ import '../core/app_export.dart';
 class AppDecoration {
 // Fill decorations
   static BoxDecoration get fillBlack => BoxDecoration(
-        color: appTheme.black90001.withValues(alpha: 26),
+        color: appTheme.black90001.withValues(alpha: 0.1),
       );
   static BoxDecoration get fillBlueGray => BoxDecoration(
         color: appTheme.blueGray50,
@@ -16,7 +16,7 @@ class AppDecoration {
         color: appTheme.blueGray5001,
       );
   static BoxDecoration get fillBluegray900 => BoxDecoration(
-        color: appTheme.blueGray900.withValues(alpha: 77),
+        color: appTheme.blueGray900.withValues(alpha: 0.3),
       );
   static BoxDecoration get fillGray100 => BoxDecoration(
         color: appTheme.gray100,
@@ -25,10 +25,10 @@ class AppDecoration {
         color: appTheme.indigoA200,
       );
   static BoxDecoration get fillTeal => BoxDecoration(
-        color: appTheme.teal300.withValues(alpha: 51),
+        color: appTheme.teal300.withValues(alpha: 0.2),
       );
   static BoxDecoration get fillTeal300 => BoxDecoration(
-        color: appTheme.teal300.withValues(alpha: 26),
+        color: appTheme.teal300.withValues(alpha: 0.1),
       );
   static BoxDecoration get fillwhiteA => BoxDecoration(
         color: appTheme.whiteA700,
@@ -41,7 +41,7 @@ class AppDecoration {
         color: appTheme.whiteA700,
       );
   static BoxDecoration get fillwhiteA7001 => BoxDecoration(
-        color: appTheme.whiteA700.withValues(alpha: 204),
+        color: appTheme.whiteA700.withValues(alpha: 0.8),
       );
 
 // Gradient decorations
@@ -77,7 +77,7 @@ class AppDecoration {
   static BoxDecoration get outline => BoxDecoration();
   static BoxDecoration get outlineBlack => BoxDecoration(
         border: Border.all(
-          color: appTheme.black90001.withValues(alpha: 26),
+          color: appTheme.black90001.withValues(alpha: 0.1),
           width: 1,
         ),
       );
@@ -86,7 +86,7 @@ class AppDecoration {
         color: appTheme.whiteA700,
         boxShadow: [
           BoxShadow(
-            color: appTheme.black900.withValues(alpha: 8),
+            color: appTheme.black900.withValues(alpha: 0.03),
             spreadRadius: 2,
             blurRadius: 2,
             offset: const Offset(2, 2),
@@ -96,14 +96,14 @@ class AppDecoration {
 
   static BoxDecoration get outlineBlueGray => BoxDecoration(
         border: Border.all(
-          color: appTheme.blueGray900.withValues(alpha: 13),
+          color: appTheme.blueGray900.withValues(alpha: 0.05),
           width: 1,
         ),
       );
 
   static BoxDecoration get outlineBluegray100 => BoxDecoration(
         border: Border.all(
-          color: appTheme.blueGray100.withValues(alpha: 179),
+          color: appTheme.blueGray100.withValues(alpha: 0.7),
           width: 1,
         ),
       );
@@ -117,7 +117,7 @@ class AppDecoration {
 
   static BoxDecoration get outlineBluegray900 => BoxDecoration(
         border: Border.all(
-          color: appTheme.blueGray900.withValues(alpha: 26),
+          color: appTheme.blueGray900.withValues(alpha: 0.1),
           width: 1,
         ),
       );
@@ -162,21 +162,21 @@ class AppDecoration {
 
   static BoxDecoration get outlineGray300031 => BoxDecoration(
         border: Border.all(
-          color: appTheme.gray30003.withValues(alpha: 230),
+          color: appTheme.gray30003.withValues(alpha: 0.9),
           width: 1,
         ),
       );
 
   static BoxDecoration get outlineGray300032 => BoxDecoration(
         border: Border.all(
-          color: appTheme.gray30003.withValues(alpha: 204),
+          color: appTheme.gray30003.withValues(alpha: 0.8),
           width: 1,
         ),
       );
 
   static BoxDecoration get outlineIndigoA => BoxDecoration(
         border: Border.all(
-          color: appTheme.indigoA200.withValues(alpha: 179),
+          color: appTheme.indigoA200.withValues(alpha: 0.7),
           width: 0.98,
         ),
       );
