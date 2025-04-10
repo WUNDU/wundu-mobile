@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/views/notification/model/notification_item_model.dart';
 import 'package:wundu/views/notification/model/notification_model.dart';
-import 'package:wundu/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:wundu/widgets/app_bar/custom_app_bar.dart';
 import '../../../core/app_export.dart';
 import 'bloc/notification_bloc.dart';
