@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wundu/views/app_navigation/app_navigation_screen.dart';
 import 'package:wundu/views/auth/auth_screen.dart';
 import 'package:wundu/views/auth/login/login_screen.dart';
 import 'package:wundu/views/auth/signup/signup_confirm_screen.dart';
@@ -19,12 +20,13 @@ class AppRoutes {
   static const authScreen = '/auth_screen';
   static const signupPersonalDataScreen = '/signup_personal_data_screen';
   static const signupPasswordDataScreen = '/signup_password_data_screen';
-  static const signupConfirmScreenScreen = '/signup_confirm_screen';
+  static const signupConfirmScreen = '/signup_confirm_screen';
   static const mainScreen = '/main_screen';
   static const addCardManualScreen = '/add_card_manual_screen';
   static const transactionDetailsScreen = '/transaction_details_screen';
   static const addCategoryScreen = '/add_category_screen';
   static const notificationScreen = '/notification';
+  static const appNavigation = '/app_navigation';
 
   static Map<String, WidgetBuilder> get routes => {
         loginScreen: LoginScreen.builder,
@@ -33,11 +35,12 @@ class AppRoutes {
         authScreen: AuthScreen.builder,
         signupPersonalDataScreen: SignupPersonalDataScreen.builder,
         signupPasswordDataScreen: SignupPasswordDataScreen.builder,
-        signupConfirmScreenScreen: SignupConfirmScreenScreen.builder,
+        signupConfirmScreen: SignupConfirmScreen.builder,
         mainScreen: MainScaffold.builder,
         addCardManualScreen: AddCardManualScreen.builder,
         transactionDetailsScreen: TransactionDetailsScreen.builder,
         addCategoryScreen: AddCategoryScreen.builder,
         notificationScreen: NotificationScreen.builder,
+        appNavigation: AppNavigationScreen.builder
       };
 }

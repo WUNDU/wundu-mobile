@@ -47,7 +47,7 @@ class SignupPasswordDataScreen extends StatelessWidget {
                     state.errorMessage == null &&
                     state.currentStep == 1) {
                   NavigatorService.pushNamed(
-                      AppRoutes.signupConfirmScreenScreen);
+                      AppRoutes.signupConfirmScreen);
                 }
               },
               child: BlocBuilder<SignupScreenBloc, SignupScreenState>(

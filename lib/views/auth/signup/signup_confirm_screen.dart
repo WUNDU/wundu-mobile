@@ -4,8 +4,8 @@ import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
 import 'package:wundu/widgets/custom_elevated_button.dart';
 
-class SignupConfirmScreenScreen extends StatelessWidget {
-  const SignupConfirmScreenScreen({super.key});
+class SignupConfirmScreen extends StatelessWidget {
+  const SignupConfirmScreen({super.key});
 
   static Widget builder(BuildContext context) {
     return BlocProvider<SignupScreenBloc>(
@@ -13,7 +13,7 @@ class SignupConfirmScreenScreen extends StatelessWidget {
         signupScreenModel: SignupScreenModel(),
       ))
         ..add(SignupScreenInitialEvent()),
-      child: SignupConfirmScreenScreen(),
+      child: SignupConfirmScreen(),
     );
   }
 

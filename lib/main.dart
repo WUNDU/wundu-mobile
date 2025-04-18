@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                 ],
                 locale: const Locale('pt', ''),
                 supportedLocales: const [Locale('pt', '')],
-                initialRoute: AppRoutes.splashScreen,
+                initialRoute: AppRoutes.appNavigation,
                 routes: AppRoutes.routes,
               );
             },
