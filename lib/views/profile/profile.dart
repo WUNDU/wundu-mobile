@@ -131,12 +131,17 @@ class ProfileScreen extends StatelessWidget {
                         style: CustomTextStyles.titleMediumPoppins2WhiteA700, //
                       ),
                     ),
-                    Icon(
-                      Icons.chevron_right,
-                      size:
-                          24.0, // Você pode ajustar o tamanho conforme necessário
-                      color: Colors
-                          .white, // Você pode ajustar a cor conforme necessário
+                    IconButton(
+                      onPressed: () {
+                        onTapControlPanel(context);
+                      },
+                      icon: Icon(
+                        Icons.chevron_right,
+                        size:
+                            24.0, // Você pode ajustar o tamanho conforme necessário
+                        color: Colors
+                            .white, // Você pode ajustar a cor conforme necessário
+                      ),
                     ),
                   ],
                 ),
@@ -195,6 +200,7 @@ class ProfileScreen extends StatelessWidget {
               context,
               materialsymbol: ImageConstant.uiNotification,
               suporteeOne: "lbl_notifica_es".tr,
+              onTap: () => onTapNotification(context),
             ),
           ),
           SizedBox(height: 22.h),
@@ -271,35 +277,46 @@ class ProfileScreen extends StatelessWidget {
     BuildContext context, {
     required String materialsymbol,
     required String suporteeOne,
+    VoidCallback? onTap,
   }) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CustomImageView(imagePath: materialsymbol, height: 24.h, width: 26.h),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.only(left: 12.h),
-            child: Text(
-              suporteeOne,
-              style: CustomTextStyles.labelLargePoppinsGray90002.copyWith(
-                color: appTheme.gray90001.withValues(alpha: 0.8),
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomImageView(imagePath: materialsymbol, height: 24.h, width: 26.h),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(left: 12.h),
+              child: Text(
+                suporteeOne,
+                style: CustomTextStyles.labelLargePoppinsGray90002.copyWith(
+                  color: appTheme.gray90001.withValues(alpha: 0.8),
+                ),
               ),
             ),
           ),
-        ),
-        const Spacer(),
-        Icon(
-          Icons.chevron_right,
-          size: 24.0, // Você pode ajustar o tamanho conforme necessário
-          color: Colors.black, // Você pode ajustar a cor conforme necessário
-        ),
-      ],
+          const Spacer(),
+          Icon(
+            Icons.chevron_right,
+            size: 24.0, // Você pode ajustar o tamanho conforme necessário
+            color: Colors.black, // Você pode ajustar a cor conforme necessário
+          ),
+        ],
+      ),
     );
   }
 
   /// Navigates to the perfilPainelDeControleGrFicoTwoScreen when the action is triggered.
   void onTapImgImageone(BuildContext context) {
     //NavigatorService.pushNamed(AppRoutes.perfilPainelDeControleGrFicoTwoScreen);
+  }
+  void onTapControlPanel(BuildContext context) {
+    NavigatorService.pushNamed(AppRoutes.controlPanel);
+  }
+
+  void onTapNotification(BuildContext context) {
+    NavigatorService.pushNamed(AppRoutes.notificationScreen);
   }
 }

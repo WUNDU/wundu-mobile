@@ -47,23 +47,28 @@ class ControlPanelScreen extends StatelessWidget {
 
   // Back button row
   Widget buildBackButton() {
-    return Row(
-      children: [
-        Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-          size: 24,
-        ),
-        const SizedBox(width: 8),
-        Text(
-          "Voltar",
-          style: TextStyle(
+    return GestureDetector(
+      onTap: () {
+        NavigatorService.goBack();
+      },
+      child: Row(
+        children: [
+          Icon(
+            Icons.arrow_back,
             color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+            size: 24,
           ),
-        ),
-      ],
+          const SizedBox(width: 8),
+          Text(
+            "Voltar",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
