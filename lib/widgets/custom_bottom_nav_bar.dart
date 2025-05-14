@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconamoon/iconamoon.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:solar_icons/solar_icons.dart';
 import 'package:wundu/core/app_export.dart';
@@ -69,7 +68,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           ),
           // Profile
           _buildAnimatedNavItem(
-            icon: IconaMoon.profile,
+            icon: LucideIcons.user,
             label: "Perfil",
             iconSize: 30.h,
             isSelected: widget.currentIndex == 4,
@@ -206,7 +205,7 @@ class _AnimatedCenterButtonState extends State<_AnimatedCenterButton> {
             isPressed ? (Matrix4.identity()..scale(0.9)) : Matrix4.identity(),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Color.fromARGB(255, 255, 197, 39), // Fundo amarelo brilhante
+          color: Color(0xFFFFC727), // Fundo amarelo brilhante
         ),
         width: 60.h, // Tamanho do botão central
         height: 60.h,
