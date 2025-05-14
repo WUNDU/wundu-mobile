@@ -71,7 +71,7 @@ class LibraryScreen extends StatelessWidget {
                         CustomOutlinedButton(
                           height: 40.h,
                           width: 108.h,
-                          text: "1bl_ver_mais".tr,
+                          text: "lbl_ver_mais".tr,
                           rightIcon: Container(
                             margin: EdgeInsets.only(left: 8.h),
                             child: CustomImageView(
@@ -171,7 +171,7 @@ class LibraryScreen extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder12,
             ),
             child: Text(
-              "1bl_finan_as".tr,
+              "lbl_finan_as".tr,
               textAlign: TextAlign.center,
               style: CustomTextStyles.labelLargeGray90001_1,
             ),
@@ -186,7 +186,7 @@ class LibraryScreen extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder12,
             ),
             child: Text(
-              "1bl_investimentos".tr,
+              "lbl_investimentos".tr,
               textAlign: TextAlign.center,
               style: CustomTextStyles.labelLargeGray90001_1,
             ),
@@ -201,7 +201,7 @@ class LibraryScreen extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder12,
             ),
             child: Text(
-              "1bl_poupan_a".tr,
+              "lbl_poupan_a".tr,
               textAlign: TextAlign.center,
               style: CustomTextStyles.labelLargeGray90001_1,
             ),
@@ -213,7 +213,7 @@ class LibraryScreen extends StatelessWidget {
               borderRadius: BorderRadiusStyle.roundedBorder12,
             ),
             child: Text(
-              "1bl_gest_o".tr,
+              "lbl_gest_o".tr,
               textAlign: TextAlign.center,
               style: CustomTextStyles.labelLargeGray90001_1,
             ),

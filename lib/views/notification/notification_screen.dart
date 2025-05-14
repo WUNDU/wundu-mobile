@@ -50,7 +50,7 @@ class NotificationScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "1bl_notifica_es".tr,
+                        "lbl_notifica_es".tr,
                         style: CustomTextStyles.headlineSmallBluegray900,
                       ),
                       SizedBox(

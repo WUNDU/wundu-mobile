@@ -28,32 +28,32 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     return [
       NotificationItemModel(
         transferNcia: ImageConstant.logo,
-        transferncia1: "1bl_transfer_ncia".tr,
-        time: "1bl_09_40".tr,
+        transferncia1: "lbl_transfer_ncia".tr,
+        time: "lbl_09_40".tr,
         recebeuuma: "msg_recebeu_uma_transfer_ncia".tr,
       ),
       NotificationItemModel(
         transferNcia: ImageConstant.logo,
-        transferncia1: "1bl_d_bito".tr,
-        time: "1bl_02_40".tr,
+        transferncia1: "lbl_d_bito".tr,
+        time: "lbl_02_40".tr,
         recebeuuma: "msg_foi_debitado_na".tr,
       ),
       NotificationItemModel(
         transferNcia: ImageConstant.logo,
-        transferncia1: "1bl_bloqueio".tr,
-        time: "1bl_13_40".tr,
+        transferncia1: "lbl_bloqueio".tr,
+        time: "lbl_13_40".tr,
         recebeuuma: "msg_foi_efectuado_um".tr,
       ),
       NotificationItemModel(
         transferNcia: ImageConstant.logo,
-        transferncia1: "1bl_biblioteca2".tr,
-        time: "1bl_13_40".tr,
+        transferncia1: "lbl_biblioteca2".tr,
+        time: "lbl_13_40".tr,
         recebeuuma: "msg_israel_foaram_adicionados".tr,
       ),
       NotificationItemModel(
         transferNcia: ImageConstant.logo,
-        transferncia1: "1bl_ai".tr,
-        time: "1bl_13_40".tr,
+        transferncia1: "lbl_ai".tr,
+        time: "lbl_13_40".tr,
         recebeuuma: "msg_israel_podes_volte".tr,
       ),
     ];

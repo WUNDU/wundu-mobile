@@ -35,28 +35,28 @@ class LibraryBloc extends Bloc<LibraryEvent, LibraryState> {
             "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=500&auto=format",
         title: "msg_gerencie_o_seu_dinheiro".tr,
         subtitle: "msg_aprenda_a_cuidar".tr,
-        actionText: "1bl_saber_mais".tr,
+        actionText: "lbl_saber_mais".tr,
       ),
       GridItemModel(
         image:
             "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&auto=format",
         title: "msg_como_investir_o".tr,
         subtitle: "msg_aprenda_a_cuidar".tr,
-        actionText: "1bl_saber_mais".tr,
+        actionText: "lbl_saber_mais".tr,
       ),
       GridItemModel(
         image:
             "https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=500&auto=format",
         title: "msg_gerencie_o_seu_dinheiro".tr,
         subtitle: "msg_aprenda_a_cuidar".tr,
-        actionText: "1bl_saber_mais".tr,
+        actionText: "lbl_saber_mais".tr,
       ),
       GridItemModel(
         image:
             "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=500&auto=format",
-        title: "1bl_investimentos".tr,
+        title: "lbl_investimentos".tr,
         subtitle: "msg_aprenda_a_cuidar".tr,
-        actionText: "1bl_saber_mais".tr,
+        actionText: "lbl_saber_mais".tr,
       ),
     ];
   }
