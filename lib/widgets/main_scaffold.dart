@@ -28,19 +28,26 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   void initState() {
     super.initState();
+    _checkSession();
     _pages = [
-      HomeScreen(), // Conteúdo da tela Home
-      CardScreen(), // Conteúdo da tela Card
-      Container(), // Placeholder para o botão central
-      LibraryScreen.builder(context), // Biblioteca
-      ProfileScreen.builder(context), // Placeholder para o perfil
+      HomeScreen(),
+      CardScreen(),
+      Container(),
+      LibraryScreen.builder(context),
+      ProfileScreen.builder(context),
     ];
   }
 
-  void _onNavItemTapped(int index) {
-    // Se clicar no mesmo item, não fazemos nada
-    if (index == _currentIndex) return;
+  Future<void> _checkSession() async {
+    final isValid = await SessionService().isSessionValid();
+    if (!isValid) {
+      NavigatorService.pushNamedAndRemovedUntil(AppRoutes.authScreen,
+          routePredicate: false);
+    }
+  }
 
+  void _onNavItemTapped(int index) {
+    if (index == _currentIndex) return;
     setState(() {
       _currentIndex = index;
     });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/views/control_panel/bloc/control_panel_bloc.dart';
 import 'package:wundu/views/control_panel/models/control_panel_model.dart';
 
@@ -19,25 +20,27 @@ class ControlPanelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F6),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildBackButton(),
-                const SizedBox(height: 16),
-                buildExpenseCard(),
-                const SizedBox(height: 20),
-                buildExpenseGraph(),
-                const SizedBox(height: 20),
-                buildTimeFilterBar(),
-                const SizedBox(height: 20),
-                buildCategoriesSection(),
-              ],
+    return ProtectedRoute(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF2F2F6),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildBackButton(),
+                  const SizedBox(height: 16),
+                  buildExpenseCard(),
+                  const SizedBox(height: 20),
+                  buildExpenseGraph(),
+                  const SizedBox(height: 20),
+                  buildTimeFilterBar(),
+                  const SizedBox(height: 20),
+                  buildCategoriesSection(),
+                ],
+              ),
             ),
           ),
         ),

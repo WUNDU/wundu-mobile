@@ -55,7 +55,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           // Center button
           _buildAnimatedCenterButton(
             icon: SolarIconsOutline.addCircle,
-            iconSize: 50.h,
+            iconSize: 40.h,
             onTap: () => widget.onTap(2),
           ),
           // Library
@@ -207,8 +207,8 @@ class _AnimatedCenterButtonState extends State<_AnimatedCenterButton> {
           shape: BoxShape.circle,
           color: Color(0xFFFFC727), // Fundo amarelo brilhante
         ),
-        width: 60.h, // Tamanho do botão central
-        height: 60.h,
+        width: 50.h, // Tamanho do botão central
+        height: 50.h,
         child: Center(
           child: Icon(
             widget.icon,
