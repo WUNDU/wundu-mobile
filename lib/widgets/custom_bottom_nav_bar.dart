@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iconamoon/iconamoon.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:wundu/core/app_export.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -36,34 +39,39 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         children: [
           // Home
           _buildAnimatedNavItem(
-            icon: ImageConstant.home,
+            icon: SolarIconsOutline.home2,
             label: "Home",
+            iconSize: 30.h,
             isSelected: widget.currentIndex == 0,
             onTap: () => widget.onTap(0),
           ),
           // Cards
           _buildAnimatedNavItem(
-            icon: ImageConstant.creditCard,
+            icon: SolarIconsOutline.card,
             label: "Cartões",
+            iconSize: 30.h,
             isSelected: widget.currentIndex == 1,
             onTap: () => widget.onTap(1),
           ),
           // Center button
           _buildAnimatedCenterButton(
-            icon: ImageConstant.logoHome,
+            icon: SolarIconsOutline.addCircle,
+            iconSize: 50.h,
             onTap: () => widget.onTap(2),
           ),
           // Library
           _buildAnimatedNavItem(
-            icon: ImageConstant.digitalLibrary,
+            icon: LucideIcons.library,
             label: "Biblioteca",
+            iconSize: 30.h,
             isSelected: widget.currentIndex == 3,
             onTap: () => widget.onTap(3),
           ),
           // Profile
           _buildAnimatedNavItem(
-            icon: ImageConstant.user,
+            icon: IconaMoon.profile,
             label: "Perfil",
+            iconSize: 30.h,
             isSelected: widget.currentIndex == 4,
             onTap: () => widget.onTap(4),
           ),
@@ -73,47 +81,45 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   }
 
   Widget _buildAnimatedNavItem({
-    required String icon,
+    required IconData icon,
     required String label,
-    double iconHeight = 30,
-    double iconWidth = 30,
+    required double iconSize,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
     return _AnimatedNavButton(
       icon: icon,
       label: label,
-      iconHeight: iconHeight,
-      iconWidth: iconWidth,
+      iconSize: iconSize,
       isSelected: isSelected,
       onTap: onTap,
     );
   }
 
   Widget _buildAnimatedCenterButton({
-    required String icon,
+    required IconData icon,
+    required double iconSize,
     required VoidCallback onTap,
   }) {
     return _AnimatedCenterButton(
       icon: icon,
+      iconSize: iconSize,
       onTap: onTap,
     );
   }
 }
 
 class _AnimatedNavButton extends StatefulWidget {
-  final String icon;
+  final IconData icon;
   final String label;
-  final double iconHeight;
-  final double iconWidth;
+  final double iconSize;
   final bool isSelected;
   final VoidCallback onTap;
 
   const _AnimatedNavButton({
     required this.icon,
     required this.label,
-    this.iconHeight = 30,
-    this.iconWidth = 30,
+    required this.iconSize,
     required this.isSelected,
     required this.onTap,
   });
@@ -145,16 +151,15 @@ class _AnimatedNavButtonState extends State<_AnimatedNavButton> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomImageView(
-              imagePath: widget.icon,
-              height: widget.iconHeight,
-              width: widget.iconWidth,
-              color: widget.isSelected ? appTheme.blueA40001 : null,
+            Icon(
+              widget.icon,
+              size: widget.iconSize,
+              color: widget.isSelected ? appTheme.blueA40001 : Colors.grey,
             ),
             Text(
               widget.label,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: widget.isSelected ? appTheme.blueA40001 : null,
+                color: widget.isSelected ? appTheme.blueA40001 : Colors.grey,
               ),
             ),
           ],
@@ -165,11 +170,13 @@ class _AnimatedNavButtonState extends State<_AnimatedNavButton> {
 }
 
 class _AnimatedCenterButton extends StatefulWidget {
-  final String icon;
+  final IconData icon;
+  final double iconSize;
   final VoidCallback onTap;
 
   const _AnimatedCenterButton({
     required this.icon,
+    required this.iconSize,
     required this.onTap,
   });
 
@@ -197,10 +204,18 @@ class _AnimatedCenterButtonState extends State<_AnimatedCenterButton> {
         duration: Duration(milliseconds: 100),
         transform:
             isPressed ? (Matrix4.identity()..scale(0.9)) : Matrix4.identity(),
-        child: CustomImageView(
-          imagePath: widget.icon,
-          height: 50.h,
-          width: 52.h,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color.fromARGB(255, 255, 197, 39), // Fundo amarelo brilhante
+        ),
+        width: 60.h, // Tamanho do botão central
+        height: 60.h,
+        child: Center(
+          child: Icon(
+            widget.icon,
+            size: widget.iconSize,
+            color: Colors.white, // Ícone branco
+          ),
         ),
       ),
     );

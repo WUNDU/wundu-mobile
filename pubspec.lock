@@ -341,6 +341,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  iconamoon:
+    dependency: "direct main"
+    description:
+      name: iconamoon
+      sha256: f3de914381adbde53623d5270beb9a816643674e2d7a458ddc29d6c98495b834
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   iconify_flutter:
     dependency: "direct main"
     description:
@@ -413,6 +421,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.5.0"
+  lucide_icons:
+    dependency: "direct main"
+    description:
+      name: lucide_icons
+      sha256: ad24d0fd65707e48add30bebada7d90bff2a1bba0a72d6e9b19d44246b0e83c4
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.257.0"
   matcher:
     dependency: transitive
     description:
@@ -714,6 +730,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  solar_icons:
+    dependency: "direct main"
+    description:
+      name: solar_icons
+      sha256: "2865a62fb0a39a7c2403205bfe05453bd3f2fedbaa8e5c3d436cf2a080afe259"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   source_span:
     dependency: transitive
     description:
