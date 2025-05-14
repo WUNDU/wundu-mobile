@@ -4,7 +4,7 @@ import 'package:wundu/core/session/session_service.dart';
 import 'package:wundu/views/card/card_screen.dart';
 import 'package:wundu/views/home/home_screen.dart';
 import 'package:wundu/views/library/library_screen.dart';
-import 'package:wundu/views/wundu/wundu_screen.dart';
+import 'package:wundu/views/profile/profile.dart';
 import 'package:wundu/widgets/custom_app_bar.dart';
 import 'package:wundu/widgets/custom_bottom_nav_bar.dart';
 
@@ -31,9 +31,9 @@ class _MainScaffoldState extends State<MainScaffold> {
     _pages = [
       HomeScreen(), // Conteúdo da tela Home
       CardScreen(), // Conteúdo da tela Card
-      WunduScreen.builder(context), // Placeholder para o botão central
+      Container(), // Placeholder para o botão central
       LibraryScreen.builder(context), // Biblioteca
-      Container(), // Placeholder para o perfil
+      ProfileScreen.builder(context), // Placeholder para o perfil
     ];
   }
 
@@ -54,7 +54,7 @@ class _MainScaffoldState extends State<MainScaffold> {
         final userData = snapshot.data;
         return Scaffold(
           backgroundColor: appTheme.blueGray50,
-          appBar: _currentIndex == 3
+          appBar: (_currentIndex == 3 || _currentIndex == 4)
               ? null
               : CustomAppBar(
                   userName: userData?['name'] ?? 'Usuário',
