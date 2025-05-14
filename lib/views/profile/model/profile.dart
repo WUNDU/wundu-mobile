@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ProfileModel extends Equatable {
-  ProfileModel();
+  const ProfileModel();
 
   ProfileModel copyWith() {
     return ProfileModel();

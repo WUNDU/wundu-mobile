@@ -156,6 +156,12 @@ class AppNavigationScreen extends StatelessWidget {
                               onTapScreenTitle: () =>
                                   onTapScreenTitle(AppRoutes.profile),
                             ),
+                            buildScreenTitle(
+                              context,
+                              screenTitle: "Control Panel",
+                              onTapScreenTitle: () =>
+                                  onTapScreenTitle(AppRoutes.controlPanel),
+                            ),
                           ],
                         ),
                       ),

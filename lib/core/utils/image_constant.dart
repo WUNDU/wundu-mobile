@@ -52,4 +52,7 @@ class ImageConstant {
   static String help = '$imagePath/help.png';
   static String logOut = '$imagePath/log-out.png';
   static String panelBackground = '$imagePath/panel-background.png';
+  static String componentControlpanel = '$imagePath/component-controlpanel.png';
+  static String backgroundPanel = '$imagePath/background-panel.png';
+  static String expenseCard = '$imagePath/expense-card.png';
 }
