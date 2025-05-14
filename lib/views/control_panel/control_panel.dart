@@ -21,25 +21,27 @@ class ControlPanelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProtectedRoute(
-      child: Scaffold(
-        backgroundColor: const Color(0xFFF2F2F6),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildBackButton(),
-                  const SizedBox(height: 16),
-                  buildExpenseCard(),
-                  const SizedBox(height: 20),
-                  buildExpenseGraph(),
-                  const SizedBox(height: 20),
-                  buildTimeFilterBar(),
-                  const SizedBox(height: 20),
-                  buildCategoriesSection(),
-                ],
+      child: ProtectedRoute(
+        child: Scaffold(
+          backgroundColor: const Color(0xFFF2F2F6),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildBackButton(),
+                    const SizedBox(height: 16),
+                    buildExpenseCard(),
+                    const SizedBox(height: 20),
+                    buildExpenseGraph(),
+                    const SizedBox(height: 20),
+                    buildTimeFilterBar(),
+                    const SizedBox(height: 20),
+                    buildCategoriesSection(),
+                  ],
+                ),
               ),
             ),
           ),

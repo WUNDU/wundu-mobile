@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/views/notification/model/notification_item_model.dart';
 import 'package:wundu/views/notification/model/notification_model.dart';
 import 'package:wundu/widgets/app_bar/custom_app_bar.dart';
@@ -22,51 +23,53 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appTheme.blueGray50,
-      appBar: _buildAppbar(context),
-      body: SafeArea(
-        top: false,
-        child: Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.only(
-            left: 14.h,
-            top: 18.h,
-            right: 14.h,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.all(10.h),
-                  decoration: AppDecoration.outlineGray.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder16,
-                  ),
-                  child: Column(
-                    spacing: 24,
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "lbl_notifica_es".tr,
-                        style: CustomTextStyles.headlineSmallBluegray900,
-                      ),
-                      SizedBox(
-                        width: double.maxFinite,
-                        child: Divider(
-                          indent: 8.h,
-                          endIndent: 8.h,
+    return ProtectedRoute(
+      child: Scaffold(
+        backgroundColor: appTheme.blueGray50,
+        appBar: _buildAppbar(context),
+        body: SafeArea(
+          top: false,
+          child: Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.only(
+              left: 14.h,
+              top: 18.h,
+              right: 14.h,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.all(10.h),
+                    decoration: AppDecoration.outlineGray.copyWith(
+                      borderRadius: BorderRadiusStyle.roundedBorder16,
+                    ),
+                    child: Column(
+                      spacing: 24,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "lbl_notifica_es".tr,
+                          style: CustomTextStyles.headlineSmallBluegray900,
                         ),
-                      ),
-                      _buildNotificationList(context),
-                    ],
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: Divider(
+                            indent: 8.h,
+                            endIndent: 8.h,
+                          ),
+                        ),
+                        _buildNotificationList(context),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 32.h),
-            ],
+                SizedBox(height: 32.h),
+              ],
+            ),
           ),
         ),
       ),

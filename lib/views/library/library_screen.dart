@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/views/library/bloc/library_bloc.dart';
 import 'package:wundu/views/library/models/library_model.dart';
 import 'package:wundu/views/library/models/grid_item_model.dart';
@@ -27,67 +28,69 @@ class LibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appTheme.blueGray50,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: appTheme.whiteA700,
-        elevation: 0,
-        toolbarHeight: 0,
-      ),
-      body: SafeArea(
-        child: SizedBox(
-          width: double.maxFinite,
-          child: SingleChildScrollView(
-            child: Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.only(
-                left: 14.h,
-                top: 26.h,
-                right: 14.h,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 4.h),
-                  Container(
-                    width: double.maxFinite,
-                    padding: EdgeInsets.only(
-                      left: 16.h,
-                      top: 12.h,
-                      right: 16.h,
-                      bottom: 12.h,
-                    ),
-                    decoration: AppDecoration.fillwhiteA700.copyWith(
-                      borderRadius: BorderRadiusStyle.roundedBorder20,
-                    ),
-                    child: Column(
-                      spacing: 24,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(height: 8.h),
-                        _buildRowsearch(context),
-                        _buildRowfinanas(context),
-                        _buildColumnartigosno(context),
-                        CustomOutlinedButton(
-                          height: 40.h,
-                          width: 108.h,
-                          text: "lbl_ver_mais".tr,
-                          rightIcon: Container(
-                            margin: EdgeInsets.only(left: 8.h),
-                            child: CustomImageView(
-                              imagePath: ImageConstant.arrowRotate,
-                              height: 16.h,
-                              width: 16.h,
-                              fit: BoxFit.contain,
+    return ProtectedRoute(
+      child: Scaffold(
+        backgroundColor: appTheme.blueGray50,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: appTheme.whiteA700,
+          elevation: 0,
+          toolbarHeight: 0,
+        ),
+        body: SafeArea(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.only(
+                  left: 14.h,
+                  top: 26.h,
+                  right: 14.h,
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 4.h),
+                    Container(
+                      width: double.maxFinite,
+                      padding: EdgeInsets.only(
+                        left: 16.h,
+                        top: 12.h,
+                        right: 16.h,
+                        bottom: 12.h,
+                      ),
+                      decoration: AppDecoration.fillwhiteA700.copyWith(
+                        borderRadius: BorderRadiusStyle.roundedBorder20,
+                      ),
+                      child: Column(
+                        spacing: 24,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 8.h),
+                          _buildRowsearch(context),
+                          _buildRowfinanas(context),
+                          _buildColumnartigosno(context),
+                          CustomOutlinedButton(
+                            height: 40.h,
+                            width: 108.h,
+                            text: "lbl_ver_mais".tr,
+                            rightIcon: Container(
+                              margin: EdgeInsets.only(left: 8.h),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.arrowRotate,
+                                height: 16.h,
+                                width: 16.h,
+                                fit: BoxFit.contain,
+                              ),
                             ),
+                            buttonTextStyle:
+                                CustomTextStyles.labelLargePoppinsBlack90001,
                           ),
-                          buttonTextStyle:
-                              CustomTextStyles.labelLargePoppinsBlack90001,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

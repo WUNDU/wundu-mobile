@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/core/session/activity_tracker.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/home/bloc/home_screen_bloc.dart';
 import 'package:wundu/views/home/models/home_screen_model.dart';
@@ -32,31 +33,33 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
           final totalBalance = model.totalBalance;
           final isBalanceVisible = model.isBalanceVisible;
 
-          return SafeArea(
-            top: false,
-            child: SizedBox(
-              width: double.maxFinite,
-              child: SingleChildScrollView(
-                child: Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.only(
-                    left: 12.w,
-                    top: 16.w,
-                    right: 12.w,
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 14.w),
-                      _buildCardSection(
-                        context,
-                        cardCount: cardCount,
-                        totalBalance: totalBalance,
-                        isBalanceVisible: isBalanceVisible,
-                        isTablet: isTablet,
-                      ),
-                      SizedBox(height: isTablet ? 40.w : 30.w),
-                      _buildMovimentacoesSection(context, state, isTablet),
-                    ],
+          return ProtectedRoute(
+            child: SafeArea(
+              top: false,
+              child: SizedBox(
+                width: double.maxFinite,
+                child: SingleChildScrollView(
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.only(
+                      left: 12.w,
+                      top: 16.w,
+                      right: 12.w,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 14.w),
+                        _buildCardSection(
+                          context,
+                          cardCount: cardCount,
+                          totalBalance: totalBalance,
+                          isBalanceVisible: isBalanceVisible,
+                          isTablet: isTablet,
+                        ),
+                        SizedBox(height: isTablet ? 40.w : 30.w),
+                        _buildMovimentacoesSection(context, state, isTablet),
+                      ],
+                    ),
                   ),
                 ),
               ),

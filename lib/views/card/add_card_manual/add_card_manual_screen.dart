@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/views/card/add_card_manual/bloc/add_card_manual_bloc.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
 import 'package:wundu/views/card/add_card_manual/widgets/confirm_dialog.dart';
@@ -58,239 +59,241 @@ class _AddCardManualScreenState extends State<AddCardManualScreen> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: appTheme.blueGray50,
-          appBar: AppBar(
+        return ProtectedRoute(
+          child: Scaffold(
             backgroundColor: appTheme.blueGray50,
-            elevation: 0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
+            appBar: AppBar(
+              backgroundColor: appTheme.blueGray50,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              ),
+              title: Text(
+                'Adicionar Cartão',
+                style: CustomTextStyles.titleMediumBluegray900,
+              ),
+              centerTitle: true,
             ),
-            title: Text(
-              'Adicionar Cartão',
-              style: CustomTextStyles.titleMediumBluegray900,
-            ),
-            centerTitle: true,
-          ),
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(16.h),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Card preview
-                      Container(
-                        height: 180.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromRGBO(255, 212, 0, 1),
-                              Color.fromRGBO(255, 114, 94, 1),
-                              Color.fromRGBO(229, 148, 0, 1),
-                            ],
-                            stops: [
-                              0.0203,
-                              0.5069,
-                              1.0
-                            ], // Percentuais das cores
-                            transform:
-                                GradientRotation(73.64 * (3.1415926535 / 180)),
-                          ),
-                          borderRadius: BorderRadius.circular(16.h),
-                        ),
-                        padding: EdgeInsets.all(16.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Chip
-                            CustomImageView(
-                              imagePath: ImageConstant
-                                  .logo, // Caminho do logotipo da aplicação
-                              // ignore: deprecated_member_use
-                              color: Colors.white.withOpacity(
-                                  0.5), // Ajuste a opacidade conforme necessário
-                            ),
-                            // Card number
-                            Text(
-                              state.addCardManualModelObj.cardNumber
-                                          ?.isNotEmpty ==
-                                      true
-                                  ? _formatCardNumber(
-                                      state.addCardManualModelObj.cardNumber!)
-                                  : '**** **** **** ****',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.h,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            // Expiry date
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'VALIDADE',
-                                      style: TextStyle(
-                                        // ignore: deprecated_member_use
-                                        color: Colors.white.withOpacity(0.7),
-                                        fontSize: 10.h,
-                                      ),
-                                    ),
-                                    Text(
-                                      state.addCardManualModelObj.expiryDate
-                                                  ?.isNotEmpty ==
-                                              true
-                                          ? state
-                                              .addCardManualModelObj.expiryDate!
-                                          : 'MM/AA',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.h,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                // Logo
-                                Container(
-                                  height: 40.h,
-                                  width: 60.h,
-                                  decoration: BoxDecoration(
-                                    // ignore: deprecated_member_use
-                                    color: Colors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(8.h),
-                                  ),
-                                ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(16.h),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Card preview
+                        Container(
+                          height: 180.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color.fromRGBO(255, 212, 0, 1),
+                                Color.fromRGBO(255, 114, 94, 1),
+                                Color.fromRGBO(229, 148, 0, 1),
                               ],
+                              stops: [
+                                0.0203,
+                                0.5069,
+                                1.0
+                              ], // Percentuais das cores
+                              transform:
+                                  GradientRotation(73.64 * (3.1415926535 / 180)),
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 32.h),
-                      // Form fields
-                      Text(
-                        'Número do Cartão',
-                        style:
-                            CustomTextStyles.titleSmallInterBluegray900SemiBold,
-                      ),
-                      SizedBox(height: 8.h),
-                      CustomTextFormField(
-                        controller: _cardNumberController,
-                        focusNode: _cardNumberFocus,
-                        hintText: '0000 0000 0000 0000',
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(16),
-                          _CardNumberFormatter(),
-                        ],
-                        onChanged: (value) {
-                          context.read<AddCardManualBloc>().add(
-                                AddCardNumberChangedEvent(
-                                    value.replaceAll(' ', '')),
-                              );
-                        },
-                        validator: (value) {
-                          if (!state.addCardManualModelObj.isValidCardNumber) {
-                            return 'Número de cartão inválido';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'Data de Expiração',
-                        style:
-                            CustomTextStyles.titleSmallInterBluegray900SemiBold,
-                      ),
-                      SizedBox(height: 8.h),
-                      CustomTextFormField(
-                        controller: _expiryDateController,
-                        focusNode: _expiryDateFocus,
-                        hintText: 'MM/AA',
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(4),
-                          _ExpiryDateFormatter(),
-                        ],
-                        onChanged: (value) {
-                          context.read<AddCardManualBloc>().add(
-                                AddExpiryDateChangedEvent(value),
-                              );
-                        },
-                        validator: (value) {
-                          if (!state.addCardManualModelObj.isValidExpiryDate) {
-                            return 'Data de expiração inválida';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'Nome no Cartão',
-                        style:
-                            CustomTextStyles.titleSmallInterBluegray900SemiBold,
-                      ),
-                      SizedBox(height: 8.h),
-                      CustomTextFormField(
-                        controller: _cardNameController,
-                        focusNode: _cardNameFocus,
-                        hintText: 'Nome como aparece no cartão',
-                        textCapitalization: TextCapitalization.characters,
-                        onChanged: (value) {
-                          context.read<AddCardManualBloc>().add(
-                                AddCardNameChangedEvent(value),
-                              );
-                        },
-                        validator: (value) {
-                          if (!state.addCardManualModelObj.isValidCardName) {
-                            return 'Nome no cartão é obrigatório';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 40.h),
-                      // Button
-                      CustomElevatedButton(
-                        text: 'Adicionar Cartão',
-                        isLoading: state.isLoading,
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final bloc = context.read<AddCardManualBloc>();
-                            bloc.add(
-                              AddCardSubmitEvent(
-                                cardNumber: _cardNumberController.text
-                                    .replaceAll(' ', ''),
-                                expiryDate: _expiryDateController.text,
-                                cardName: _cardNameController.text,
+                            borderRadius: BorderRadius.circular(16.h),
+                          ),
+                          padding: EdgeInsets.all(16.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Chip
+                              CustomImageView(
+                                imagePath: ImageConstant
+                                    .logo, // Caminho do logotipo da aplicação
+                                // ignore: deprecated_member_use
+                                color: Colors.white.withOpacity(
+                                    0.5), // Ajuste a opacidade conforme necessário
                               ),
-                            );
-
-                            // Mostra o Snackbar apenas uma vez após o submit
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (state.errorMessage != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(state.errorMessage!),
-                                  backgroundColor: Colors.red,
+                              // Card number
+                              Text(
+                                state.addCardManualModelObj.cardNumber
+                                            ?.isNotEmpty ==
+                                        true
+                                    ? _formatCardNumber(
+                                        state.addCardManualModelObj.cardNumber!)
+                                    : '**** **** **** ****',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.h,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              // Expiry date
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'VALIDADE',
+                                        style: TextStyle(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.white.withOpacity(0.7),
+                                          fontSize: 10.h,
+                                        ),
+                                      ),
+                                      Text(
+                                        state.addCardManualModelObj.expiryDate
+                                                    ?.isNotEmpty ==
+                                                true
+                                            ? state
+                                                .addCardManualModelObj.expiryDate!
+                                            : 'MM/AA',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.h,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Logo
+                                  Container(
+                                    height: 40.h,
+                                    width: 60.h,
+                                    decoration: BoxDecoration(
+                                      // ignore: deprecated_member_use
+                                      color: Colors.white.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(8.h),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 32.h),
+                        // Form fields
+                        Text(
+                          'Número do Cartão',
+                          style:
+                              CustomTextStyles.titleSmallInterBluegray900SemiBold,
+                        ),
+                        SizedBox(height: 8.h),
+                        CustomTextFormField(
+                          controller: _cardNumberController,
+                          focusNode: _cardNumberFocus,
+                          hintText: '0000 0000 0000 0000',
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(16),
+                            _CardNumberFormatter(),
+                          ],
+                          onChanged: (value) {
+                            context.read<AddCardManualBloc>().add(
+                                  AddCardNumberChangedEvent(
+                                      value.replaceAll(' ', '')),
+                                );
+                          },
+                          validator: (value) {
+                            if (!state.addCardManualModelObj.isValidCardNumber) {
+                              return 'Número de cartão inválido';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 16.h),
+                        Text(
+                          'Data de Expiração',
+                          style:
+                              CustomTextStyles.titleSmallInterBluegray900SemiBold,
+                        ),
+                        SizedBox(height: 8.h),
+                        CustomTextFormField(
+                          controller: _expiryDateController,
+                          focusNode: _expiryDateFocus,
+                          hintText: 'MM/AA',
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(4),
+                            _ExpiryDateFormatter(),
+                          ],
+                          onChanged: (value) {
+                            context.read<AddCardManualBloc>().add(
+                                  AddExpiryDateChangedEvent(value),
+                                );
+                          },
+                          validator: (value) {
+                            if (!state.addCardManualModelObj.isValidExpiryDate) {
+                              return 'Data de expiração inválida';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 16.h),
+                        Text(
+                          'Nome no Cartão',
+                          style:
+                              CustomTextStyles.titleSmallInterBluegray900SemiBold,
+                        ),
+                        SizedBox(height: 8.h),
+                        CustomTextFormField(
+                          controller: _cardNameController,
+                          focusNode: _cardNameFocus,
+                          hintText: 'Nome como aparece no cartão',
+                          textCapitalization: TextCapitalization.characters,
+                          onChanged: (value) {
+                            context.read<AddCardManualBloc>().add(
+                                  AddCardNameChangedEvent(value),
+                                );
+                          },
+                          validator: (value) {
+                            if (!state.addCardManualModelObj.isValidCardName) {
+                              return 'Nome no cartão é obrigatório';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 40.h),
+                        // Button
+                        CustomElevatedButton(
+                          text: 'Adicionar Cartão',
+                          isLoading: state.isLoading,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              final bloc = context.read<AddCardManualBloc>();
+                              bloc.add(
+                                AddCardSubmitEvent(
+                                  cardNumber: _cardNumberController.text
+                                      .replaceAll(' ', ''),
+                                  expiryDate: _expiryDateController.text,
+                                  cardName: _cardNameController.text,
                                 ),
                               );
+          
+                              // Mostra o Snackbar apenas uma vez após o submit
+                              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                              if (state.errorMessage != null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(state.errorMessage!),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
                             }
-                          }
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
