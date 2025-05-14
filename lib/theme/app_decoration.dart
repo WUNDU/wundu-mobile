@@ -58,9 +58,9 @@ class AppDecoration {
       );
   static BoxDecoration get gradient2 => BoxDecoration(
         gradient: LinearGradient(
-          begin: const Alignment(0.5, 0),
-          end: const Alignment(0.5, 1),
-          colors: [appTheme.blueGray900, appTheme.indigo600],
+          begin: const Alignment(-1.0, 1.0), // canto inferior esquerdo
+          end: const Alignment(1.0, -1.0), // canto superior direito
+          colors: [appTheme.yellowA700, appTheme.blueGray900],
         ),
       );
 

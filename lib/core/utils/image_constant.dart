@@ -55,4 +55,5 @@ class ImageConstant {
   static String componentControlpanel = '$imagePath/component-controlpanel.png';
   static String backgroundPanel = '$imagePath/background-panel.png';
   static String expenseCard = '$imagePath/expense-card.png';
+  static String logoWhite = '$imagePath/logo-white.png';
 }
