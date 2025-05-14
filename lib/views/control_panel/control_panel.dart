@@ -137,63 +137,66 @@ class ControlPanelScreen extends StatelessWidget {
 
   // Navy blue card with amount and navigation
   Widget buildExpenseAmount() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color(0xFF0E1F45),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF192B54),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.chevron_left,
-                  color: Colors.white,
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  "Todos",
-                  style: TextStyle(
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: const Color(0xFF0E1F45),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF192B54),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.chevron_left,
                     color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
                   ),
-                ),
-                const SizedBox(width: 16),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.white,
-                ),
-              ],
+                  const SizedBox(width: 16),
+                  Text(
+                    "Todos",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            "Gastos neste mês",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
+            const SizedBox(height: 16),
+            Text(
+              "Gastos neste mês",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            "100.000,00KZ",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 4),
+            Text(
+              "100.000,00KZ",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
