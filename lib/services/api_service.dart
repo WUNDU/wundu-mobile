@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wundu/core/local_storage/local_preferences.dart';
 
 class ApiService {
   // Replace with your actual API base URL
@@ -99,6 +100,8 @@ class ApiService {
           await _saveAuthToken(responseData['token']);
           final userData = responseData['userDTO'] ?? {};
           await _saveUserData(userData);
+
+          await LocalPreferences().setLastUsedEmail(userData['email'] ?? '');
         }
         return {
           'success': true,

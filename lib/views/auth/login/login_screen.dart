@@ -144,49 +144,55 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 4.w),
               BlocSelector<LoginScreenBloc, LoginScreenState,
-                      TextEditingController?>(
-                  selector: (state) => state.emailController,
-                  builder: (context, emailController) {
-                    return CustomTextFormField(
-                      controller: emailController,
-                      hintText: "Digite o seu email",
-                      textInputType: TextInputType.emailAddress,
-                      contentPadding:
-                          EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
-                      borderDecoration: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: state.errorMessage != null
-                              ? Colors.red
-                              : (state.isPasswordValid
-                                  ? Colors.grey
-                                  : Colors.red),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
+                  TextEditingController?>(
+                selector: (state) => state.emailController,
+                builder: (context, emailController) {
+                  // Set initial text if lastUsedEmail is available
+                  if (state.lastUsedEmail != null &&
+                      emailController != null &&
+                      emailController.text.isEmpty) {
+                    emailController.text = state.lastUsedEmail ?? '';
+                  }
+                  return CustomTextFormField(
+                    controller: emailController,
+                    hintText: "Digite o seu email",
+                    textInputType: TextInputType.emailAddress,
+                    contentPadding: EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
+                    borderDecoration: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: state.errorMessage != null
+                            ? Colors.red
+                            : (state.isPasswordValid
+                                ? Colors.grey
+                                : Colors.red),
+                        width: 1.0,
                       ),
-                      fillColor: state.isEmailValid ? null : Colors.red[50],
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          context
-                              .read<LoginScreenBloc>()
-                              .add(EmailValidationErrorEvent());
-                          return "Campo obrigatório";
-                        }
-                        if (!isValidEmail(value)) {
-                          context
-                              .read<LoginScreenBloc>()
-                              .add(EmailValidationErrorEvent());
-                          return "Formato de email inválido";
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    fillColor: state.isEmailValid ? null : Colors.red[50],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         context
                             .read<LoginScreenBloc>()
-                            .add(EmailChangedEvent(value));
-                      },
-                    );
-                  }),
+                            .add(EmailValidationErrorEvent());
+                        return "Campo obrigatório";
+                      }
+                      if (!isValidEmail(value)) {
+                        context
+                            .read<LoginScreenBloc>()
+                            .add(EmailValidationErrorEvent());
+                        return "Formato de email inválido";
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      context
+                          .read<LoginScreenBloc>()
+                          .add(EmailChangedEvent(value));
+                    },
+                  );
+                },
+              )
             ],
           ),
         ),
