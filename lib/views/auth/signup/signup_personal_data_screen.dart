@@ -200,7 +200,7 @@ class SignupPersonalDataScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 50.w),
-              CustomElevatedButton(
+                    CustomElevatedButton(
                       text: "Próximo",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
@@ -212,15 +212,13 @@ class SignupPersonalDataScreen extends StatelessWidget {
 
                           // Processe o número para o formato necessário para o backend
                           // sem alterar o que o usuário vê no campo
-                          final rawPhone = formattedPhoneNumber!
-                              .replaceAll(' ', '')
-                              .replaceAll('+244', '9')
-                              .substring(0, 9);
+                          final rawPhone = formattedPhoneNumber
+                              ?.replaceAll(' ', '')
+                              .substring(0);
 
                           // Armazene o valor processado em algum lugar no bloc sem atualizar o controlador
-                          bloc.add(
-                              PreparePhoneNumberEvent(phoneNumber: rawPhone));
-
+                          bloc.add(PreparePhoneNumberEvent(
+                              phoneNumber: rawPhone ?? ''));
                           // Continue com o fluxo normal
                           bloc.add(ChangeStepEvent(step: 1));
                           NavigatorService.pushNamed(

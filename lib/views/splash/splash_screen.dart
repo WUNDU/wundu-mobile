@@ -77,6 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
                       imagePath: ImageConstant.logoWundu,
                       height: 68.h,
                       width: 218.h,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

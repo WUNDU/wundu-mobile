@@ -254,6 +254,7 @@ class LightCodeColors {
   // Red
   Color get red300 => Color(0XFFAD6359);
   Color get redA200 => Color(0XFFFF5959);
+  Color get redA400 => Color(0XFFFE1E31);
 
   // Teal
   Color get teal300 => Color(0XFF49B58F);

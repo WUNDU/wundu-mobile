@@ -43,12 +43,19 @@ extension TextStyleExtension on TextStyle {
       fontFamily: 'Mrs. Wintermouse',
     );
   }
+
+  TextStyle get poppins2 {
+    return copyWith(fontFamily: 'Poppins');
+  }
 }
 
 /// A collection of pre-defined text styles for customizing text appearance,
 /// categorized by different font families and weights.
 /// Additionally, this class includes extensions on [TextStyle] to easily apply
 class CustomTextStyles {
+  static TextStyle get titleMediumPoppins2WhiteA700 =>
+      theme.textTheme.titleMedium!.poppins2.copyWith(color: appTheme.whiteA700);
+
   // Body text style
   static TextStyle get bodyLargeBluegray900 =>
       theme.textTheme.bodyLarge!.copyWith(
@@ -473,6 +480,9 @@ class CustomTextStyles {
         fontSize: 18.fSize,
         fontWeight: FontWeight.w700,
       );
+
+  static TextStyle get titleMediumRedA400 =>
+      theme.textTheme.titleMedium!.copyWith(color: appTheme.redA400);
 
   static TextStyle get titleMediumSemiBold =>
       theme.textTheme.titleMedium!.copyWith(
