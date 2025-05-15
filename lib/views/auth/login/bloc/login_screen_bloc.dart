@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wundu/core/app_export.dart';
 import 'package:wundu/core/session/session_service.dart';
 import 'package:wundu/services/api_service.dart';
 import 'package:wundu/views/auth/login/models/login_screen_model.dart';
@@ -19,12 +19,15 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     on<SubmitLoginEvent>(_onSubmitLogin);
     on<LoginFailedEvent>(_onLoginFailed);
     on<LoginSuccessEvent>(_onLoginSuccess);
+    on<TogglePasswordVisibilityEvent>(_onTogglePasswordVisibility);
+    on<LoadLastUsedEmailEvent>(_onLoadLastUsedEmail);
   }
 
   _onInitialize(
     LoginScreenInitialEvent event,
     Emitter<LoginScreenState> emit,
   ) {
+    add(LoadLastUsedEmailEvent());
     emit(
       state.copyWith(
         emailController: TextEditingController(),
@@ -34,6 +37,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
         hasError: false,
         isLoading: false,
         errorMessage: null,
+        isPasswordVisible: false,
       ),
     );
   }
@@ -47,6 +51,12 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
       hasError: false,
       errorMessage: null,
     ));
+  }
+
+  _onLoadLastUsedEmail(
+      LoadLastUsedEmailEvent event, Emitter<LoginScreenState> emit) async {
+    final lastEmail = await LocalPreferences().getLastUsedEmail();
+    emit(state.copyWith(lastUsedEmail: lastEmail));
   }
 
   _onPasswordChanged(
@@ -78,10 +88,20 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     ));
   }
 
+  _onTogglePasswordVisibility(
+    TogglePasswordVisibilityEvent event,
+    Emitter<LoginScreenState> emit,
+  ) {
+    emit(state.copyWith(
+      isPasswordVisible: !state.isPasswordVisible,
+    ));
+  }
+
   _onSubmitLogin(SubmitLoginEvent event, Emitter<LoginScreenState> emit) async {
     emit(state.copyWith(isLoading: true, hasError: false, errorMessage: null));
 
     try {
+      // Use actual API call instead of mock data
       final response = await ApiService.loginUser(
         email: state.emailController!.text,
         password: state.passwordController!.text,

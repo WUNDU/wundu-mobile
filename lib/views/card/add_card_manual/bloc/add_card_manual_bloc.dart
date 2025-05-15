@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:wundu/core/app_export.dart';
-import 'package:wundu/core/mocks/card_mocks.dart';
 import 'package:wundu/views/card/add_card_manual/models/add_card_manual_model.dart';
 import 'package:wundu/views/card/add_card_manual/utils/card_manager.dart';
 
@@ -92,34 +91,6 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
       return;
     }
 
-    // Verifica se o cartão está na lista de mocks
-    final mockCards = CardMocks.getMockCards();
-    final matchingCard = mockCards.firstWhere(
-      (card) => card.cardNumber == event.cardNumber,
-      orElse: () => AddCardManualModel(
-        cardNumber: '',
-        expiryDate: '',
-        cardName: '',
-      ),
-    );
-
-    if (matchingCard.cardNumber!.isEmpty) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: "Este cartão não é válido ou não está registrado.",
-      ));
-      return;
-    }
-
-    if (matchingCard.expiryDate != event.expiryDate) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage:
-            "A data de expiração não corresponde ao cartão registrado.",
-      ));
-      return;
-    }
-
     emit(state.copyWith(isLoading: true));
 
     try {
@@ -134,17 +105,17 @@ class AddCardManualBloc extends Bloc<AddCardManualEvent, AddCardManualState> {
         isValidCardName: true,
       );
 
-      if (!CardManager().cards.any((c) => c.cardNumber == card.cardNumber)) {
+      if (CardManager().cards.any((c) => c.cardNumber == card.cardNumber)) {
+        emit(state.copyWith(
+          isLoading: false,
+          errorMessage: "Este cartão já foi adicionado.",
+        ));
+      } else {
         CardManager().addCard(card);
         emit(state.copyWith(
           isLoading: false,
           isSubmitted: true,
           errorMessage: null,
-        ));
-      } else {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: "Este cartão já foi adicionado.",
         ));
       }
     } catch (e) {

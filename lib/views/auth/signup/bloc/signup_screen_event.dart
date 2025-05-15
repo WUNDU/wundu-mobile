@@ -9,4 +9,9 @@ class ChangeStepEvent extends SignupScreenEvent {
   ChangeStepEvent({required this.step});
 }
 
+class PreparePhoneNumberEvent extends SignupScreenEvent {
+  final String phoneNumber;
+  PreparePhoneNumberEvent({required this.phoneNumber});
+}
+
 class CompleteRegistrationEvent extends SignupScreenEvent {}

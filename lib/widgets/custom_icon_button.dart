@@ -6,24 +6,24 @@ extension IconButtonStyleHelper on CustomIconButton {
         borderRadius: BorderRadius.circular(20.h),
         border: Border.all(
           // ignore: deprecated_member_use
-          color: appTheme.indigoA200.withOpacity(0.46),
+          color: appTheme.indigoA200.withValues(alpha: 117),
           width: 1.h,
         ),
       );
 
   static BoxDecoration get fillBlueGray => BoxDecoration(
         // ignore: deprecated_member_use
-        color: appTheme.blueGray900.withOpacity(0.39),
+        color: appTheme.blueGray900.withValues(alpha: 99),
         borderRadius: BorderRadius.circular(20.h),
       );
 
   static BoxDecoration get fillGray => BoxDecoration(
-        color: appTheme.gray300.withOpacity(0.53),
+        color: appTheme.gray300.withValues(alpha: 135),
         borderRadius: BorderRadius.circular(20.h),
       );
 
   static BoxDecoration get fillYellowA => BoxDecoration(
-        color: appTheme.yellowA700.withOpacity(0.3),
+        color: appTheme.yellowA700.withValues(alpha: 77),
         borderRadius: BorderRadius.circular(24.h),
       );
 
@@ -42,7 +42,7 @@ extension IconButtonStyleHelper on CustomIconButton {
       );
 
   static BoxDecoration get fillBlueGrayTL16 => BoxDecoration(
-        color: appTheme.blueGray900.withOpacity(0.39),
+        color: appTheme.blueGray900.withValues(alpha: 99),
         borderRadius: BorderRadius.circular(16.h),
       );
 
@@ -99,7 +99,7 @@ class CustomIconButton extends StatelessWidget {
         child: DecoratedBox(
           decoration: decoration ??
               BoxDecoration(
-                color: appTheme.blueGray900.withOpacity(0.39),
+                color: appTheme.blueGray900.withValues(alpha: 99),
                 borderRadius: BorderRadius.circular(12.h),
               ),
           child: IconButton(

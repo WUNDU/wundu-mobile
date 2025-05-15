@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Importe o flutter_screenutil
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/core/utils/phone_number_formatter.dart';
 import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/views/auth/signup/bloc/signup_screen_bloc.dart';
 import 'package:wundu/views/auth/signup/models/signup_screen_model.dart';
@@ -174,18 +176,23 @@ class SignupPersonalDataScreen extends StatelessWidget {
                               return CustomTextFormField(
                                 controller: numberController,
                                 hintText: "Digite seu nº telefónico",
+                                textInputType: TextInputType.phone,
                                 textInputAction: TextInputAction.done,
                                 contentPadding:
                                     EdgeInsets.fromLTRB(22.w, 14.w, 22.w, 10.w),
+                                inputFormatters: [
+                                  PhoneNumberFormatter(),
+                                  LengthLimitingTextInputFormatter(
+                                      16), // +244 999 999 999
+                                ],
                                 validator: (value) {
                                   if (value == null ||
                                       (!isValidPhone(value,
                                           isRequired: true))) {
-                                    return "Por favor insira um número correcto";
+                                    return "Número inválido. Exemplo: +244 923 456 789";
                                   }
                                   return null;
                                 },
-                                onChanged: (value) {},
                               );
                             },
                           ),
@@ -195,20 +202,31 @@ class SignupPersonalDataScreen extends StatelessWidget {
                     SizedBox(height: 50.w),
                     CustomElevatedButton(
                       text: "Próximo",
-                      buttonTextStyle: CustomTextStyles.titleLargeGray200,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           final bloc = context.read<SignupScreenBloc>();
-                          context
-                              .read<SignupScreenBloc>()
-                              .add(ChangeStepEvent(step: 1));
 
+                          // Obtenha o número de telefone formatado
+                          final formattedPhoneNumber =
+                              bloc.state.numberController?.text;
+
+                          // Processe o número para o formato necessário para o backend
+                          // sem alterar o que o usuário vê no campo
+                          final rawPhone = formattedPhoneNumber
+                              ?.replaceAll(' ', '')
+                              .substring(0);
+
+                          // Armazene o valor processado em algum lugar no bloc sem atualizar o controlador
+                          bloc.add(PreparePhoneNumberEvent(
+                              phoneNumber: rawPhone ?? ''));
+                          // Continue com o fluxo normal
+                          bloc.add(ChangeStepEvent(step: 1));
                           NavigatorService.pushNamed(
                               arguments: bloc,
                               AppRoutes.signupPasswordDataScreen);
                         }
                       },
-                    ),
+                    )
                   ],
                 ),
               ),

@@ -42,5 +42,18 @@ class ImageConstant {
   static String money = '$imagePath/money.png';
   static String close = '$imagePath/close.png';
   static String download = '$imagePath/download.png';
+  static String search = '$imagePath/search.png';
   static String informationOutline = '$imagePath/information-outline.png';
+  static String arrowRight2 = '$imagePath/arrow-right-02.png';
+  static String uiNotification = '$imagePath/ui-notification.png';
+  static String settings = '$imagePath/settings.png';
+  static String pen = '$imagePath/pen.png';
+  static String payment = '$imagePath/payment.png';
+  static String help = '$imagePath/help.png';
+  static String logOut = '$imagePath/log-out.png';
+  static String panelBackground = '$imagePath/panel-background.png';
+  static String componentControlpanel = '$imagePath/component-controlpanel.png';
+  static String backgroundPanel = '$imagePath/background-panel.png';
+  static String expenseCard = '$imagePath/expense-card.png';
+  static String logoWhite = '$imagePath/logo-white.png';
 }

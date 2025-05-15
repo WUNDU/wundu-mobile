@@ -27,4 +27,8 @@ class LoginFailedEvent extends LoginScreenEvent {
 
 class LoginSuccessEvent extends LoginScreenEvent {}
 
+class TogglePasswordVisibilityEvent extends LoginScreenEvent {}
+
 class LoginSuccessState extends LoginScreenState {}
+
+class LoadLastUsedEmailEvent extends LoginScreenEvent {}

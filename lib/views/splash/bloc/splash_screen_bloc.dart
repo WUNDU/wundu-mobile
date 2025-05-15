@@ -18,13 +18,14 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     SplashScreenInitialEvent event,
     Emitter<SplashScreenState> emit,
   ) async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     final isOnboardingCompleted =
         await _localPreferences.isOnboardingCompleted();
     final hasValidSession = await _sessionService.isSessionValid();
 
     if (hasValidSession) {
+      await _sessionService.updateLastActivity();
       NavigatorService.pushNamedAndRemovedUntil(AppRoutes.mainScreen);
     } else if (isOnboardingCompleted) {
       NavigatorService.pushNamedAndRemovedUntil(AppRoutes.authScreen);

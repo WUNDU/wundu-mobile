@@ -23,6 +23,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthScreenBloc, AuthScreenState>(
         builder: (context, state) {
+      final isTablet = MediaQuery.of(context).size.width > 600;
       return SafeArea(
         child: Scaffold(
           extendBody: true,
@@ -31,7 +32,7 @@ class AuthScreen extends StatelessWidget {
           body: Container(
             width: double.maxFinite,
             height: SizeUtils.height,
-            decoration: AppDecoration.fillWhiteA,
+            decoration: AppDecoration.fillwhiteA,
             child: SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -43,6 +44,8 @@ class AuthScreen extends StatelessWidget {
                   children: [
                     CustomImageView(
                       imagePath: ImageConstant.logo,
+                      alignment: Alignment.centerLeft,
+                      height: isTablet ? 60.h : 60.h,
                     ),
                     Spacer(
                       flex: 65,

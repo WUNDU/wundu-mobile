@@ -10,3 +10,4 @@ export 'package:wundu/theme/app_decoration.dart';
 export 'package:wundu/widgets/custom_image_view.dart';
 export 'package:wundu/routes/app_routes.dart';
 export 'package:wundu/core/local_storage/local_preferences.dart';
+export 'package:wundu/localization/app_localization.dart';

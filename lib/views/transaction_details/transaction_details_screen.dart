@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wundu/core/app_export.dart';
+import 'package:wundu/routes/protected_route.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/transaction_details/models/transaction_model.dart';
 import 'package:wundu/views/transaction_details/bloc/transaction_details_screen_bloc.dart';
@@ -27,113 +28,115 @@ class TransactionDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: appTheme.blueGray50,
-      body: SafeArea(
-        child: SizedBox(
-          width: double.maxFinite,
-          child: SingleChildScrollView(
-            child: Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.only(
-                left: 14.h,
-                top: 30.h,
-                right: 14.h,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 8.h),
-                  Container(
-                    width: double.maxFinite,
-                    padding: EdgeInsets.only(
-                      left: 14.h,
-                      top: 12.h,
-                      right: 14.h,
+    return ProtectedRoute(
+      child: Scaffold(
+        backgroundColor: appTheme.blueGray50,
+        body: SafeArea(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.only(
+                  left: 14.h,
+                  top: 30.h,
+                  right: 14.h,
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 8.h),
+                    Container(
+                      width: double.maxFinite,
+                      padding: EdgeInsets.only(
+                        left: 14.h,
+                        top: 12.h,
+                        right: 14.h,
+                      ),
+                      decoration: AppDecoration.fillwhiteA700.copyWith(
+                        borderRadius: BorderRadiusStyle.roundedBorder16,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildDetailsHeader(context),
+                          SizedBox(height: 28.h),
+                          SizedBox(
+                            width: double.maxFinite,
+                            child: Divider(
+                              color: appTheme.gray30003.withValues(alpha: 0.6),
+                              indent: 6.h,
+                              endIndent: 6.h,
+                            ),
+                          ),
+                          SizedBox(height: 28.h),
+                          _buildTransferRow(context),
+                          SizedBox(height: 40.h),
+                          Container(
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(horizontal: 6.h),
+                            child: _buildRowmdiinformati(
+                              context,
+                              mdiinformation: ImageConstant.money,
+                              outrasinforma: "Montante",
+                            ),
+                          ),
+                          SizedBox(height: 28.h),
+                          _buildValueRow(context),
+                          SizedBox(height: 30.h),
+                          SizedBox(
+                            width: double.maxFinite,
+                            child: Divider(
+                              color: appTheme.gray30003.withValues(alpha: 0.6),
+                              indent: 6.h,
+                              endIndent: 6.h,
+                            ),
+                          ),
+                          SizedBox(height: 28.h),
+                          _buildCalendarRow(context),
+                          SizedBox(height: 22.h),
+                          _buildDateTimeRow(context),
+                          SizedBox(height: 40.h),
+                          SizedBox(
+                            width: double.maxFinite,
+                            child: Divider(
+                              color: appTheme.gray30003.withValues(alpha: 0.6),
+                              indent: 6.h,
+                              endIndent: 6.h,
+                            ),
+                          ),
+                          SizedBox(height: 24.h),
+                          Container(
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(horizontal: 6.h),
+                            child: _buildRowmdiinformati(
+                              context,
+                              mdiinformation: ImageConstant.informationOutline,
+                              outrasinforma: "Outras informações",
+                            ),
+                          ),
+                          SizedBox(height: 24.h),
+                          Padding(
+                            padding: EdgeInsets.only(left: 6.h),
+                            child: Text(
+                              "Número de operação",
+                              style: CustomTextStyles.titleSmallInter1Bluegray900,
+                            ),
+                          ),
+                          SizedBox(height: 12.h),
+                          _buildOperationNumberButton(context),
+                          SizedBox(height: 22.h),
+                        ],
+                      ),
                     ),
-                    decoration: AppDecoration.fillWhiteA700.copyWith(
-                      borderRadius: BorderRadiusStyle.roundedBorder16,
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildDetailsHeader(context),
-                        SizedBox(height: 28.h),
-                        SizedBox(
-                          width: double.maxFinite,
-                          child: Divider(
-                            color: appTheme.gray30003.withValues(alpha: 0.6),
-                            indent: 6.h,
-                            endIndent: 6.h,
-                          ),
-                        ),
-                        SizedBox(height: 28.h),
-                        _buildTransferRow(context),
-                        SizedBox(height: 40.h),
-                        Container(
-                          width: double.maxFinite,
-                          margin: EdgeInsets.symmetric(horizontal: 6.h),
-                          child: _buildRowmdiinformati(
-                            context,
-                            mdiinformation: ImageConstant.money,
-                            outrasinforma: "Montante",
-                          ),
-                        ),
-                        SizedBox(height: 28.h),
-                        _buildValueRow(context),
-                        SizedBox(height: 30.h),
-                        SizedBox(
-                          width: double.maxFinite,
-                          child: Divider(
-                            color: appTheme.gray30003.withValues(alpha: 0.6),
-                            indent: 6.h,
-                            endIndent: 6.h,
-                          ),
-                        ),
-                        SizedBox(height: 28.h),
-                        _buildCalendarRow(context),
-                        SizedBox(height: 22.h),
-                        _buildDateTimeRow(context),
-                        SizedBox(height: 40.h),
-                        SizedBox(
-                          width: double.maxFinite,
-                          child: Divider(
-                            color: appTheme.gray30003.withValues(alpha: 0.6),
-                            indent: 6.h,
-                            endIndent: 6.h,
-                          ),
-                        ),
-                        SizedBox(height: 24.h),
-                        Container(
-                          width: double.maxFinite,
-                          margin: EdgeInsets.symmetric(horizontal: 6.h),
-                          child: _buildRowmdiinformati(
-                            context,
-                            mdiinformation: ImageConstant.informationOutline,
-                            outrasinforma: "Outras informações",
-                          ),
-                        ),
-                        SizedBox(height: 24.h),
-                        Padding(
-                          padding: EdgeInsets.only(left: 6.h),
-                          child: Text(
-                            "Número de operação",
-                            style: CustomTextStyles.titleSmallInter1Bluegray900,
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-                        _buildOperationNumberButton(context),
-                        SizedBox(height: 22.h),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
+        bottomNavigationBar: _buildDefineCategoryColumn(context),
       ),
-      bottomNavigationBar: _buildDefineCategoryColumn(context),
     );
   }
 
@@ -251,7 +254,7 @@ class TransactionDetailsScreen extends StatelessWidget {
           ? CustomButtonStyles.fillTeal
           : CustomButtonStyles.fillDeepOrange,
       buttonTextStyle: isCredit
-          ? CustomTextStyles.titleMediumTeal300
+          ? CustomTextStyles.titleMediumTea1300
           : CustomTextStyles.titleMediumDeeporange300,
     );
   }
@@ -314,7 +317,6 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   /// Botão "Definir Categoria"
-// transaction_details_screen.dart
   Widget buildDefineCategoryButton(BuildContext context) {
     return CustomElevatedButton(
       height: 56.h,
@@ -332,20 +334,20 @@ class TransactionDetailsScreen extends StatelessWidget {
       buttonStyle: CustomButtonStyles.fillYellowA,
       buttonTextStyle: CustomTextStyles.titleMediumWhiteA700,
       onPressed: () async {
+        final bloc = context.read<TransactionDetailsScreenBloc>();
+        final transaction =
+            bloc.state.transactionDetailsScreenModelObj?.transaction;
         final updatedTransaction = await NavigatorService.pushNamed(
           AppRoutes.addCategoryScreen,
-          arguments: context
-              .read<TransactionDetailsScreenBloc>()
-              .state
-              .transactionDetailsScreenModelObj
-              ?.transaction,
+          arguments: transaction,
         );
         if (updatedTransaction != null &&
-            updatedTransaction is TransactionModel) {
-          context.read<TransactionDetailsScreenBloc>().add(
-                TransactionDetailsScreenInitialEvent(
-                    transaction: updatedTransaction),
-              );
+            updatedTransaction is TransactionModel &&
+            context.mounted) {
+          bloc.add(
+            TransactionDetailsScreenInitialEvent(
+                transaction: updatedTransaction),
+          );
         }
       },
     );
@@ -506,14 +508,12 @@ class TransactionDetailsScreen extends StatelessWidget {
   }
 
   Future<void> onTapTimeEdit(BuildContext context) async {
-    var initialState =
-        BlocProvider.of<TransactionDetailsScreenBloc>(context).state;
+    final bloc = context.read<TransactionDetailsScreenBloc>();
+    var initialState = bloc.state;
     TimeOfDay? time =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (time != null) {
-      context
-          .read<TransactionDetailsScreenBloc>()
-          .add(ChangeTimeEvent(time: time));
+    if (time != null && context.mounted) {
+      bloc.add(ChangeTimeEvent(time: time));
       var parseDate = DateFormat.jm().parse(time.format(context));
       initialState.timeEditController?.text =
           DateFormat('HH:mm').format(parseDate);

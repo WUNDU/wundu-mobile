@@ -100,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               body: Container(
                 width: double.maxFinite,
                 height: SizeUtils.height,
-                decoration: AppDecoration.fillWhiteA,
+                decoration: AppDecoration.fillwhiteA,
                 child: SafeArea(
                   child: SizedBox(
                     width: double.maxFinite,
@@ -200,10 +200,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                             : 40), // Ajuste para tablet
                                     CustomImageView(
                                       imagePath: _contents[index].imagePath,
-                                      height: isTablet
-                                          ? 400
-                                          : 310, // Ajuste para tablet
+                                      height: isTablet ? 400 : 310,
                                       width: double.maxFinite,
+                                      fit: BoxFit.contain,
                                       margin: EdgeInsets.only(
                                           right: isTablet ? 40 : 28),
                                     ),
@@ -223,8 +222,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           child: CustomElevatedButton(
                             text: _currentPage < _contents.length - 1
-                                ? "próximo"
-                                : "começar",
+                                ? "lbl_continuar".tr
+                                : "lbl_comecar".tr,
                             buttonTextStyle:
                                 CustomTextStyles.titleLargeGray200.copyWith(
                               fontSize:

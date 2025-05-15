@@ -74,9 +74,10 @@ class _SplashScreenState extends State<SplashScreen>
                       );
                     },
                     child: CustomImageView(
-                      imagePath: ImageConstant.logoWundu,
-                      height: 68.h,
-                      width: 218.h,
+                      imagePath: ImageConstant.logoWhite,
+                      height: 650.h,
+                      width: 650.h,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

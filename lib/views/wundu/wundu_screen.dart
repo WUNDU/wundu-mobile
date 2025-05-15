@@ -56,7 +56,7 @@ class WunduScreen extends StatelessWidget {
   Widget _buildPieChart(Map<String, double> categoryTotals) {
     return Container(
       height: 220.w,
-      decoration: AppDecoration.fillWhiteA700.copyWith(
+      decoration: AppDecoration.fillwhiteA700.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder12,
         boxShadow: [
           BoxShadow(
@@ -96,7 +96,7 @@ class WunduScreen extends StatelessWidget {
   Widget _buildBarChart(Map<String, double> categoryTotals) {
     return Container(
       height: 320.w,
-      decoration: AppDecoration.fillWhiteA700.copyWith(
+      decoration: AppDecoration.fillwhiteA700.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder12,
         boxShadow: [
           BoxShadow(
@@ -125,7 +125,7 @@ class WunduScreen extends StatelessWidget {
                     show: true,
                     toY: categoryTotals.values.reduce((a, b) => a > b ? a : b) *
                         1.2,
-                    color: appTheme.gray300.withOpacity(0.2),
+                    color: appTheme.gray300.withValues(alpha: 51),
                   ),
                 ),
               ],
@@ -170,7 +170,7 @@ class WunduScreen extends StatelessWidget {
             show: true,
             drawVerticalLine: false,
             getDrawingHorizontalLine: (value) => FlLine(
-              color: appTheme.gray300.withOpacity(0.5),
+              color: appTheme.gray300.withValues(alpha: 128),
               strokeWidth: 1,
             ),
           ),
