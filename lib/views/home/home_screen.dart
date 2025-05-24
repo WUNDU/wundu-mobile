@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:wundu/core/app_export.dart';
 import 'package:wundu/core/session/activity_tracker.dart';
 import 'package:wundu/routes/protected_route.dart';
@@ -198,12 +199,9 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
                   "Movimentações".toUpperCase(),
                   style: CustomTextStyles.titleSmallInterBluegray900SemiBold,
                 ),
-                _AnimatedIconButton(
-                  icon: ImageConstant.filter,
-                  height: 40.w,
-                  width: 40.w,
-                  onTap: () {},
-                ),
+                HugeIcon(
+                    icon: HugeIcons.strokeRoundedFilterHorizontal,
+                    color: Colors.black)
               ],
             ),
           ),
@@ -377,11 +375,9 @@ class _HomeScreenState extends State<HomeScreen> with ActivityTracker {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.moneyOff,
-                    height: isTablet ? 50.w : 40.w,
-                    width: isTablet ? 52.w : 42.w,
-                  ),
+                  HugeIcon(
+                      icon: HugeIcons.strokeRoundedMoneyNotFound01,
+                      color: Colors.black)
                 ],
               ),
             ),

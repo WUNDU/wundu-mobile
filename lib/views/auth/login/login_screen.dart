@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:wundu/core/utils/validation_functions.dart';
 import 'package:wundu/theme/custom_button_style.dart';
 import 'package:wundu/views/auth/login/bloc/login_screen_bloc.dart';
@@ -232,12 +233,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                       fillColor: state.isPasswordValid ? null : Colors.red[50],
                       suffix: IconButton(
-                        icon: Icon(
-                          state.isPasswordVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          color: Colors.grey,
-                        ),
+                        icon: HugeIcon(
+                            icon: state.isPasswordVisible
+                                ? HugeIcons.strokeRoundedView
+                                : HugeIcons.strokeRoundedViewOffSlash,
+                            color: Colors.grey),
                         onPressed: () {
                           context
                               .read<LoginScreenBloc>()
