@@ -185,17 +185,13 @@ class AddCategoryScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 6.h),
                   child: DottedBorder(
-                    color: appTheme.indigo900,
-                    padding: EdgeInsets.only(
-                      left: 1.h,
-                      top: 1.h,
-                      right: 1.h,
-                      bottom: 1.h,
+                    options: RoundedRectDottedBorderOptions(
+                      color: appTheme.indigo900,
+                      strokeWidth: 1.h,
+                      radius: Radius.circular(50),
+                      dashPattern: [2, 2],
+                      padding: EdgeInsets.all(1.h),
                     ),
-                    strokeWidth: 1.h,
-                    radius: const Radius.circular(50),
-                    borderType: BorderType.RRect,
-                    dashPattern: const [2, 2],
                     child: CustomIconButton(
                       height: 50.h,
                       width: 50.h,

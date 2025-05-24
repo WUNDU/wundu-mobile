@@ -59,11 +59,12 @@ class _CardScreenState extends State<CardScreen> {
                                     // Método para adicionar cartão por foto
                                   },
                                   child: DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: Radius.circular(16),
-                                    color: Color.fromRGBO(255, 138, 122, 1),
-                                    strokeWidth: 2,
-                                    dashPattern: [8, 4],
+                                    options: RectDottedBorderOptions(
+                                      dashPattern: [8, 4],
+                                      strokeWidth: 2,
+                                      color: Color.fromRGBO(255, 138, 122, 1),
+                                      padding: EdgeInsets.all(8),
+                                    ),
                                     child: Container(
                                       width: double.maxFinite,
                                       padding:
@@ -86,9 +87,12 @@ class _CardScreenState extends State<CardScreen> {
                                                 begin: Alignment.topLeft,
                                                 end: Alignment.bottomRight,
                                                 colors: [
-                                                  Color.fromRGBO(255, 212, 0, 1),
-                                                  Color.fromRGBO(255, 114, 94, 1),
-                                                  Color.fromRGBO(229, 148, 0, 1),
+                                                  Color.fromRGBO(
+                                                      255, 212, 0, 1),
+                                                  Color.fromRGBO(
+                                                      255, 114, 94, 1),
+                                                  Color.fromRGBO(
+                                                      229, 148, 0, 1),
                                                 ],
                                               ),
                                             ),
